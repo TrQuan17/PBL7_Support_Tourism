@@ -5,7 +5,7 @@ const ReviewSchema = new Schema({
     accountId: {
         type: Schema.Types.ObjectId,
         ref: 'accounts',
-        required: true
+        required: [true, 'AccountId is required!']
     },
     text: {
         type: String

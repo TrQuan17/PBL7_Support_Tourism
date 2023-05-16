@@ -1,40 +1,63 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
+const PASSWORD_REGEX = /^[0-9a-zA-Z]{8,}$/
+const PHONE_REGEX = /^0\d{9}$/
+const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+
+const passwordValidate = {
+    validator: v => PASSWORD_REGEX.test(v),
+    message: 'Invalid password!'
+}
+
+const emailValidate = {
+    validator: v => EMAIL_REGEX.test(v),
+    message: props => `${props.value} is not a valid email!`
+}
+
+const phoneValidate = {
+    validator: v => PHONE_REGEX.test(v),
+    message: props => `${props.value} is not a valid phone number!`
+}
+
 const AccountSchema = new Schema({
     username: {
         type: String,
-        unique: true,
-        required: true
+        unique: [true, '{VALUE} is exist!'],
+        required: [true, 'Username is required!']
     },
     password: {
         type: String,
-        required: true
+        required: [true, 'Password is required!'],
+        validate: passwordValidate
     },
     fullname: {
         type: String,
         required: true
     },
-    address: {
-        type: String
-    },
     avatar: {
         type: String
     },
-    email: {
+    address: {
         type: String
     },
+    email: {
+        type: String,
+        unique: [true, '{VALUE} is exist!'],
+        validate: emailValidate
+    },
     phone: {
-        type: String
+        type: String,
+        validate: phoneValidate
     },
     role: {
         type: String,
-        required: true
+        required: [true, 'Role is required!']
     }
 },
-{
-    timestamps: true
-})
+    {
+        timestamps: true
+    })
 
 const AccountModel = mongoose.model('accounts', AccountSchema)
 module.exports = AccountModel

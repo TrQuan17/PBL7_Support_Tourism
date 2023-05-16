@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 const CategorySchema = new Schema({
     name: {
         type: String,
-        required: true
+        required: [true, 'Category name is required!']
     },
     background: {
         type: String,
@@ -16,5 +16,5 @@ const CategorySchema = new Schema({
     timestamps: true
 })
 
-const CategoryModel = mongoose.model('categorys', CategorySchema)
+const CategoryModel = mongoose.model('categories', CategorySchema)
 module.exports = CategoryModel

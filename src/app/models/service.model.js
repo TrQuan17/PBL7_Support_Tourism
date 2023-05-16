@@ -4,11 +4,11 @@ const Schema = mongoose.Schema
 const ServiceSchema = new Schema({
     name: {
         type: String,
-        required:true
+        required: [true, 'Name is required!']
     },
     resortId: {
         type: Schema.Types.ObjectId,
-        required: true
+        required: [true, 'ResortId is required!']
     },
     about: {
         type: String
@@ -17,7 +17,8 @@ const ServiceSchema = new Schema({
         type: String
     },
     price: {
-        type: Number
+        type: Number,
+        min: [10000, 'Price no less than 10000']
     }
 }, {
     timestamps: true
