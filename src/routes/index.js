@@ -1,9 +1,19 @@
 const accountRouter = require('./account.router')
 const categoryRouter = require('./category.router')
+const tourismRouter = require('./tourism.router')
+const resortRouter = require('./resort.router')
+const serviceRouter = require('./service.router')
+const reviewRouter = require('./review.router')
+const favouriteRouter = require('./favourite.router')
 
 function routes(app) {
     app.use('/account', accountRouter)
     app.use('/category', categoryRouter)
+    app.use('/tourism', tourismRouter)
+    app.use('/resort', resortRouter)
+    app.use('/service', serviceRouter)
+    app.use('/review', reviewRouter)
+    app.use('/favourite', favouriteRouter)
 }
 
 module.exports = routes

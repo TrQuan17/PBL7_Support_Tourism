@@ -10,14 +10,6 @@ const TourismSchema = new Schema({
         type: String,
         required: [true, 'Address is required!']
     },
-    rate: [{
-        accountId: { type: Schema.Types.ObjectId },
-        vote: {
-            type: Number,
-            min: [1, 'Vote no less than 1'],
-            max: [5, 'vote no more than 5']
-        }
-    }],
     images: [{
         type: String
     }],
@@ -26,13 +18,9 @@ const TourismSchema = new Schema({
     },
     category: {
         type: Schema.Types.ObjectId,
-        ref: 'categorys',
+        ref: 'categories',
         required: [true, 'Category is required!']
-    },
-    reviews: [{
-        type: Schema.Types.ObjectId,
-        ref: 'reviews'
-    }]
+    }
 }, {
     timestamps: true
 })

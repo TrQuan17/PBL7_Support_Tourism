@@ -6,9 +6,9 @@ const ServiceSchema = new Schema({
         type: String,
         required: [true, 'Name is required!']
     },
-    resortId: {
+    resort: {
         type: Schema.Types.ObjectId,
-        required: [true, 'ResortId is required!']
+        required: [true, 'Resort is required!']
     },
     about: {
         type: String

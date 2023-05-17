@@ -2,15 +2,15 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const FavouriteSchema = new Schema({
-    accountId: {
+    account: {
         type: Schema.Types.ObjectId,
         ref: 'accounts',
-        required: true
+        required: [true, 'Account is required!']
     },
-    tourismId: {
+    tourism: {
         type: Schema.Types.ObjectId,
         ref: 'tourisms',
-        required: true
+        required: [true, 'Tourism is required!']
     }
 }, {
     timestamps: true

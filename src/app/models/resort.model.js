@@ -13,9 +13,10 @@ const ResortSchema = new Schema({
         type: String,
         required: [true, 'Resort name is required!']
     },
-    tourismId: {
+    tourism: {
         type: Schema.Types.ObjectId,
-        required: [true, 'Resort name is required!']
+        ref: 'tourisms',
+        required: [true, 'Tourism is required!']
     },
     price: {
         type: Number,
@@ -37,19 +38,7 @@ const ResortSchema = new Schema({
     phone: {
         type: String,
         validate: phoneValidate
-    },
-    reviews: [{
-        type: Schema.Types.ObjectId,
-        ref: 'reviews'
-    }],
-    rate: [{
-        accountId: { type: Schema.Types.ObjectId },
-        vote: {
-            type: Number,
-            min: [1, 'Vote no less than 1'],
-            max: [5, 'vote no more than 5']
-        }
-    }]
+    }
 }, {
     timestamps: true
 })

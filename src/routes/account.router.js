@@ -5,5 +5,7 @@ const accountController = require('../app/controllers/account.controller')
 
 router.post('/register', accountController.register)
 router.post('/login', accountController.login)
+router.patch('/update/info', accountController.update)
+router.patch('/update/password', accountController.changePass)
 
 module.exports = router
