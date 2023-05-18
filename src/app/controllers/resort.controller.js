@@ -4,7 +4,11 @@ const Tourism = require('../models/tourism.model')
 class ResortController {
     async getResortsByTourismId(req, res, next) {
         try {
-            var resorts = await Resort.find({ tourism: req.body.tourismId })
+            if (!req.params.tourismId) {
+                return res.json({ 'tourismId': { message: 'TourismId does not exist!' } })
+            }
+
+            const resorts = await Resort.find({ tourism: req.body.tourismId })
             return res.json(resorts)
         }
         catch (err) {
@@ -14,13 +18,13 @@ class ResortController {
 
     async create(req, res, next) {
         try {
-            var newResort = new Resort(req.body)
+            const newResort = new Resort(req.body)
 
-            var tourism = await Tourism.findOne({ _id: req.body.tourism })
+            const tourism = await Tourism.findOne({ _id: req.body.tourism })
             if (!tourism) { return res.json({ 'tourism': { message: 'Tourism does not exist!' } }) }
-            
+
             await newResort.save()
-            
+
             return res.json(newResort)
         }
         catch (err) {
@@ -32,7 +36,7 @@ class ResortController {
         try {
             if (!req.body.id) { return res.json({ 'id': { message: 'ResortId does not exist!' } }) }
 
-            var resort = await Resort.findOne({ _id: req.body.id })
+            const resort = await Resort.findOne({ _id: req.body.id })
             if (!resort) { return res.json({ 'resort': { message: 'Resort does not exist!' } }) }
 
             await Resort.updateOne({ _id: req.body.id }, req.body)
@@ -48,8 +52,7 @@ class ResortController {
         try {
             if (!req.body.id) { return res.json({ 'id': { message: 'ResortId does not exist!' } }) }
 
-            var resort = await Resort.findOneAndDelete({ _id: req.body.id })
-
+            const resort = await Resort.findOneAndDelete({ _id: req.body.id })
             if (!resort) { return res.json({ 'resort': { message: 'Resort does not exist!' } }) }
 
             return res.json(resort)

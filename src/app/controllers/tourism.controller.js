@@ -5,13 +5,25 @@ class TourismController {
     async getAll(req, res, next) {
         try {
             const tourisms = await Tourism.find({})
-                .populate({
-                    path: 'category'
-                })
 
             return res.json(tourisms)
         }
         catch (err) {
+            return res.json({ err: err.errors })
+        }
+    }
+
+    async getByCategoryId(req, res, next) {
+        try {
+            if(!req.params.categoryId) {
+                return res.json({ 'categoryId': { message: 'CategoryId does not exist!' } })
+            }
+
+            const tourisms = await Tourism.find({ category: req.params.categoryId })
+
+            return res.json(tourisms)
+        }
+        catch(err) {
             return res.json({ err: err.errors })
         }
     }

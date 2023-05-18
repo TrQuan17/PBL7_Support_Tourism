@@ -5,7 +5,11 @@ const Tourism = require('../models/tourism.model')
 class FavouriteController {
     async getByAccountId(req, res, next) {
         try {
-            var favourites = await Favourite.find({ account: req.body.accountId })
+            if (!req.params.accountId) {
+                return res.json({ 'accountId': { message: 'AccountId does not exist!' } })
+            }
+
+            var favourites = await Favourite.find({ account: req.params.accountId })
                 .populate({ path: 'tourism' })
 
             return res.json(favourites)
@@ -29,8 +33,9 @@ class FavouriteController {
                 account: req.body.account,
                 tourism: req.body.tourism
             })
-            if (favourite) { return res.json({ 'favourite': { message: 'Favorite already exists!' } }) }
-
+            if (favourite) {
+                return res.json({ 'favourite': { message: 'Favorite already exists!' } })
+            }
 
             await newFavourite.save()
 
