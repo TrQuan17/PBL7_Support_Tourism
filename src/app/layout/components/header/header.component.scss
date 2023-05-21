@@ -1,0 +1,11 @@
+.header {
+    padding: 6px 12px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.search {
+    width: 30%;
+}
