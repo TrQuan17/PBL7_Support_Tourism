@@ -13,6 +13,9 @@ const TourismSchema = new Schema({
     images: [{
         type: String
     }],
+    title: {
+        type: String
+    },
     about: {
         type: String
     },

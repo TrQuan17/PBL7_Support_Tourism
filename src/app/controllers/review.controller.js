@@ -3,36 +3,38 @@ const Tourism = require('../models/tourism.model')
 const Resort = require('../models/resort.model')
 const Account = require('../models/account.model')
 
+const { responseJson } = require('../../config/response')
+
 class ReviewController {
     async getByTourismId(req, res, next) {
         try {
             if (!req.params.tourismId) {
-                return res.json({ 'tourismId': { message: 'TourismId does not exist!' } })
+                const err = { tourismId: { message: 'TourismId does not exist!' } }
+                return res.json(responseJson(false, err))
             }
 
-            var reviews = await Review.find({ tourism: req.params.tourismId })
-                .populate({ path: 'tourism' })
+            const reviews = await Review.find({ tourism: req.params.tourismId })
 
-            return res.json(reviews)
+            return res.json(responseJson(true, reviews))
         }
         catch (err) {
-            return res.json({ err: err.errors })
+            return res.json(responseJson(false, err.errors))
         }
     }
 
     async getByResortId(req, res, next) {
         try {
             if (!req.params.resortId) {
-                return res.json({ 'resortId': { message: 'ResortId does not exist!' } })
+                const err = { resortId: { message: 'ResortId does not exist!' } }
+                return res.json(responseJson(false, err))
             }
 
-            var reviews = await Review.find({ resort: req.params.resortId })
-                .populate({ path: 'resprt' })
+            const reviews = await Review.find({ resort: req.params.resortId })
 
-            return res.json(reviews)
+            return res.json(responseJson(true, reviews))
         }
         catch (err) {
-            return res.json({ err: err.errors })
+            return res.json(responseJson(false, err.errors))
         }
     }
 
@@ -42,12 +44,14 @@ class ReviewController {
 
             var account = Account.findOne({ _id: req.body.account })
             if (!account) {
-                return res.json({ 'account': { message: 'Account does not exist!' } })
+                const err = { account: { message: 'Account does not exist!' } }
+                return res.json(responseJson(false, err))
             }
 
             var tourism = Account.findOne({ _id: req.body.tourism })
             if (!tourism) {
-                return res.json({ 'tourism': { message: 'Tourism does not exist!' } })
+                const err = { tourism: { message: 'Tourism does not exist!' } }
+                return res.json(responseJson(false, err))
             }
 
             var reviewWithTourism = Review.findOne({
@@ -56,14 +60,15 @@ class ReviewController {
             })
 
             if(reviewWithTourism) {
-                return res.json({ 'review': { message: 'Review with tourism already exist!' } })
+                const err = { review: { message: 'Review with tourism already exist!' } }
+                return res.json(responseJson(false, err))
             }
 
             await newReview.save()
-            return res.json(newReview)
+            return res.json(responseJson(true, newReview))
         }
         catch (err) {
-            return res.json({ err: err.errors })
+            return res.json(responseJson(false, err.errors))
         }
     }
 
@@ -73,12 +78,14 @@ class ReviewController {
 
             var account = Account.findOne({ _id: req.body.account })
             if (!account) {
-                return res.json({ 'account': { message: 'Account does not exist!' } })
+                const err = { account: { message: 'Account does not exist!' } }
+                return res.json(responseJson(false, err))
             }
 
             var resort = Account.findOne({ _id: req.body.resort })
             if (!resort) {
-                return res.json({ 'resort': { message: 'Resort does not exist!' } })
+                const err = { resort: { message: 'Resort does not exist!' } }
+                return res.json(responseJson(false, err))
             }
 
             var reviewWithResort = Review.findOne({
@@ -87,14 +94,15 @@ class ReviewController {
             })
 
             if(reviewWithResort) {
-                return res.json({ 'review': { message: 'Review with resort already exist!' } })
+                const err = { review: { message: 'Review with resort already exist!' } }
+                return res.json(responseJson(false, err))
             }
 
             await newReview.save()
-            return res.json(newReview)
+            return res.json(responseJson(true, newReview))
         }
         catch (err) {
-            return res.json({ err: err.errors })
+            return res.json(responseJson(false, err.errors))
         }
     }
 }

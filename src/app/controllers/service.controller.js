@@ -5,16 +5,16 @@ class ServiceController {
     async getByResortId(req, res, next) {
         try {
             if(!req.body.resortId) {
-                return res.json({ 'resortId': { message: 'ResortId does not exist!' } })
+                const err = { resortId: { message: 'ResortId does not exist!' } }
+                return res.json(responseJson(false, err))
             }
     
             const services = await Serivice.find({ resort: req.body.resortId })
-                .populate({ path: 'resort' })
 
-            return res.json(services)
+            return res.json(responseJson(true, services))
         }
         catch(err) {
-            return res.json({ err: err.errors })
+            return res.json(responseJson(false, err.errors))
         }
     }
 
@@ -24,58 +24,64 @@ class ServiceController {
 
             const resort = await Resort.findOne({ _id: req.body.resort })
             if(!resort) {
-                return res.json({ 'resort': { message: 'Resort does not exist!' } })
+                const err = { resort: { message: 'Resort does not exist!' } }
+                return res.json(responseJson(false, err))
             }
 
             await newService.save()
-            return res.json(newService)
+            return res.json(responseJson(true, newService))
         }
         catch(err) {
-            return res.json({ err: err.errors })
+            return res.json(responseJson(false, err.errors))
         }
     }
 
     async update(req, res, next) {
         try {
             if(!req.body.id) {
-                return res.json({ 'id': { message: 'ServiceId does not exist!' } })
+                const err = { id: { message: 'ServiceId does not exist!' } }
+                return res.json(responseJson(false, err))
             }
 
             const service = await Service.findOne({ _id: req.body.id })
             if(!service) {
-                return res.json({ 'service': { message: 'Service does not exist!' } })
+                const err = { service: { message: 'Service does not exist!' } }
+                return res.json(responseJson(false, err))
             }
 
             const resort = await Resort.findOne({ _id: req.body.resort })
             if(!resort) {
-                return res.json({ 'resort': { message: 'Resort does not exist!' } })
+                const err = { resort: { message: 'Resort does not exist!' } }
+                return res.json(responseJson(false, err))
             }
 
             await Service.updateOne({ _id: req.body.id }, req.body)
 
-            return res.json(req.body)
+            return res.json(responseJson(true, req.body))
         }
         catch(err) {
-            return res.json({ err: err.errors })
+            return res.json(responseJson(false, err.errors))
         }
     }
 
     async delete(req, res, next) {
         try {
             if(!req.body.id) {
-                return res.json({ 'id': { message: 'ServiceId does not exist!' } })
+                const err = { id: { message: 'ServiceId does not exist!' } }
+                return res.json(responseJson(false, err))
             }
 
             const service = await Service.findOneAndDelete({ _id: req.body.id })
             if(!service) {
-                return res.json({ 'service': { message: 'Service does not exist!' } })
+                const err = { service: { message: 'Service does not exist!' } }
+                return res.json(responseJson(false, err))
             }
 
-            return res.json(service)
+            return res.json(responseJson(true, service))
  
         }
         catch(err) {
-            return res.json({ err: err.errors })
+            return res.json(responseJson(false, err.errors))
         }
     }
 }

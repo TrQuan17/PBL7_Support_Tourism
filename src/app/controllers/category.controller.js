@@ -1,13 +1,14 @@
 const Category = require('../models/category.model')
+const { responseJson } = require('../../config/response')
 
 class CategoryController {
     async getAll(req, res, next) {
         try {
             var categories = await Category.find({})
-            return res.json(categories)
+            return res.json(responseJson(true, categories))
         }
         catch (err) {
-            return res.json({ err: err.errors })
+            return res.json(responseJson(false, err.errors))
         }
     }
 
@@ -16,40 +17,52 @@ class CategoryController {
             var newCategory = new Category(req.body)
             await newCategory.save()
 
-            return res.json(newCategory)
+            return res.json(responseJson(true, newCategory))
         }
         catch (err) {
-            return res.json({ err: err.errors })
+            return res.json(responseJson(false, err.errors))
         }
     }
 
     async update(req, res, next) {
         try {
-            if (!req.body.id) { return res.json({ 'id': { message: 'CategoryId does not exist!' } }) }
+            if (!req.body.id) {
+                const err = { 'id': { message: 'CategoryId does not exist!' } }
+                return res.json(responseJson(false, err))
+            }
 
             var category = await Category.findOne({ _id: req.body.id }, req.body)
-            if (!category) { return res.json({ 'category': { message: 'Category does not exist!' } }) }
+            if (!category) {
+                const err = { 'category': { message: 'Category does not exist!' } }
+                return res.json(response(false, err))
+            }
 
             await Category.updateOne({ _id: req.body.id }, req.body)
- 
-            return res.json(req.body)
+
+            return res.json(responseJson(true, req.body))
         }
         catch (err) {
-            return res.json({ err: err.errors })
+            return res.json(responseJson(false, err.errors))
         }
     }
 
     async delete(req, res, next) {
         try {
-            if (!req.body.id) { return res.json({ 'id': { message: 'CategoryId does not exist!' } }) }
+            if (!req.body.id) {
+                const err = { 'id': { message: 'CategoryId does not exist!' } }
+                return res.json(responseJson(false, err))
+            }
 
             var category = await Category.findOneAndDelete({ _id: req.body.id })
-            if (!category) { return res.json({ 'category': { message: 'Category does not exist!' } }) }
+            if (!category) {
+                const err = { 'category': { message: 'Category does not exist!' } }
+                return res.json(responseJson(false, err))
+            }
 
-            return res.json(category)
+            return res.json(responseJson(true, category))
         }
         catch (err) {
-            return res.json({ err: err.errors })
+            return res.json(responseJson(false, err.errors))
         }
     }
 }
