@@ -1,0 +1,7 @@
+export * from './account.model'
+export * from './category.model'
+export * from './favourite.model'
+export * from './resort.model'
+export * from './review.model'
+export * from './service.model'
+export * from './tourism.model'

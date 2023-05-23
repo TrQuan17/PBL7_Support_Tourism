@@ -1,7 +1,7 @@
 <div class="header">
     <div class="logo">BI TRAVEL</div>
 
-    <app-search class="search"></app-search>
+    <app-search (searchEmitter)="getTextSearch($event)" class="search"></app-search>
 
     <div class="tools">
         <button mat-button>

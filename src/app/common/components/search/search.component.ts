@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
@@ -8,6 +8,8 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 })
 export class SearchComponent {
     public searchForm: FormGroup = new FormGroup({});
+
+    @Output() searchEmitter = new EventEmitter<string>;
 
     constructor(private formBuider: FormBuilder) {
         this.initForm();
@@ -20,6 +22,6 @@ export class SearchComponent {
     }
 
     public searchEvent(): void {
-        console.log('search');
+        this.searchEmitter.emit(this.searchForm.get('text')?.value);
     }
 }

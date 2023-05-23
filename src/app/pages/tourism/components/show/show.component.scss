@@ -1,0 +1,42 @@
+.wrapper {
+    padding: 10px 80px;
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.mat-mdc-card {
+    max-width: 400px;
+    .images-content img {
+        max-width: 100%;
+    }
+}
+
+.categories {
+    display: flex;
+    gap: 15px;
+}
+
+.category {
+    --mdc-outlined-button-outline-color: var(--primary-color);
+    --mdc-outlined-button-label-text-color: var(--primary-color);
+    --mat-mdc-button-persistent-ripple-color: var(--primary-color);
+
+    padding: 10px;
+    min-width: 170px;
+    height: 60px;
+    border-width: 2px;
+    border-radius: 10px;
+
+    &:focus {
+        outline: none;
+        background-color: var(--primary-color);
+        --mdc-outlined-button-label-text-color: white;
+    }
+}
+
+.tourisms {
+    display: flex;
+    gap: 20px;
+}

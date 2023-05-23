@@ -6,6 +6,7 @@ import { CommonAppModule } from '../common/common.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../material/material.module';
+import { LoadingSpinnerDialogComponent } from './components/loading-spinner-dialog/loading-spinner-dialog.component';
 
 const LayoutComponents = [
     HeaderComponent,
@@ -14,7 +15,8 @@ const LayoutComponents = [
 
 @NgModule({
     declarations: [
-        ...LayoutComponents
+        ...LayoutComponents,
+        LoadingSpinnerDialogComponent
     ],
     imports: [
         CommonModule,

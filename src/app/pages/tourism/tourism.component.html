@@ -1,3 +1,6 @@
-<app-header></app-header>
-<app-show></app-show>
+<app-header (searchEmitter)="searchTourism($event)"></app-header>
+<app-show class="container" 
+    [tourismResponse]="tourismResponse" 
+    [categoryResponse]="categoryResponse">
+</app-show>
 <app-footer></app-footer>

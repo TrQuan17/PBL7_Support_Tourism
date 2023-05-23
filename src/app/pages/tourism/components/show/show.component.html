@@ -1,1 +1,35 @@
-<p>show works!</p>
+<div class="wrapper">
+    <div class="categories">
+        <button mat-stroked-button class="category" *ngFor="let category of categoryResponse?.data">
+            <h6>{{ category.name }}</h6>
+        </button>
+    </div>
+
+    <h2>Địa điểm du lịch</h2>
+
+    <ng-container *ngIf="tourismResponse; else noData" >
+        <div class="tourisms">
+            <mat-card class="tourisms-card" *ngFor="let tourism of tourismResponse.data">
+                <mat-card-header>
+                    <mat-card-title>{{ tourism.name }}</mat-card-title>
+                    <mat-card-subtitle>{{ tourism.title }}</mat-card-subtitle>
+                </mat-card-header>
+                <img class="images-content" [src]="tourism.images[0]" alt="Photo of a Touirsm">
+                <mat-card-content>
+                    <span>{{ tourism.address }}</span>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-icon-button>
+                        <mat-icon svgIcon="icon-heart-unlike"></mat-icon>
+                    </button>
+                    <button mat-icon-button>
+                        <mat-icon svgIcon="icon-share"></mat-icon>
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </ng-container>
+    <ng-template #noData>
+        Tourims no data !
+    </ng-template>
+</div>
