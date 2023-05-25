@@ -20,8 +20,9 @@ export class IconService {
 
         this.iconRegistry.addSvgIcon('icon-search', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/search_black.svg'));
         this.iconRegistry.addSvgIcon('icon-shopping-cart', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/shopping_cart_black.svg'));
-        this.iconRegistry.addSvgIcon('icon-heart-unlike', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/heart-solid.svg'));
-        this.iconRegistry.addSvgIcon('icon-heart-like', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/heart-regular.svg'));
+        this.iconRegistry.addSvgIcon('icon-heart-like', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/heart-solid.svg'));
+        this.iconRegistry.addSvgIcon('icon-heart-unlike', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/heart-regular.svg'));
         this.iconRegistry.addSvgIcon('icon-share', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/share-nodes-solid.svg'));
+        this.iconRegistry.addSvgIcon('icon-location', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/location-dot-solid.svg'))
     }
 }

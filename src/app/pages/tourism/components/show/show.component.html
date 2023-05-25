@@ -1,35 +1,66 @@
 <div class="wrapper">
     <div class="categories">
-        <button mat-stroked-button class="category" *ngFor="let category of categoryResponse?.data">
+        <button mat-stroked-button class="category" (click)="getCategory()">
+            <h6> Tất cả </h6>
+        </button>
+        <button mat-stroked-button class="category" *ngFor="let category of categoriesList"
+            (click)="getCategory(category)">
             <h6>{{ category.name }}</h6>
         </button>
     </div>
 
     <h2>Địa điểm du lịch</h2>
 
-    <ng-container *ngIf="tourismResponse; else noData" >
-        <div class="tourisms">
-            <mat-card class="tourisms-card" *ngFor="let tourism of tourismResponse.data">
-                <mat-card-header>
-                    <mat-card-title>{{ tourism.name }}</mat-card-title>
-                    <mat-card-subtitle>{{ tourism.title }}</mat-card-subtitle>
-                </mat-card-header>
-                <img class="images-content" [src]="tourism.images[0]" alt="Photo of a Touirsm">
-                <mat-card-content>
-                    <span>{{ tourism.address }}</span>
-                </mat-card-content>
-                <mat-card-actions>
-                    <button mat-icon-button>
-                        <mat-icon svgIcon="icon-heart-unlike"></mat-icon>
-                    </button>
-                    <button mat-icon-button>
-                        <mat-icon svgIcon="icon-share"></mat-icon>
-                    </button>
-                </mat-card-actions>
+    <ng-container *ngIf="tourismResponse">
+        <div class="tourisms-vertical" *ngIf="categorySelect !== 'All'; else allTourism">
+            <h4>Chủ đề {{categorySelect}}</h4>
+            <mat-card class="tourism-card-horizontal" *ngFor="let tourism of tourismsList; let idx = index">
+                <div class="item-card">
+                    <img class="images-content" [src]="tourism.images[0]" alt="Photo of a Touirsm">
+                    <div class="content">
+                        <mat-card-header>
+                            <mat-card-title>
+                                <h5><a routerLink="{{tourism._id}}">
+                                        {{idx + 1}}. {{ tourism.name }}
+                                    </a></h5>
+                            </mat-card-title>
+                            <mat-card-subtitle>{{ tourism.title }}</mat-card-subtitle>
+                        </mat-card-header>
+                        <mat-card-actions>
+                            <button mat-icon-button class="action-icon-btn">
+                                <mat-icon svgIcon="icon-heart-unlike"></mat-icon>
+                            </button>
+                            <button mat-icon-button class="action-icon-btn">
+                                <mat-icon svgIcon="icon-share"></mat-icon>
+                            </button>
+                        </mat-card-actions>
+                    </div>
+                </div>
             </mat-card>
         </div>
+
+        <ng-template #allTourism>
+            <div class="tourisms-horizontal">
+                <mat-card class="tourism-card-vertical" *ngFor="let tourism of tourismsList">
+                    <img class="images-content" [src]="tourism.images[0]" alt="Photo of a Touirsm">
+                    <mat-card-header>
+                        <mat-card-title>
+                            <h5><a routerLink="{{tourism._id}}">
+                                    {{ tourism.name }}
+                                </a></h5>
+                        </mat-card-title>
+                        <mat-card-subtitle>{{ tourism.title }}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-actions>
+                        <button mat-icon-button class="action-icon-btn">
+                            <mat-icon svgIcon="icon-heart-unlike"></mat-icon>
+                        </button>
+                        <button mat-icon-button class="action-icon-btn">
+                            <mat-icon svgIcon="icon-share"></mat-icon>
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </ng-template>
     </ng-container>
-    <ng-template #noData>
-        Tourims no data !
-    </ng-template>
 </div>

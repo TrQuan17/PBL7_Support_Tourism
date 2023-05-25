@@ -1,0 +1,19 @@
+<div class="wrapper">
+    <app-header></app-header>
+
+    <div class="app-tourism">
+        <app-detail [tourismResponse]="tourism"></app-detail>
+    </div>
+    <mat-divider></mat-divider>
+
+    <div class="app-resort">
+        <h3>Resort show location</h3>
+    </div>
+    <mat-divider></mat-divider>
+
+    <div class="app-review">
+        <app-reviews [reviewResponse]="reviewsTourism"></app-reviews>
+    </div>
+
+    <app-footer></app-footer>
+</div>

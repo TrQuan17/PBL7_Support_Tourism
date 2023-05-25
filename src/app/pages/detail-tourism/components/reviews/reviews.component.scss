@@ -1,0 +1,60 @@
+.show-reviews {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    min-height: 40vh;
+
+    .rating {
+        min-width: 25%;
+    }
+}
+
+.review {
+    display: flex;
+    flex-direction: column;
+
+    .account {
+        display: flex;
+        padding-bottom: 20px;
+    }
+
+    .images {
+        padding: 10px 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
+    }
+
+    .images img {
+        width: 150px;
+    }
+
+    .time {
+        padding-top: 10px;
+        font-size: 14px;
+    }
+
+    .time mat-divider {
+        margin-right: 60%;
+    }
+}
+
+.account .avatar img {
+    border-radius: 50vh;
+    width: 42px;
+    height: 42px;
+}
+
+.account .content {
+    padding-left: 12px;
+    display: flex;
+    flex-direction: column;
+
+    h6 {
+        margin: 0;
+    }
+
+    span {
+        font-size: 13px;
+    }
+}

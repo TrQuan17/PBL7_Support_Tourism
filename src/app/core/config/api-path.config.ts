@@ -12,5 +12,4 @@ export const ApiPathConfig = {
     auth: {
         account: 'account'
     }
-
 }

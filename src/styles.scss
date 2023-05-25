@@ -49,11 +49,13 @@ body {
   --theme-bg: #F9FCFF;
   --border-color: #D6D6D6;
   --primary-color: #4392BB;
+  --input-bg: #F2F2F2;
+  --error-color: #eb5757;
+
   --border-radius: 3px;
   --btn-radius: 3px;
   --text-size: 16px;
-  --input-bg: #F2F2F2;
-  --error-color: #eb5757;
+  --padding-wrapper:20px 90px;
 }
 
 // Mat button
@@ -62,7 +64,6 @@ body {
 }
 
 .mat-mdc-button {
-  padding: 0 !important;
   min-width: 0 !important;
 
   mat-icon {

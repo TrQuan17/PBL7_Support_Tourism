@@ -11,12 +11,22 @@
     padding: 0 10px;
     font-size: var(--text-size);
     position: absolute;
+
+    &:focus {
+        outline: none;
+        border: 2px solid var(--primary-color);
+    }
 }
 
 .search-btn {
     position: relative;
-    left: calc(100% - 38px + 5px);
+    left: calc(100% - 36.5px + 5px);
     width: 38px;
     height: 38px;
     border-radius: 100vh;
+    padding: 0px;
+
+    mat-icon {
+        margin-left: 5px;
+    }
 }

@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TourismComponent } from './tourism.component';
+import { DetailComponent } from './components/detail/detail.component';
+import { DetailTourismComponent } from './detail-tourism.component';
 import { CommonAppModule } from 'src/app/common/common.module';
-import { ShowComponent } from './components/show/show.component';
 import { LayoutModule } from 'src/app/layout/layout.module';
+import { ReviewsComponent } from './components/reviews/reviews.component';
 
 @NgModule({
   declarations: [
-    ShowComponent,
-    TourismComponent
+    DetailComponent,
+    DetailTourismComponent,
+    ReviewsComponent
   ],
   imports: [
     CommonModule,
@@ -16,4 +18,4 @@ import { LayoutModule } from 'src/app/layout/layout.module';
     CommonAppModule.forRoot()
   ]
 })
-export class TourismModule { }
+export class DetailTourismModule { }

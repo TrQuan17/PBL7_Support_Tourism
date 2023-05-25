@@ -3,6 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SearchComponent } from './components/search/search.component';
 import { MaterialModule } from '../material/material.module';
+import { RouterModule } from '@angular/router';
 
 const CommonComponents = [
     SearchComponent
@@ -20,6 +21,7 @@ const CommonComponents = [
     ],
     exports: [
         ...CommonComponents,
+        RouterModule,
         MaterialModule,
         ReactiveFormsModule
     ],

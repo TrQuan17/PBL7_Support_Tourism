@@ -1,20 +1,14 @@
 .wrapper {
-    padding: 10px 80px;
+    padding: var(--padding-wrapper);
     min-height: 50vh;
     display: flex;
     flex-direction: column;
     gap: 30px;
 }
 
-.mat-mdc-card {
-    max-width: 400px;
-    .images-content img {
-        max-width: 100%;
-    }
-}
-
 .categories {
     display: flex;
+    justify-content: space-around;
     gap: 15px;
 }
 
@@ -24,7 +18,7 @@
     --mat-mdc-button-persistent-ripple-color: var(--primary-color);
 
     padding: 10px;
-    min-width: 170px;
+    min-width: calc((100% - 85px) / 7);
     height: 60px;
     border-width: 2px;
     border-radius: 10px;
@@ -36,7 +30,64 @@
     }
 }
 
-.tourisms {
-    display: flex;
+.tourisms-horizontal {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
     gap: 20px;
+}
+
+.tourisms-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.tourism-card-vertical {
+    width: 370px;
+
+    .images-content {
+        width: 100%;
+        height: 240px;
+    }
+}
+
+.tourism-card-horizontal {
+    min-width: 70vw;
+    display: flex;
+    flex-direction: column;
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .item-card {
+        display: flex;
+        flex-direction: row;
+    }
+    
+    .images-content {
+        width: 370px;
+        height: 240px;
+    }
+}
+
+.action-icon-btn {
+    height: 40px;
+    width: 40px;
+    padding: 10px;
+
+    mat-icon {
+        height: 20px;
+        width: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &:focus {
+        outline: none;
+    }
 }

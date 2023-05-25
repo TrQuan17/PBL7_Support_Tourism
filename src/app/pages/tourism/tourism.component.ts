@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryResponse, TourismResponse } from 'src/app/common/models';
+import { CategoryModel, CategoryResponse, TourismResponse } from 'src/app/common/models';
 import { CategoryService, TourismService } from 'src/app/common/services';
 
 
@@ -42,5 +42,18 @@ export class TourismComponent implements OnInit {
                 this.categoryResponse = res;
             }
         )
+    }
+
+    public getTourismByCategory(category?: CategoryModel): void {
+        if(category) {
+            this.tourismService.getTourismsByCategory(category).subscribe(
+                (res: TourismResponse) => {
+                    this.tourismResponse = res;
+                }
+            )
+        } else {
+            this.getTourisms();
+        }
+
     }
 }

@@ -4,27 +4,17 @@ import { ResortModel } from "./resort.model";
 import { TourismModel } from "./tourism.model";
 
 export interface ReviewModel {
-    id: string,
-    account: AccountModel,
+    _id: string,
+    account: AccountModel | string,
     vote: number,
+    title: string,
     text: string,
     images: string[],
+    time: Date,
     like: string[],
     dislike: string[],
-    tourism?: TourismModel,
-    resort?: ResortModel
-}
-
-export interface ReviewDTOModel {
-    id: string,
-    accountId: string,
-    vote: number,
-    text: string,
-    images: string[],
-    like: string[],
-    dislike: string[],
-    tourismId?: string,
-    resortId?: string
+    tourism?: TourismModel | string,
+    resort?: ResortModel | string
 }
 
 export type ReviewResponse = HttpResponse<ReviewModel>

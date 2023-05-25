@@ -1,6 +1,7 @@
 <app-header (searchEmitter)="searchTourism($event)"></app-header>
 <app-show class="container" 
     [tourismResponse]="tourismResponse" 
-    [categoryResponse]="categoryResponse">
+    [categoryResponse]="categoryResponse"
+    (categoryEmitter)="getTourismByCategory($event)">
 </app-show>
 <app-footer></app-footer>

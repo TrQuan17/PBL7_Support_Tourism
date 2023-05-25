@@ -1,9 +1,10 @@
 import { HttpResponse } from "src/app/core/models/http-response.model"
+import { ResortModel } from "./resort.model"
 
 export interface ServiceModel {
-    id: string,
+    _id: string,
     name: string,
-    resort: string,
+    resort: ResortModel | string,
     about: string,
     image: string,
     price: string

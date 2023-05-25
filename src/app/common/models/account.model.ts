@@ -1,7 +1,7 @@
 import { HttpResponse } from "src/app/core/models/http-response.model"
 
 export interface AccountModel {
-    id: string,
+    _id: string,
     username: string,
     password: string,
     fullname: string,

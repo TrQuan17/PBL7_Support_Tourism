@@ -3,24 +3,13 @@ import { AccountModel } from "./account.model";
 import { TourismModel } from "./tourism.model";
 
 export interface ResortModel {
-    id: string, 
+    _id: string, 
     name: string,
-    tourism: TourismModel,
+    tourism: TourismModel | string,
     price: number,
     address: string,
     reservationLimit: number,
-    reservations: AccountModel[],
-    phone: string
-}
-
-export interface ResortDTOModel {
-    id: string, 
-    name: string,
-    tourismId: string,
-    price: number,
-    address: string,
-    reservationLimit: number,
-    reservationsId: string[],
+    reservations: AccountModel[] | string[],
     phone: string
 }
 
