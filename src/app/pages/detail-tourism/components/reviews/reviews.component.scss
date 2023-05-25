@@ -1,3 +1,31 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.contribute .write-review {
+    --mdc-outlined-button-outline-color: var(--primary-color);
+    --mdc-outlined-button-label-text-color: var(--primary-color);
+    --mat-mdc-button-persistent-ripple-color: var(--primary-color);
+
+    height: 40px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    mat-icon {
+        height: 50vh;
+    }
+
+    &:focus {
+        outline: none;
+        background-color: var(--primary-color);
+        --mdc-outlined-button-label-text-color: white;
+    }
+}
+
 .show-reviews {
     display: flex;
     flex-direction: row;

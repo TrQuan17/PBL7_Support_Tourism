@@ -1,0 +1,51 @@
+<div class="wrapper">
+    <div class="tourism">
+        <h4>Hãy cho tôi biết chuyến đi của bạn như thế nào ?</h4>
+        <div class="card">
+            <img src="{{ dialogData.images[0] }}" alt="">
+            <h4>{{ dialogData.name }}</h4>
+        </div>
+    </div>
+
+    <form class="write-review" [formGroup]="reviewForm">
+        <mat-icon class="close" svgIcon="icon-close" matDialogClose></mat-icon>
+
+        <div class="rating">
+            <h5>Bạn đánh giá trải nghiệm của mình như thế nào?</h5>
+        </div>
+
+        <div class="time">
+            <h5>Bạn đã đi trong khoảng thời gian nào?</h5>
+            <mat-form-field appearance="outline">
+                <input matInput formControlName="time" [matDatepicker]="picker" readonly>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="title">
+            <h5>Đặt tiêu đề cho đánh giá của bạn</h5>
+            <mat-form-field appearance="outline">
+                <input matInput formControlName="title" type="text">
+                <mat-hint>Tối đa 1000 ký tự</mat-hint>
+            </mat-form-field>
+        </div>
+
+        <div class="text">
+            <h5>Viết đánh giá của bạn</h5>
+            <mat-form-field appearance="outline">
+                <textarea formControlName="text" matInput></textarea>
+                <mat-hint>Tối đa 1000 ký tự</mat-hint>
+            </mat-form-field>
+        </div>
+
+        <div class="images">
+            <h5>Thêm một số bức ảnh</h5>
+        </div>
+
+        <button mat-stroked-button class="send-btn" (click)="writeReview()">
+            <mat-icon svgIcon="icon-send"></mat-icon>
+            <span>Gửi đánh giá</span>
+        </button>
+    </form>
+</div>

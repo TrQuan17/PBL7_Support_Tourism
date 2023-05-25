@@ -1,35 +1,46 @@
-<h4>Đánh giá của du khách</h4>
-<div class="show-reviews">
-
-    <div class="rating">
-        Rating ở đây nè!
+<div class="wrapper">
+    <div class="contribute">
+        <h4>Đóng góp</h4>
+        <button mat-stroked-button class="write-review" (click)="openWriteReview()">
+            <mat-icon svgIcon="icon-write"></mat-icon>
+            <span>Đánh giá</span>
+        </button>
     </div>
-
-    <mat-divider vertical></mat-divider>
-
-    <div class="user-reviews">
-        <div class="review" *ngFor="let review of reviewsList">
-            <div class="account">
-                <div class="avatar">
-                    <img [src]="review.account.avatar" alt="">
+    
+    <h4>Đánh giá của du khách</h4>
+    
+    <div class="show-reviews">
+    
+        <div class="rating">
+            Rating ở đây nè!
+        </div>
+    
+        <mat-divider vertical></mat-divider>
+    
+        <div class="user-reviews">
+            <div class="review" *ngFor="let review of reviewsList">
+                <div class="account">
+                    <div class="avatar">
+                        <img [src]="review.account.avatar" alt="">
+                    </div>
+                    <div class="content">
+                        <h6>{{ review.account.fullname }}</h6>
+                        <span>Tham gia từ {{ review.account.createdAt | date: 'MM/yyyy'}}</span>
+                    </div>
                 </div>
-                <div class="content">
-                    <h6>{{ review.account.fullname }}</h6>
-                    <span>Tham gia từ {{ review.account.createdAt | date: 'MM/yyyy'}}</span>
+    
+                <h6>{{ review.title }}</h6>
+                <span>{{ review.text }}</span>
+    
+                <div class="images">
+                    <img *ngFor="let img of review.images" [src]="img" alt="">
                 </div>
+    
+                <span class="time">
+                    <mat-divider></mat-divider>
+                    Thời gian đi {{review.time | date: 'MM/yyyy'}}
+                </span>
             </div>
-            
-            <h6>{{ review.title }}</h6>
-            <span>{{ review.text }}</span>
-            
-            <div class="images">
-                <img *ngFor="let img of review.images" [src]="img" alt="">     
-            </div>
-
-            <span class="time">
-                <mat-divider></mat-divider>
-                Thời gian đi {{review.time | date: 'MM/yyyy'}}
-            </span>
         </div>
     </div>
 </div>

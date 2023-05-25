@@ -5,12 +5,14 @@ import { DetailTourismComponent } from './detail-tourism.component';
 import { CommonAppModule } from 'src/app/common/common.module';
 import { LayoutModule } from 'src/app/layout/layout.module';
 import { ReviewsComponent } from './components/reviews/reviews.component';
+import { WriteReviewDialogComponent } from './components/write-review-dialog/write-review-dialog.component';
 
 @NgModule({
   declarations: [
     DetailComponent,
     DetailTourismComponent,
-    ReviewsComponent
+    ReviewsComponent,
+    WriteReviewDialogComponent
   ],
   imports: [
     CommonModule,

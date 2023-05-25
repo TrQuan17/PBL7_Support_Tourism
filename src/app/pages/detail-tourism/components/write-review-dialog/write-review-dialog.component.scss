@@ -1,0 +1,63 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+    padding: 30px;
+    overflow-y: scroll;
+}
+
+.close {
+    margin-left: calc(100% - 18px);
+}
+
+.tourism {
+    height: 100%;
+    width: 30vw;
+    padding-right: 20px;
+    border-right: 0.5px solid var(--border-color);
+    
+    .card {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .card img {
+        border-radius: 10px;
+    }
+}
+
+.write-review {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    .send-btn {
+        width: 100%;
+        border-radius: 50vh;
+
+        --mdc-outlined-button-outline-color: var(--primary-color);
+        --mdc-outlined-button-label-text-color: var(--primary-color);
+        --mat-mdc-button-persistent-ripple-color: var(--primary-color);
+
+        &:focus {
+            background-color: var(--primary-color);
+            --mdc-outlined-button-label-text-color: white;
+        }
+    }
+}
+
+.write-review mat-form-field {
+    width: 100%;
+
+    mat-hint {
+        font-size: 13px;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}

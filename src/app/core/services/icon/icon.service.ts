@@ -23,6 +23,9 @@ export class IconService {
         this.iconRegistry.addSvgIcon('icon-heart-like', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/heart-solid.svg'));
         this.iconRegistry.addSvgIcon('icon-heart-unlike', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/heart-regular.svg'));
         this.iconRegistry.addSvgIcon('icon-share', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/share-nodes-solid.svg'));
-        this.iconRegistry.addSvgIcon('icon-location', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/location-dot-solid.svg'))
+        this.iconRegistry.addSvgIcon('icon-location', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/location-dot-solid.svg'));
+        this.iconRegistry.addSvgIcon('icon-write', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/keyboard-regular.svg'));
+        this.iconRegistry.addSvgIcon('icon-close', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/xmark-solid.svg'));
+        this.iconRegistry.addSvgIcon('icon-send', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/paper-plane-regular.svg'));
     }
 }
