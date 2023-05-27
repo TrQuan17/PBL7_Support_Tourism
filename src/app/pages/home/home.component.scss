@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+.wrapper {
+    padding: var(--padding-wrapper)
+}
+
+.search {
+    height: 400px;
+    background-image: url('../../../assets/images/background-search-home.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+
+    h1 {
+        color: white;
+        font-family: 'Pacifico', cursive;
+        font-size: 70px;
+    }
+
+    .search-box {
+        width: 60vw;
+        padding: 20px;
+        background-color: rgba($color: #ffffff, $alpha: 0.2);
+        border-radius: 5px;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    }
+}
+
+::ng-deep .search mat-form-field {
+    .mdc-text-field--outlined {
+        background: white;
+        border-radius: 5px;
+    }
+
+    .mat-mdc-form-field-subscript-wrapper {
+        display: none;
+    }
+}

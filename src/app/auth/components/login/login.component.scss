@@ -1,0 +1,59 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100vh;
+    padding: 80px;
+    background-image: url('../../../../assets/images/background-login.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.header img {
+    height: 60px;
+}
+
+.show {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.show .introduce {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 40vw;
+}
+
+.show .login-form {
+    height: 65vh;
+    min-width: 25vw;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    gap: 20px;
+    border-radius: 12px;
+    box-shadow: rgba(99, 99, 99, 0.2) 1px 2px 8px 1px;
+
+    mat-form-field mat-icon {
+        height: 18px;
+        color: var(--primary-color);
+    }
+
+    mat-divider {
+        width: 100%;
+    }
+}
+
+.login-form .login-btn {
+    --mdc-filled-button-container-color: var(--primary-color) !important;
+    width: 60%;
+    min-height: 40px;
+    border-radius: 50vh;
+}

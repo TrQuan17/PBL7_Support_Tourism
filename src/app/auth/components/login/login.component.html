@@ -1,0 +1,44 @@
+<div class="wrapper">
+    <div class="header">
+        <a class="logo" routerLink="/home">
+            <img src="assets\images\logo.jpg" alt="" srcset="">
+        </a>
+    </div>
+
+    <div class="show">
+        <div class="introduce">
+            <h4>KHÁM PHÁ NHỮNG ĐỊA ĐIỂM LÂN CẬN</h4>
+            <h1>Tìm kiếm những địa điểm mới để tham quan trên toàn cầu?</h1>
+            <h5>
+                Chia sẻ cuộc phiêu lưu của bạn với những người thân thiết của bạn và lưu lại những kỷ niệm của bạn
+                theo một phong cách độc đáo.
+            </h5>
+        </div>
+
+        <form class="login-form">
+            <h4>Wellcome, Back!</h4>
+            <mat-form-field appearance="outline">
+                <mat-label>Tên đăng nhập</mat-label>
+                <input matInput type="text">
+                <mat-icon matSuffix svgIcon="icon-user"></mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Mật khẩu</mat-label>
+                <input matInput [type]="showPass ? 'text' : 'password' ">
+
+                <mat-icon matSuffix (click)="showPass = !showPass" 
+                    [svgIcon]="showPass ? 'icon-show-pass' : 'icon-hidden-pass'">
+                </mat-icon>
+
+            </mat-form-field>
+
+            <mat-divider></mat-divider>
+            <button mat-flat-button color="primary" class="login-btn">Đăng nhập</button>
+            <mat-divider></mat-divider>
+            <span>
+                Bạn chưa có tài khoản ? <a href="">Đăng kí ngay</a>
+            </span>
+        </form>
+    </div>
+</div>

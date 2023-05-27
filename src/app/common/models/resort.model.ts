@@ -5,6 +5,8 @@ import { TourismModel } from "./tourism.model";
 export interface ResortModel {
     _id: string, 
     name: string,
+    images: string[],
+    about: string,
     tourism: TourismModel | string,
     price: number,
     address: string,

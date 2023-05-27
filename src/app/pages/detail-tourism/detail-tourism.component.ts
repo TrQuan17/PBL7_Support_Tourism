@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {  ReviewResponse, TourismResponse } from 'src/app/common/models';
-import { ReviewService, TourismService } from 'src/app/common/services';
+import {  ResortResponse, ReviewResponse, TourismResponse } from 'src/app/common/models';
+import { ResortService, ReviewService, TourismService } from 'src/app/common/services';
 
 @Component({
     selector: 'app-detail-tourism',
@@ -11,12 +11,14 @@ import { ReviewService, TourismService } from 'src/app/common/services';
 export class DetailTourismComponent implements OnInit {
     public tourismId: string | null;
     public tourism!: TourismResponse;
+    public resortsTourism!: ResortResponse;
     public reviewsTourism!: ReviewResponse;
 
     constructor(
         private router: ActivatedRoute,
         private tourismService: TourismService,
-        private reviewService: ReviewService
+        private reviewService: ReviewService,
+        private resortService: ResortService
     ) {
         this.tourismId = this.router.snapshot.paramMap.get('tourismId');
     }
@@ -24,6 +26,7 @@ export class DetailTourismComponent implements OnInit {
     public ngOnInit(): void {
         this.getTourismDetail();
         this.getReviewsTourism();
+        this.getResortsTourism();
     }
 
     public getTourismDetail(): void {
@@ -35,10 +38,18 @@ export class DetailTourismComponent implements OnInit {
     }
 
     public getReviewsTourism(): void {
-        this.reviewService.getReviewsByTourismId(this.tourismId ? this.tourismId : '').subscribe(
+        this.reviewService.getReviewsByTourismId(this.tourismId).subscribe(
             (res: ReviewResponse) => {
                 this.reviewsTourism = res;
             }
         ) 
+    }
+
+    public getResortsTourism(): void {
+        this.resortService.getResortsByTourismId(this.tourismId).subscribe(
+            (res: ResortResponse) => {
+                this.resortsTourism = res;
+            }
+        )
     }
 }

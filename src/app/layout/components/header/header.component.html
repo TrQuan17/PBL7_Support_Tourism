@@ -1,9 +1,10 @@
 <div class="header">
-    <div class="logo">
+    <a class="logo" routerLink="/home">
         <img src="assets\images\logo.jpg" alt="" srcset="">
-    </div>
+    </a>
 
-    <app-search (searchEmitter)="getTextSearch($event)" class="search"></app-search>
+    <app-search class="search" *ngIf="showSearchbox"
+        (searchEmitter)="getTextSearch($event)"></app-search>
 
     <div class="tools">
         <button mat-button class="tool-btn">
@@ -16,7 +17,7 @@
             <span>Giỏ hàng</span>
         </button>
 
-        <button mat-button class="tool-btn">
+        <button mat-button class="tool-btn" routerLink="/login">
             <span>Đăng nhập</span>
         </button>
     </div>

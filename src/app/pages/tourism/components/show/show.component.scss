@@ -24,7 +24,6 @@
     border-radius: 10px;
 
     &:focus {
-        outline: none;
         background-color: var(--primary-color);
         --mdc-outlined-button-label-text-color: white;
     }

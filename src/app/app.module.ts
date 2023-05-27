@@ -6,9 +6,10 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material/material.module';
-import { PagesModule } from './pages/pages.module';
-import { LayoutModule } from 'src/app/layout/layout.module';
 import { CoreModule } from './core/core.module';
+import { LayoutModule } from './layout/layout.module';
+import { PagesModule } from './pages/pages.module';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
     declarations: [
@@ -18,10 +19,11 @@ import { CoreModule } from './core/core.module';
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
-        PagesModule,
+        BrowserAnimationsModule,
         MaterialModule,
         LayoutModule,
-        BrowserAnimationsModule,
+        PagesModule,
+        AuthModule,
         CoreModule.forRoot()
     ],
     providers: [],
