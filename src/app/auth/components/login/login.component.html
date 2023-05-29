@@ -15,7 +15,7 @@
             </h5>
         </div>
 
-        <form class="login-form">
+        <form class="login-form" *ngIf="isLogin">
             <h4>Wellcome, Back!</h4>
             <mat-form-field appearance="outline">
                 <mat-label>Tên đăng nhập</mat-label>
@@ -27,7 +27,7 @@
                 <mat-label>Mật khẩu</mat-label>
                 <input matInput [type]="showPass ? 'text' : 'password' ">
 
-                <mat-icon matSuffix (click)="showPass = !showPass" 
+                <mat-icon matSuffix (click)="showPass = !showPass"
                     [svgIcon]="showPass ? 'icon-show-pass' : 'icon-hidden-pass'">
                 </mat-icon>
 
@@ -37,8 +37,52 @@
             <button mat-flat-button color="primary" class="login-btn">Đăng nhập</button>
             <mat-divider></mat-divider>
             <span>
-                Bạn chưa có tài khoản ? <a href="">Đăng kí ngay</a>
+                Bạn chưa có tài khoản ? <a (click)="isLogin = !isLogin">Đăng kí ngay</a>
             </span>
         </form>
+
+        <form class="register-form" *ngIf="!isLogin">
+            <h4>Wellcome!</h4>
+            <div class="multi-input">
+                <mat-form-field appearance="outline">
+                    <mat-label>Tên đăng nhập</mat-label>
+                    <input matInput type="text">
+                    <mat-icon matSuffix svgIcon="icon-user"></mat-icon>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Tên đầy đủ</mat-label>
+                    <input matInput type="text">
+                </mat-form-field>
+            </div>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput type="email">
+            </mat-form-field>
+
+            <div class="multi-input">
+                <mat-form-field appearance="outline">
+                    <mat-label>Mật khẩu</mat-label>
+                    <input matInput [type]="showPass ? 'text' : 'password' ">
+                    <mat-icon matSuffix (click)="showPass = !showPass"
+                        [svgIcon]="showPass ? 'icon-show-pass' : 'icon-hidden-pass'">
+                    </mat-icon>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Nhập lại mật khẩu</mat-label>
+                    <input matInput [type]="showPass ? 'text' : 'password' ">
+                    <mat-icon matSuffix (click)="showPass = !showPass"
+                        [svgIcon]="showPass ? 'icon-show-pass' : 'icon-hidden-pass'">
+                    </mat-icon>
+                </mat-form-field>
+            </div>
+            
+            <button mat-flat-button color="primary" class="register-btn" type="submit">Đăng ký</button>
+            <mat-divider></mat-divider>
+            <span>
+                Bạn đã có tài khoản ? <a (click)="isLogin = !isLogin">Đăng nhập ngay</a>
+            </span>
+        </form>
+
     </div>
 </div>

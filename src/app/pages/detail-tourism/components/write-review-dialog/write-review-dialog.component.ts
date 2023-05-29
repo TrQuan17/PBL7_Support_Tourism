@@ -14,7 +14,7 @@ export class WriteReviewDialogComponent {
     constructor(
         private formBuider: FormBuilder,
         public dialogRef: MatDialogRef<WriteReviewDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public dialogData: TourismModel
+        @Inject(MAT_DIALOG_DATA) public dialogData?: TourismModel
     ) {
         this.createFormGroup();
     }
@@ -29,6 +29,10 @@ export class WriteReviewDialogComponent {
             time: new FormControl(null),
             tourism: new FormControl(this.dialogData?._id)
         });
+    }
+
+    public voteTourim(vote: number): void {
+       this.reviewForm.get('vote')?.setValue(vote);
     }
 
     public writeReview(): void {

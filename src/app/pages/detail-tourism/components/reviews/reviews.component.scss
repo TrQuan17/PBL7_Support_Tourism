@@ -86,3 +86,19 @@
         font-size: 13px;
     }
 }
+
+.rating .rates-num {
+    height: 12px;
+    border-radius: 6px;
+}
+
+.rating-statistics .text {
+    display: flex;
+    justify-content: space-between;
+}
+
+::ng-deep .rating mat-progress-bar {
+    .mdc-linear-progress__bar-inner {
+        border: 12px solid var(--primary-color);
+    }
+}

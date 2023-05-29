@@ -1,0 +1,45 @@
+.star-vote {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+
+.star-vote:not(:checked)>input {
+    position: absolute;
+    top: -9999px;
+}
+
+.star-vote:not(:checked)>label {
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 30px;
+    color: #ccc;
+}
+
+.star-vote:not(:checked)>label:before {
+    content: '⬤ ';
+}
+
+.star-vote>input:checked~label {
+    color: rgba($color: var(--primary-color), $alpha: 0.12);
+}
+
+.star-vote:not(:checked)>label:hover,
+.star-vote:not(:checked)>label:hover~label {
+    color: rgba($color: var(--primary-color), $alpha: 0.12);
+}
+
+.star-vote>input:checked+label:hover,
+.star-vote>input:checked+label:hover~label,
+.star-vote>input:checked~label:hover,
+.star-vote>input:checked~label:hover~label,
+.star-vote>label:hover~input:checked~label {
+    color: rgba($color: var(--primary-color), $alpha: 0.12);
+}
+
+.show-vote {
+    color: var(--primary-color);
+}

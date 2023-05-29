@@ -4,9 +4,11 @@ import { CommonModule } from '@angular/common';
 import { SearchComponent } from './components/search/search.component';
 import { MaterialModule } from '../material/material.module';
 import { RouterModule } from '@angular/router';
+import { StarRatingComponent } from './components/star-rating/star-rating.component';
 
 const CommonComponents = [
-    SearchComponent
+    SearchComponent,
+    StarRatingComponent
 ]
 
 @NgModule({

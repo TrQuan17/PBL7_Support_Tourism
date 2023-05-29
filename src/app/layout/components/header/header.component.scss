@@ -9,13 +9,14 @@
     .logo img{
         height: 50px;
     }
+    
+    .search {
+        width: 30%;
+    }
+    
+    .tools {
+        display: flex;
+        gap: 12px;
+    }
 }
 
-.search {
-    width: 30%;
-}
-
-.tools {
-    display: flex;
-    gap: 12px;
-}

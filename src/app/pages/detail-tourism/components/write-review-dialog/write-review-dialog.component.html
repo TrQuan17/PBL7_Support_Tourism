@@ -2,8 +2,8 @@
     <div class="tourism">
         <h4>Hãy cho tôi biết chuyến đi của bạn như thế nào ?</h4>
         <div class="card">
-            <img src="{{ dialogData.images[0] }}" alt="">
-            <h4>{{ dialogData.name }}</h4>
+            <img [src]="dialogData ? dialogData.images[0]: 'assets/images/no-image.jpg'" alt="">
+            <h4>{{ dialogData?.name }}</h4>
         </div>
     </div>
 
@@ -12,6 +12,8 @@
 
         <div class="rating">
             <h5>Bạn đánh giá trải nghiệm của mình như thế nào?</h5>
+
+            <app-star-rating (voteEmitter)="voteTourim($event)"></app-star-rating>
         </div>
 
         <div class="time">

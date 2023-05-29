@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class LoginComponent {
     public showPass = false;
+    public isLogin = true;
 }
