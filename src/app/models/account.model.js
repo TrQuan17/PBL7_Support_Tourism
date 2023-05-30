@@ -44,7 +44,8 @@ const AccountSchema = new Schema({
     email: {
         type: String,
         unique: [true, '{VALUE} is exist!'],
-        validate: emailValidate
+        validate: emailValidate,
+	    required: [true, 'Email is required!']
     },
     phone: {
         type: String,

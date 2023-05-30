@@ -11,7 +11,7 @@ class ResortController {
                 return res.json(responseJson(false, err))
             }
 
-            const resorts = await Resort.find({ tourism: req.body.tourismId })
+            const resorts = await Resort.find({ tourism: req.params.tourismId })
             return res.json(responseJson(true, resorts))
         }
         catch (err) {

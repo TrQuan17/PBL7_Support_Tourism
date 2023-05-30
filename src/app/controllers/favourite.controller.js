@@ -12,7 +12,7 @@ class FavouriteController {
                 return res.json(responseJson(false, err))
             }
 
-            var favourites = await Favourite.find({ account: req.params.accountId })
+            const favourites = await Favourite.find({ account: req.params.accountId })
                 .populate({ path: 'tourism' })
 
             return res.json(responseJson(true, favourites))

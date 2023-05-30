@@ -31,6 +31,22 @@ class TourismController {
         }
     }
 
+    async getById(req, res, next) {
+        try {
+            if(!req.params.tourismId) {
+                const err = { tourismId: { message: 'TourismId does not exist!' } }
+                return res.json(responseJson(false, err))
+            }
+
+            const tourism = await Tourism.findOne({ _id: req.params.tourismId })
+
+            return res.json(responseJson(true, tourism))
+        }
+        catch(err) {
+            return res.json(responseJson(false, err.errors))
+        }
+    }
+
     async create(req, res, next) {
         try {
             var newTourism = new Tourism(req.body)
@@ -64,8 +80,8 @@ class TourismController {
                 return res.json(responseJson(false, err))
             }
 
-            if(req.body.categoryId) {               
-                const category = await Category.findOne({ _id: req.body.categoryId })
+            if(req.body.category) {               
+                const category = await Category.findOne({ _id: req.body.category })
                 if(!category) {
                     const err = { category: { message: 'Category does not exist!' } }
                     return res.json(responseJson(false, err))

@@ -13,6 +13,12 @@ const ResortSchema = new Schema({
         type: String,
         required: [true, 'Resort name is required!']
     },
+    images: [{
+	type: String
+    }],
+    about: {
+	type: String
+    },
     tourism: {
         type: Schema.Types.ObjectId,
         ref: 'tourisms',

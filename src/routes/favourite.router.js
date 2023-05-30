@@ -3,7 +3,9 @@ const router = express.Router()
 
 const favouriteController = require('../app/controllers/favourite.controller')
 
-router.post('/', favouriteController.create)
-router.delete('/', favouriteController.delete)
+const { verifyAccount } = require('../app/middlewares/authorization.middleware')
+
+router.post('/', verifyAccount, favouriteController.create)
+router.delete('/', verifyAccount,  favouriteController.delete)
 
 module.exports = router

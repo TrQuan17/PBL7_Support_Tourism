@@ -9,7 +9,8 @@ async function connectMongo() {
         })
         console.log('Connect mongoDB success!')
     } catch (error) {
-        console.log('Connect failure!')
+        console.log(error)
+        console.log('Connect failed!')
     }
 }
 

@@ -1,7 +1,8 @@
 require('dotenv').config()
 
-const express = require('express')
 const path = require('path')
+const cookieParser = require('cookie-parser')
+const express = require('express')
 const app = express()
 
 const db = require('./config/db')
@@ -16,6 +17,9 @@ app.use(express.urlencoded({
 }))
 
 app.use(express.json())
+
+// Cookie parser
+app.use(cookieParser())
 
 // CORS
 app.use(function(req, res, next) {

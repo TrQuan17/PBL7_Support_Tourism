@@ -1,10 +1,17 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
+const passport = require('passport')
+const passportConfig = require('../middlewares/authorization.middleware')
+
 const Account = require('../models/account.model')
 const { responseJson } = require('../../config/response')
 
 const PASSWORD_REGEX = /^[0-9a-zA-Z]{8,}$/
+
+const encodedToken = (accountId) => {
+    return jwt.sign({ account_id: accountId }, process.env.SECRET_KEY, { expiresIn: '1d' })
+}
 
 class AccountController {
     async register(req, res, next) {
@@ -13,11 +20,15 @@ class AccountController {
             const hashPass = await bcrypt.hash(req.body.password, salt)
 
             req.body.password = hashPass
+            req.body.role = 'user'
 
             const newAccount = new Account(req.body)
 
             await newAccount.save()
 
+            const token = encodedToken(newAccount._id)
+
+            res.cookie('authoriztion', token, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true })
             return res.json(responseJson(true, newAccount))
         }
         catch (err) {
@@ -42,16 +53,9 @@ class AccountController {
                 return res.json(responseJson(false, err))
             }
 
-            const accountToken = jwt.sign({ accountId: account._id },
-                process.env.SECRET_KEY, {
-                expiresIn: '1m'
-            })
+            const token = encodedToken(account._id)
 
-            res.cookie('accountToken', accountToken, {
-                maxAge: 60 * 1000,
-                httpOnly: true
-            })
-
+            res.cookie('authoriztion', token, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true })
             return res.json(responseJson(true, account))
         }
         catch (err) {

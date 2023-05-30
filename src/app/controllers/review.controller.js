@@ -14,10 +14,12 @@ class ReviewController {
             }
 
             const reviews = await Review.find({ tourism: req.params.tourismId })
+                .populate({ path: 'account', select: 'fullname avatar createdAt'})
 
             return res.json(responseJson(true, reviews))
         }
         catch (err) {
+            console.log(err)
             return res.json(responseJson(false, err.errors))
         }
     }
@@ -30,6 +32,7 @@ class ReviewController {
             }
 
             const reviews = await Review.find({ resort: req.params.resortId })
+                .populate({ auth: 'account' , select: 'fullname avatar createdAt'})
 
             return res.json(responseJson(true, reviews))
         }
@@ -40,21 +43,21 @@ class ReviewController {
 
     async createWithTourism(req, res, next) {
         try {
-            var newReview = new Review(req.body)
+            const newReview = new Review(req.body)
 
-            var account = Account.findOne({ _id: req.body.account })
+            const account = await Account.findOne({ _id: req.body.account })
             if (!account) {
                 const err = { account: { message: 'Account does not exist!' } }
                 return res.json(responseJson(false, err))
             }
 
-            var tourism = Account.findOne({ _id: req.body.tourism })
+            const tourism = await Tourism.findOne({ _id: req.body.tourism })
             if (!tourism) {
                 const err = { tourism: { message: 'Tourism does not exist!' } }
                 return res.json(responseJson(false, err))
             }
 
-            var reviewWithTourism = Review.findOne({
+            const reviewWithTourism = await Review.findOne({
                 account: req.body.account,
                 tourism: req.body.tourism
             })
@@ -74,21 +77,21 @@ class ReviewController {
 
     async createWithResort(req, res, next) {
         try {
-            var newReview = new Review(req.body)
+            const newReview = new Review(req.body)
 
-            var account = Account.findOne({ _id: req.body.account })
+            const account = await Account.findOne({ _id: req.body.account })
             if (!account) {
                 const err = { account: { message: 'Account does not exist!' } }
                 return res.json(responseJson(false, err))
             }
 
-            var resort = Account.findOne({ _id: req.body.resort })
+            const resort = await Resort.findOne({ _id: req.body.resort })
             if (!resort) {
                 const err = { resort: { message: 'Resort does not exist!' } }
                 return res.json(responseJson(false, err))
             }
 
-            var reviewWithResort = Review.findOne({
+            const reviewWithResort = await Review.findOne({
                 account: req.body.account,
                 resort: req.body.resort
             })
@@ -102,6 +105,7 @@ class ReviewController {
             return res.json(responseJson(true, newReview))
         }
         catch (err) {
+            console.log(err)
             return res.json(responseJson(false, err.errors))
         }
     }
