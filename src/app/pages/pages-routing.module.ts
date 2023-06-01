@@ -6,21 +6,22 @@ import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
     {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'full'
-    },
-    {
         path: 'home',
         component: HomeComponent
     },
     {
         path: 'tourism',
         component: TourismComponent,
+        children: [
+            {
+                path: ':tourismId',
+                component: DetailTourismComponent
+            }
+        ]
     },
     {
-        path: 'tourism/:tourismId',
-        component: DetailTourismComponent
+        path: '**',
+        redirectTo: 'home',
     }
 ]
 

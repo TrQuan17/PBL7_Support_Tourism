@@ -10,6 +10,10 @@ export const ApiPathConfig = {
         category: 'category'
     }, 
     auth: {
-        account: 'account'
+        account: 'account',
+        login: 'account/login',
+        register: 'account/register',
+        update: 'account/update/info',
+        change_pass: 'account/update/password'
     }
 }

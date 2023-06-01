@@ -8,5 +8,12 @@ export class ApiPath {
     public static RESORT = env.API.concat(ApiPathConfig.pages.resort);
     public static SERVICE = env.API.concat(ApiPathConfig.pages.service);
     public static FAVOURITE = env.API.concat(ApiPathConfig.pages.favourite);
+
+    // Account
     public static ACCOUNT = env.API.concat(ApiPathConfig.auth.account);
+    public static LOGIN = env.API.concat(ApiPathConfig.auth.login);
+    public static REGISTER = env.API.concat(ApiPathConfig.auth.register);
+    public static UPDATE_INFO = env.API.concat(ApiPathConfig.auth.update);
+    public static CHANGE_PASS = env.API.concat(ApiPathConfig.auth.change_pass);
+
 }

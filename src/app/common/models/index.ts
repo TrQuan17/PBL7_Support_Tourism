@@ -5,3 +5,5 @@ export * from './resort.model'
 export * from './review.model'
 export * from './service.model'
 export * from './tourism.model'
+
+export * from './ui.model'

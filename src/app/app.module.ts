@@ -17,13 +17,13 @@ import { AuthModule } from './auth/auth.module';
     ],
     imports: [
         BrowserModule,
+        AuthModule,
+        PagesModule,
         AppRoutingModule,
         HttpClientModule,
         BrowserAnimationsModule,
         MaterialModule,
         LayoutModule,
-        PagesModule,
-        AuthModule,
         CoreModule.forRoot()
     ],
     providers: [],

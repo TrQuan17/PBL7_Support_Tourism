@@ -17,8 +17,20 @@
             <span>Giỏ hàng</span>
         </button>
 
-        <button mat-button class="tool-btn" routerLink="/login">
+        <button *ngIf="!isCurrentAccount(); else currentAccount" 
+            mat-button class="tool-btn" routerLink="/login">
             <span>Đăng nhập</span>
         </button>
+
+        <ng-template #currentAccount>
+            <div class="account">
+                <img [src]="account.avatar" alt="" srcset="">
+                <span> {{ account.fullname }} </span>
+            </div>
+
+            <button mat-button class="tool-btn" (click)="logout()">
+                <span>Đăng xuất</span>
+            </button>
+        </ng-template>
     </div>
 </div>

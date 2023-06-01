@@ -20,3 +20,13 @@
     }
 }
 
+.tools .account {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    img {
+        width: 30px;
+        border-radius: 50%;
+    }       
+}
