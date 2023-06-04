@@ -4,6 +4,17 @@ const Tourism = require('../models/tourism.model')
 const { responseJson } = require('../../config/response')
 
 class ResortController {
+    async getAll(req, res, next) {
+        try {
+            const resorts = await Resort.find({})
+            
+            return res.json(responseJson(true, resorts))
+        }
+        catch(err) {
+            return res.json(responseJson(false, err.errors))
+        }
+    }
+
     async getResortsByTourismId(req, res, next) {
         try {
             if (!req.params.tourismId) {

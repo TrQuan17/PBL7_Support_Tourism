@@ -23,6 +23,14 @@ const TourismSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'categories',
         required: [true, 'Category is required!']
+    },
+    votesNum: {
+        type: Number,
+        default: 0
+    },
+    rate: {
+        type: Number,
+        default: 0
     }
 }, {
     timestamps: true

@@ -26,10 +26,14 @@ class AccountController {
 
             await newAccount.save()
 
-            const token = encodedToken(newAccount._id)
-
-            res.cookie('authoriztion', token, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true })
-            return res.json(responseJson(true, newAccount))
+            const data = {
+                fullname: newAccount.fullname,
+                avatar: newAccount.avatar,
+                accessToken: encodedToken(newAccount._id),
+                expiresIn: new Date().setDate(new Date().getDate() + 1)
+            }
+            
+            return res.json(responseJson(true, data))
         }
         catch (err) {
             return res.json(responseJson(false, err.errors))
@@ -44,7 +48,10 @@ class AccountController {
             }
 
             const account = await Account.findOne({ username: req.body.username })
-
+            if(!account) {
+                const err = { account: { message: 'Account does not exist!' } }
+                return res.json(responseJson(false, err))
+            }
             const password = req.body.password
             var isValidPass = await bcrypt.compare(password ? password : '', account.password)
 
@@ -53,30 +60,26 @@ class AccountController {
                 return res.json(responseJson(false, err))
             }
 
-            const token = encodedToken(account._id)
-
-            res.cookie('authoriztion', token, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true })
-            return res.json(responseJson(true, account))
+            const data = {
+                fullname: account.fullname,
+                avatar: account.avatar,
+                accessToken: encodedToken(account._id),
+                expiresIn: new Date().setDate(new Date().getDate() + 1)
+            }
+            
+            return res.json(responseJson(true, data))
         }
         catch (err) {
+            console.log(err)
             return res.json(responseJson(false, err.errors))
         }
     }
 
     async update(req, res, next) {
         try {
-            if (!req.body.username) {
-                const err = { username: { message: 'Username does not exist!' } }
-                return res.json(responseJson(false, err))
-            }
+            const account = res.data.account
 
-            var account = await Account.findOne({ username: req.body.username })
-            if (!account) {
-                const err = { account: { message: 'Account does not exist!' } }
-                return res.json(responseJson(false, err))
-            }
-
-            await Account.updateOne({ username: req.body.username }, req.body)
+            await Account.updateOne({ _id: account._id }, req.body)
 
             return res.json(responseJson(true, req.body))
         }
@@ -87,16 +90,7 @@ class AccountController {
 
     async changePass(req, res, next) {
         try {
-            if (!req.body.username) {
-                const err = { username: { message: 'Username does not exist!' } }
-                return res.json(responseJson(false, err))
-            }
-
-            var account = await Account.findOne({ username: req.body.username })
-            if (!account) {
-                const err = { account: { message: 'Account does not exist!' } }
-                return res.json(responseJson(false, err))
-            }
+            const account = res.data.account
 
             var password = req.body.password
             var isValidPass = await bcrypt.compare(password ? password : '', account.password)
@@ -117,18 +111,9 @@ class AccountController {
             const salt = await bcrypt.genSalt(10)
             const hashPass = await bcrypt.hash(newpass, salt)
 
-            await Account.updateOne({ username: req.body.username }, { password: hashPass })
+            await Account.updateOne({ _id: account._id }, { password: hashPass })
 
             return res.json(responseJson(true, account))
-        }
-        catch (err) {
-            return res.json(responseJson(false, err.errors))
-        }
-    }
-
-    async logout(req, res, next) {
-        try {
-
         }
         catch (err) {
             return res.json(responseJson(false, err.errors))

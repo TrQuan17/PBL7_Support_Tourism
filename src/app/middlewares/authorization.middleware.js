@@ -4,7 +4,8 @@ const Account = require('../models/account.model')
 
 const verifyAccount = async (req, res, next) => {
     try {
-        const token = req.headers.Authorization
+        const token = req.headers.authorization.split(' ')[1]
+
         const payload = jwt.verify(token, process.env.SECRET_KEY)
 
         const account = await Account.findOne({ _id: payload.account_id })
@@ -18,6 +19,7 @@ const verifyAccount = async (req, res, next) => {
         next()
     }
     catch (err) {
+        console.log(err)
         return res.json(responseJson(false, err.errors))
     }
 }

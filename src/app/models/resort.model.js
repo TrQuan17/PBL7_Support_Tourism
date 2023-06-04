@@ -44,6 +44,14 @@ const ResortSchema = new Schema({
     phone: {
         type: String,
         validate: phoneValidate
+    },
+    votesNum: {
+        type: Number,
+        default: 0
+    },
+    rate: {
+        type: Number,
+        default: 0
     }
 }, {
     timestamps: true

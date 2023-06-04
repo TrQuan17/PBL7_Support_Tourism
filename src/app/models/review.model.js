@@ -2,13 +2,13 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const textValidate = {
-    validator: v => v.length <= 1000 && v.length > 1,
-    message: 'Review up to 1000 words!'
+    validator: v => v.length >= 100 && v.length > 1,
+    message: 'Review at least 100 words!'
 }
 
 const titleValidate = {
-    validator: v => v.length <= 250 && v.length > 2,
-    message: 'Title up to 250 words!'
+    validator: v => v.length <= 120 && v.length > 2,
+    message: 'Title up to 120 words!'
 }
 
 const ReviewSchema = new Schema({
@@ -34,7 +34,8 @@ const ReviewSchema = new Schema({
         type: String
     }],
     time: {
-        type: Schema.Types.Date
+        type: Schema.Types.Date,
+        required: [true, 'Account is required!']
     },
     likes: [{
         type: Schema.Types.ObjectId

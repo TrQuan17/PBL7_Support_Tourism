@@ -44,12 +44,7 @@ class ReviewController {
     async createWithTourism(req, res, next) {
         try {
             const newReview = new Review(req.body)
-
-            const account = await Account.findOne({ _id: req.body.account })
-            if (!account) {
-                const err = { account: { message: 'Account does not exist!' } }
-                return res.json(responseJson(false, err))
-            }
+            newReview.account = res.data.account._id
 
             const tourism = await Tourism.findOne({ _id: req.body.tourism })
             if (!tourism) {
@@ -58,7 +53,7 @@ class ReviewController {
             }
 
             const reviewWithTourism = await Review.findOne({
-                account: req.body.account,
+                account: res.data.account._id,
                 tourism: req.body.tourism
             })
 
@@ -67,10 +62,22 @@ class ReviewController {
                 return res.json(responseJson(false, err))
             }
 
+            const totalVoteBefore = tourism.rate * tourism.votesNum
+
             await newReview.save()
+
+            const reviewsNum = await Review.countDocuments({tourism: tourism._id})
+            const avgVote = (totalVoteBefore + newReview.vote)/reviewsNum
+
+            await Tourism.updateOne({_id: tourism._id}, {
+                votesNum: reviewsNum,
+                rate: avgVote
+            })
+            
             return res.json(responseJson(true, newReview))
         }
         catch (err) {
+            console.log(err)
             return res.json(responseJson(false, err.errors))
         }
     }
@@ -78,12 +85,7 @@ class ReviewController {
     async createWithResort(req, res, next) {
         try {
             const newReview = new Review(req.body)
-
-            const account = await Account.findOne({ _id: req.body.account })
-            if (!account) {
-                const err = { account: { message: 'Account does not exist!' } }
-                return res.json(responseJson(false, err))
-            }
+            newReview.account = res.data.account._id
 
             const resort = await Resort.findOne({ _id: req.body.resort })
             if (!resort) {
@@ -92,7 +94,7 @@ class ReviewController {
             }
 
             const reviewWithResort = await Review.findOne({
-                account: req.body.account,
+                account: res.data.account._id,
                 resort: req.body.resort
             })
 
@@ -101,7 +103,18 @@ class ReviewController {
                 return res.json(responseJson(false, err))
             }
 
+            const totalVoteBefore = resort.rate * resort.votesNum
+
             await newReview.save()
+
+            const reviewsNum = await Review.countDocuments({resort: resort._id})
+            const avgVote = (totalVoteBefore + newReview.vote)/reviewsNum
+
+            await Resort.updateOne({_id: resort._id}, {
+                votesNum: reviewsNum,
+                rate: avgVote
+            })
+            
             return res.json(responseJson(true, newReview))
         }
         catch (err) {

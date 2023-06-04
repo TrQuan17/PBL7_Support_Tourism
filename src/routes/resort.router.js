@@ -7,6 +7,7 @@ const reviewController = require('../app/controllers/review.controller')
 const { verifyAccount, verifyManagerRole } = require('../app/middlewares/authorization.middleware')
 
 router.get('/:resortId/reviews', reviewController.getByResortId)
+router.get('/', resortController.getAll)
 router.post('/', verifyAccount, verifyManagerRole, resortController.create)
 router.put('/', verifyAccount, verifyManagerRole, resortController.update)
 router.delete('/', verifyAccount, verifyManagerRole, resortController.delete)

@@ -7,12 +7,7 @@ const { responseJson } = require('../../config/response')
 class FavouriteController {
     async getByAccountId(req, res, next) {
         try {
-            if (!req.params.accountId) {
-                const err = { 'accountId': { message: 'AccountId does not exist!' } }
-                return res.json(responseJson(false, err))
-            }
-
-            const favourites = await Favourite.find({ account: req.params.accountId })
+            const favourites = await Favourite.find({ account: res.data.account._id })
                 .populate({ path: 'tourism' })
 
             return res.json(responseJson(true, favourites))
@@ -25,12 +20,7 @@ class FavouriteController {
     async create(req, res, next) {
         try {
             var newFavourite = new Favourite(req.body)
-
-            var account = await Account.findOne({ _id: req.body.account })
-            if (!account) {
-                const err = { account: { message: 'Account does not exist!' } }
-                return res.json(responseJson(false, err)) 
-            }
+            newFavourite.account = res.data.account._id
 
             var tourism = await Tourism.findOne({ _id: req.body.tourism })
             if (!tourism) { 
@@ -39,7 +29,7 @@ class FavouriteController {
             }
 
             var favourite = await Favourite.findOne({
-                account: req.body.account,
+                account: res.data.account._id,
                 tourism: req.body.tourism
             })
             if (favourite) {
