@@ -16,7 +16,8 @@ export interface RegisterRequestModel {
 export interface AuthModel {
     fullname: string,
     avatar: string,
-    accessToken: string
+    accessToken: string,
+    expiresIn: number
 }
 
 export type AuthResponse = HttpResponse<AuthModel>

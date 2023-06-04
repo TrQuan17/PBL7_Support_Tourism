@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AuthModel } from 'src/app/auth/models/auth.model';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { Utils } from 'src/app/common/utils/utils';
 
 @Component({
     selector: 'app-header',
@@ -10,11 +12,8 @@ export class HeaderComponent {
     @Input() showSearchbox = true;
     @Output() searchEmitter = new EventEmitter<string>;
 
-    public account = {
-        fullname: '',
-        avatar: '',
-        token: ''
-    }
+    public account?: AuthModel;
+    public utils = Utils;
 
     constructor(private authService: AuthService) {}
 
@@ -23,10 +22,9 @@ export class HeaderComponent {
     }
 
     public isCurrentAccount(): boolean {
-        if(localStorage.getItem('account') !== null) {
-            this.account = JSON.parse(localStorage.getItem('account') as string)
-            
-            if(this.account.token) return true;
+        if(this.utils.isCurrentAccount()) {
+            this.account = this.utils.isCurrentAccount();
+            return true;
         }
 
         return false;

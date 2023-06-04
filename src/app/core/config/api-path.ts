@@ -4,7 +4,6 @@ import { ApiPathConfig } from "./api-path.config";
 export class ApiPath {
     public static TOURISM = env.API.concat(ApiPathConfig.pages.tourism);
     public static CATEGORY = env.API.concat(ApiPathConfig.common.category);
-    public static REVIEW = env.API.concat(ApiPathConfig.pages.review);
     public static RESORT = env.API.concat(ApiPathConfig.pages.resort);
     public static SERVICE = env.API.concat(ApiPathConfig.pages.service);
     public static FAVOURITE = env.API.concat(ApiPathConfig.pages.favourite);
@@ -15,5 +14,10 @@ export class ApiPath {
     public static REGISTER = env.API.concat(ApiPathConfig.auth.register);
     public static UPDATE_INFO = env.API.concat(ApiPathConfig.auth.update);
     public static CHANGE_PASS = env.API.concat(ApiPathConfig.auth.change_pass);
+
+    // Review
+    public static REVIEW = env.API.concat(ApiPathConfig.pages.review);
+    public static WRITE_REVIEW_TOURISM = env.API.concat(ApiPathConfig.pages.write_review_tourism);
+    public static WRITE_REVIEW_RESORT = env.API.concat(ApiPathConfig.pages.write_review_resort);
 
 }

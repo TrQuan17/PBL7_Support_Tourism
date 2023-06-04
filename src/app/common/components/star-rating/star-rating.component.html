@@ -1,4 +1,4 @@
-<form [formGroup]="voteForm" class="star-vote" *ngIf="!showVote">
+<form [formGroup]="voteForm" class="star-vote" *ngIf="showVote === -1; else show">
     <input type="radio" id="star5" formControlName="vote" value="5" />
     <label for="star5">5 stars</label>
     <input type="radio" id="star4" formControlName="vote" value="4" />
@@ -11,6 +11,10 @@
     <label for="star1">1 star</label>
 </form>
 
-<div class="show-vote" *ngIf="showVote">
-    <span>{{ showStarVote() }}</span>
-</div>
+<ng-template #show>
+    <div class="show-vote">
+        <span>{{ showStarVote().vote }}</span> &nbsp;
+        <span class="no-vote">{{showStarVote().noVote }}</span>
+    </div>
+
+</ng-template>

@@ -21,15 +21,14 @@ export class LoginRegisterComponent implements OnInit {
     public registerForm: FormGroup = new FormGroup({});
     public showPass = false;
     public isLogin = true;
+    public autoComplete = false;
 
     constructor(
         private fb: FormBuilder,
         private authService: AuthService,
         private router: Router,
         public snackbar: MatSnackBar
-    ) {
-
-    }
+    ) { }
 
     ngOnInit(): void {
         this.initLoginForm();
@@ -77,8 +76,8 @@ export class LoginRegisterComponent implements OnInit {
 
         this.authService.onLogin(account).subscribe(
             (res: AuthResponse) => {
-                let snackBarPanel = SnackBarPanelClass.errorClass;
-                let message = 'Đăng nhập thất bại!';
+                let snackBarPanel = null;
+                let message = '';
 
                 if (res.status === 'SUCCESS') {
                     localStorage.setItem('account', JSON.stringify(res.data as AuthModel));
@@ -87,6 +86,18 @@ export class LoginRegisterComponent implements OnInit {
                     snackBarPanel = SnackBarPanelClass.successClass;
 
                     this.router.navigate(['home'])
+                }
+                else {
+                    switch (Object.keys(res.data)[0]) {
+                        case 'account':
+                            message = 'Tên đăng nhập không tồn tại!';
+                            break;
+                        case 'password':
+                            message = 'Mật khẩu không chính xác!';
+                            break;
+                    }
+
+                    snackBarPanel = SnackBarPanelClass.errorClass;
                 }
 
                 SNACK_BAR_CONFIG.panelClass = snackBarPanel;
@@ -133,5 +144,4 @@ export class LoginRegisterComponent implements OnInit {
             }
         )
     }
-
 }

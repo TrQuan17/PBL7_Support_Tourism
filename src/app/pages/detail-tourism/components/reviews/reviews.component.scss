@@ -87,9 +87,27 @@
     }
 }
 
+.rating {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
 .rating .rates-num {
     height: 12px;
     border-radius: 6px;
+}
+
+.rating .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.rating .header .show-rate {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
 }
 
 .rating-statistics .text {

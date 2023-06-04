@@ -16,6 +16,9 @@
     width: 30vw;
     padding-right: 20px;
     border-right: 0.5px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 
     .card {
         padding: 20px;
@@ -54,7 +57,9 @@
     width: 100%;
 
     mat-hint {
+        width: 100%;
         font-size: 13px;
+        text-align: right;
     }
 
     &:focus {

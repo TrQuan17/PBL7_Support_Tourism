@@ -5,6 +5,7 @@
     .location {
         display: flex;
         align-items: center;
+        padding-top: 8px;
         gap: 6px;
 
         mat-icon {
@@ -19,7 +20,7 @@
     width: 50vw;
     display: flex;
     gap: 12px;
-    padding: 16px 0;
+    padding-bottom: 20px;
 }
 
 .content {
@@ -42,10 +43,20 @@
     }
 }
 
+.action {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
 .action-icon-btn {
     height: 40px;
     width: 40px;
     padding: 10px;
+    border: 1px solid var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     mat-icon {
         height: 20px;

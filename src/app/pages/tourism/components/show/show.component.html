@@ -11,42 +11,16 @@
 
     <h2>Địa điểm du lịch</h2>
 
-    <ng-container *ngIf="tourismResponse">
-        <div class="tourisms-vertical" *ngIf="categorySelect !== 'All'; else allTourism">
-            <h4>Chủ đề {{categorySelect}}</h4>
-            <mat-card class="tourism-card-horizontal" *ngFor="let tourism of tourismsList; let idx = index">
-                <div class="item-card">
-                    <img class="images-content" [src]="tourism.images[0]" alt="Photo of a Touirsm">
-                    <div class="content">
-                        <mat-card-header>
-                            <mat-card-title>
-                                <h5><a routerLink="{{tourism._id}}">
-                                        {{idx + 1}}. {{ tourism.name }}
-                                    </a></h5>
-                            </mat-card-title>
-                            <mat-card-subtitle>{{ tourism.title }}</mat-card-subtitle>
-                        </mat-card-header>
-                        <mat-card-actions>
-                            <button mat-icon-button class="action-icon-btn">
-                                <mat-icon svgIcon="icon-heart-unlike"></mat-icon>
-                            </button>
-                            <button mat-icon-button class="action-icon-btn">
-                                <mat-icon svgIcon="icon-share"></mat-icon>
-                            </button>
-                        </mat-card-actions>
-                    </div>
-                </div>
-            </mat-card>
-        </div>
-
-        <ng-template #allTourism>
-            <div class="tourisms-horizontal">
-                <mat-card class="tourism-card-vertical" *ngFor="let tourism of tourismsList">
-                    <img class="images-content" [src]="tourism.images[0]" alt="Photo of a Touirsm">
+    <ng-container class="tourisms-vertical">
+        <h4 *ngIf="categorySelect !== 'All'">Chủ đề {{categorySelect}}</h4>
+        <mat-card class="tourism-card-horizontal" *ngFor="let tourism of tourismsList; let idx = index">
+            <div class="item-card">
+                <img class="images-content" [src]="tourism.images[0]" alt="Photo of a Touirsm">
+                <div class="content">
                     <mat-card-header>
                         <mat-card-title>
                             <h5><a routerLink="{{tourism._id}}">
-                                    {{ tourism.name }}
+                                    {{idx + 1}}. {{ tourism.name }}
                                 </a></h5>
                         </mat-card-title>
                         <mat-card-subtitle>{{ tourism.title }}</mat-card-subtitle>
@@ -59,8 +33,8 @@
                             <mat-icon svgIcon="icon-share"></mat-icon>
                         </button>
                     </mat-card-actions>
-                </mat-card>
+                </div>
             </div>
-        </ng-template>
+        </mat-card>
     </ng-container>
 </div>

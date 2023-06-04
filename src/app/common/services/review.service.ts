@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ReviewResponse } from '../models';
+import { ReviewModel, ReviewResponse } from '../models';
 import { ApiPath } from 'src/app/core/config';
 
 @Injectable({
@@ -9,6 +9,8 @@ import { ApiPath } from 'src/app/core/config';
 })
 export class ReviewService {
     public apiReviewUrl = ApiPath.REVIEW;
+    public apiWriteReviewTourismUrl = ApiPath.WRITE_REVIEW_TOURISM;
+    public apiWriteReviewResortUrl = ApiPath.WRITE_REVIEW_RESORT;
     public apiTourismUrl = ApiPath.TOURISM;
 
     constructor(private http: HttpClient) { }
@@ -18,5 +20,13 @@ export class ReviewService {
         const url = `${this.apiTourismUrl}/${tourismId}/reviews`;
 
         return this.http.get<ReviewResponse>(url);
+    }
+
+    public createWithTourism(review: ReviewModel): Observable<ReviewResponse> {
+        return this.http.post<ReviewResponse>(this.apiWriteReviewTourismUrl, review);
+    }
+
+    public createWithResort(review: ReviewModel): Observable<ReviewResponse> {
+        return this.http.post<ReviewResponse>(this.apiWriteReviewResortUrl, review);
     }
 }

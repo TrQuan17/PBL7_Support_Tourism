@@ -3,10 +3,16 @@
         <div class="header">
             <div>
                 <h1>{{ tourism.name }}</h1>
+
                 <h6 class="location">
                     <mat-icon svgIcon="icon-location"></mat-icon>
                     <span>{{ tourism.address }}</span>
                 </h6>
+                
+                <div class="sub-header">
+                    <app-star-rating [showVote]="tourism.rate"></app-star-rating>
+                    <span>{{ tourism.votesNum }} đánh giá</span>
+                </div>
             </div>
             <div class="action">
                 <button mat-icon-button class="action-icon-btn">
@@ -17,11 +23,6 @@
                     <mat-icon svgIcon="icon-share"></mat-icon>
                 </button>
             </div>
-        </div>
-
-        <div class="sub-header">
-            <span>1234 reviews</span>
-            <span>Key word</span>
         </div>
 
         <div class="content">

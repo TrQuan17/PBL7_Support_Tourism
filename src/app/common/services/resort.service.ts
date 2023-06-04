@@ -13,6 +13,10 @@ export class ResortService {
 
     constructor(private http: HttpClient) { }
 
+    public getResortsAndSearch(): Observable<ResortResponse> {
+        return this.http.get<ResortResponse>(this.apiResortUrl);
+    }
+
     public getResortsByTourismId(tourismId: string | null): Observable<ResortResponse> {
         tourismId = tourismId ? tourismId : '';
         const url = `${this.apiTourismUrl}/${tourismId}/resorts`;

@@ -14,7 +14,8 @@
     <div class="app-review">
         <app-reviews 
             [reviewResponse]="reviewsTourism"
-            [tourismResponse]="tourism" ></app-reviews>
+            [tourismResponse]="tourism" 
+            (reviewEmitter)="writeReview($event)"></app-reviews>
     </div>
 
     <app-footer></app-footer>

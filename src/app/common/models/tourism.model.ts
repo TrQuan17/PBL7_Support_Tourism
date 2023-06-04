@@ -8,7 +8,10 @@ export interface TourismModel {
     images: string[],
     title: string,
     about: string,
-    category: CategoryModel | string
+    category: CategoryModel | string,
+    votesNum: number,
+    rate: number,
+
 }
 
 export type TourismResponse = HttpResponse<TourismModel>

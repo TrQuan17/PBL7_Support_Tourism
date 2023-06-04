@@ -12,12 +12,10 @@ const routes: Routes = [
     {
         path: 'tourism',
         component: TourismComponent,
-        children: [
-            {
-                path: ':tourismId',
-                component: DetailTourismComponent
-            }
-        ]
+    },
+    {
+        path: 'tourism/:tourismId',
+        component: DetailTourismComponent
     },
     {
         path: '**',

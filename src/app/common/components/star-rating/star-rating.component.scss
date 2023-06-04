@@ -16,7 +16,7 @@
     white-space: nowrap;
     cursor: pointer;
     font-size: 30px;
-    color: #ccc;
+    color: var(--primary-color-rgba);
 }
 
 .star-vote:not(:checked)>label:before {
@@ -24,12 +24,12 @@
 }
 
 .star-vote>input:checked~label {
-    color: rgba($color: var(--primary-color), $alpha: 0.12);
+    color: var(--primary-color);
 }
 
 .star-vote:not(:checked)>label:hover,
 .star-vote:not(:checked)>label:hover~label {
-    color: rgba($color: var(--primary-color), $alpha: 0.12);
+    color: var(--primary-color);
 }
 
 .star-vote>input:checked+label:hover,
@@ -37,9 +37,18 @@
 .star-vote>input:checked~label:hover,
 .star-vote>input:checked~label:hover~label,
 .star-vote>label:hover~input:checked~label {
-    color: rgba($color: var(--primary-color), $alpha: 0.12);
+    color: var(--primary-color);
 }
 
 .show-vote {
-    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+
+    span {
+        font-size: 18px;
+    }
+
+    .no-vote {
+        color: var(--primary-color-rgba);
+    }
 }

@@ -7,7 +7,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
     styleUrls: ['./star-rating.component.scss']
 })
 export class StarRatingComponent implements OnInit{
-    @Input() showVote = 0;
+    @Input() showVote = -1;
     @Output() voteEmitter = new EventEmitter<number>;
     
     public voteForm!: FormGroup;
@@ -34,12 +34,17 @@ export class StarRatingComponent implements OnInit{
         )
     }
 
-    public showStarVote(): string {
+    public showStarVote(): {vote: string, noVote: string} {
         let vote = '';
-        for(let i = 0; i < this.showVote; i++) {
+        let noVote = '';
+        for(let i = 0; i < Math.round(this.showVote); i++) {
             vote = vote + '⬤ '
         }
 
-        return vote;
+        for(let i = 0; i < 5 - Math.round(this.showVote); i++) {
+            noVote = noVote + '⬤ '
+        }
+
+        return {vote : vote, noVote: noVote};
     }
 }

@@ -1,0 +1,66 @@
+<div class="wrapper">
+    <div class="header">
+        <h3>Khu du lịch được đề xuất cho bạn</h3>
+        <button mat-flat-button routerLink="/tourism">Tất cả</button>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="list">
+        <mat-card class="item-card" *ngFor="let tourism of tourismsList; let idx = index">
+            <img class="images-content" [src]="tourism.images[0]" alt="Photo of a Touirsm">
+            <div class="content">
+                <mat-card-header>
+                    <mat-card-title>
+                        <h5 class="item-name"><a [routerLink]="'/tourism/' + tourism._id">
+                                {{idx + 1}}. {{ tourism.name }}
+                            </a></h5>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-subtitle>
+                    <app-star-rating [showVote]="tourism.rate"></app-star-rating>
+                    <span>{{tourism.votesNum}} đánh giá</span>
+                </mat-card-subtitle>
+                <mat-card-actions>
+                    <button mat-icon-button class="action-icon-btn">
+                        <mat-icon svgIcon="icon-heart-unlike"></mat-icon>
+                    </button>
+                    <button mat-icon-button class="action-icon-btn">
+                        <mat-icon svgIcon="icon-share"></mat-icon>
+                    </button>
+                </mat-card-actions>
+            </div>
+        </mat-card>
+    </div>
+    <mat-divider></mat-divider>
+
+    <div class="header">
+        <h3>Khu nghỉ dưỡng được đề xuất cho bạn</h3>
+        <button mat-flat-button>Tất cả</button>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="list">
+        <mat-card class="item-card" *ngFor="let resort of resortsList; let idx = index">
+            <img class="images-content" [src]="resort.images[0]" alt="Photo of a Resort">
+            <div class="content">
+                <mat-card-header>
+                    <mat-card-title>
+                        <h5 class="item-name"><a [routerLink]="'/resort/' + resort._id">
+                                {{idx + 1}}. {{ resort.name }}
+                            </a></h5>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-subtitle>
+                    <app-star-rating [showVote]="0"></app-star-rating>
+                </mat-card-subtitle>
+                <mat-card-actions>
+                    <button mat-icon-button class="action-icon-btn">
+                        <mat-icon svgIcon="icon-heart-unlike"></mat-icon>
+                    </button>
+                    <button mat-icon-button class="action-icon-btn">
+                        <mat-icon svgIcon="icon-share"></mat-icon>
+                    </button>
+                </mat-card-actions>
+            </div>
+        </mat-card>
+    </div>
+    <mat-divider></mat-divider>
+</div>

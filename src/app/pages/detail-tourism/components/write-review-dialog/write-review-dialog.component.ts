@@ -23,8 +23,8 @@ export class WriteReviewDialogComponent {
         this.reviewForm = this.formBuider.group({
             account: new FormControl(null),
             vote: new FormControl(null),
-            title: new FormControl(null),
-            text: new FormControl(null),
+            title: new FormControl(''),
+            text: new FormControl(''),
             images: new FormControl([]),
             time: new FormControl(null),
             tourism: new FormControl(this.dialogData?._id)

@@ -3,8 +3,12 @@ export const ApiPathConfig = {
         tourism: 'tourism',
         resort: 'resort',
         service: 'service',
+        favourite: 'favourite',
+
+        // Review
         review: 'review',
-        favourite: 'favourite'
+        write_review_tourism: 'review/write/tourism',
+        write_review_resort: 'review/write/resort',
     },
     common: {
         category: 'category'

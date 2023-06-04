@@ -40,15 +40,17 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     font-size: 16px;
+    color: var(--text-color);
 }
 
 // CSS variable
 
 * {
-    --text-color: #485764;
+    --text-color: #434343;
     --theme-bg: #F9FCFF;
     --border-color: #D6D6D6;
     --primary-color: #2e3e52;
+    --primary-color-rgba: rgba(46, 62, 82, 0.2);
     --input-bg: #F2F2F2;
     --error-color: #eb7575;
 
@@ -56,6 +58,16 @@ body {
     --btn-radius: 3px;
     --text-size: 16px;
     --padding-wrapper: 20px 90px;
+}
+
+// Anchors
+a {
+    color: var(--text-color);
+    
+    &:hover {
+        text-decoration: none;
+        color: var(--text-color);
+    }
 }
 
 // Mat button
