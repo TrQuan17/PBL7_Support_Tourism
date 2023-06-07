@@ -15,6 +15,7 @@ export const ApiPathConfig = {
     }, 
     auth: {
         account: 'account',
+        auth_account: 'account/me',
         login: 'account/login',
         register: 'account/register',
         update: 'account/update/info',

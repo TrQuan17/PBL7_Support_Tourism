@@ -9,6 +9,7 @@ export interface AccountModel {
     address: string,
     email: string,
     phone: string,
+    birthday: Date,
     role: string
 }
 

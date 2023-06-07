@@ -30,5 +30,13 @@ export class IconService {
         this.iconRegistry.addSvgIcon('icon-user', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/user-solid.svg'));
         this.iconRegistry.addSvgIcon('icon-show-pass', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/eye-solid.svg'));
         this.iconRegistry.addSvgIcon('icon-hidden-pass', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/eye-slash-solid.svg'));
+        this.iconRegistry.addSvgIcon('icon-menu-bars', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/bars-solid.svg'));
+        this.iconRegistry.addSvgIcon('icon-logout', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/right-from-bracket-solid.svg'));
+        this.iconRegistry.addSvgIcon('icon-page', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/pager-solid.svg'));
+        this.iconRegistry.addSvgIcon('icon-home', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/house-solid.svg'));
+        this.iconRegistry.addSvgIcon('icon-birthday', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/cake-candles-solid.svg'));
+        this.iconRegistry.addSvgIcon('icon-email', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/envelope-solid.svg'));
+        this.iconRegistry.addSvgIcon('icon-phone', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/phone-solid.svg'));
+        this.iconRegistry.addSvgIcon('icon-upload-file', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/upload-solid.svg'));
     }
 }

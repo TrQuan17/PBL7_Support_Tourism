@@ -7,16 +7,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../material/material.module';
 import { LoadingSpinnerDialogComponent } from './components/loading-spinner-dialog/loading-spinner-dialog.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 const LayoutComponents = [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    LoadingSpinnerDialogComponent,
+    SidebarComponent
 ]
 
 @NgModule({
     declarations: [
-        ...LayoutComponents,
-        LoadingSpinnerDialogComponent
+        ...LayoutComponents
     ],
     imports: [
         CommonModule,

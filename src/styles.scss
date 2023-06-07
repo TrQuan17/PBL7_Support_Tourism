@@ -57,13 +57,13 @@ body {
     --border-radius: 3px;
     --btn-radius: 3px;
     --text-size: 16px;
-    --padding-wrapper: 20px 90px;
+    --padding-wrapper: 20px 110px;
 }
 
 // Anchors
 a {
     color: var(--text-color);
-    
+
     &:hover {
         text-decoration: none;
         color: var(--text-color);
@@ -127,8 +127,16 @@ button:focus {
 
 mat-snack-bar-container:not(.error-snackbar) {
     --mdc-snackbar-container-color: #4392bb !important;
-} 
+}
 
 mat-snack-bar-container:not(.success-snackbar) {
     --mdc-snackbar-container-color: var(--error-color) !important;
-} 
+}
+
+// Mat icon
+mat-icon {
+    padding: 0;
+    max-height: 20px;
+    max-width: 20px;
+    color: var(--primary-color);
+}

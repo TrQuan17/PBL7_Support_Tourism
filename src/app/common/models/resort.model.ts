@@ -12,7 +12,9 @@ export interface ResortModel {
     address: string,
     reservationLimit: number,
     reservations: AccountModel[] | string[],
-    phone: string
+    phone: string,
+    rate: number,
+    votesNum: number
 }
 
 export type ResortResponse = HttpResponse<ResortModel>

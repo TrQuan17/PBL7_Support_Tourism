@@ -1,0 +1,41 @@
+<app-header></app-header>
+
+<div class="wrapper">
+    <div class="info-image">
+        <img class="background-info" src="assets\images\background-search-home.jpg" alt="" srcset="">
+        <div class="user">
+            <img class="avatar" [src]="account?.avatar" alt="">
+            <h3>{{ account?.fullname }}</h3>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="info-text">
+            <h3>Giới thiệu</h3>
+            <span>
+                <mat-icon svgIcon="icon-home"></mat-icon>
+                Sống tại {{ account?.address }}
+            </span>
+
+            <span>
+                <mat-icon svgIcon="icon-birthday"></mat-icon>
+                Sinh ngày {{ account?.birthday | date: 'dd/MM/yyyy' }}
+            </span>
+
+            <span>
+                <mat-icon svgIcon="icon-email"></mat-icon>
+                {{ account?.email }}
+            </span>
+
+            <span>
+                <mat-icon svgIcon="icon-phone"></mat-icon>
+                {{ account?.phone }}
+            </span>
+        </div>
+        <div class="timeline">
+            <app-timeline [guestResponse]="accountResponse"></app-timeline>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>

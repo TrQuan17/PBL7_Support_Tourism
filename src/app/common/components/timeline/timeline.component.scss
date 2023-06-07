@@ -1,0 +1,82 @@
+button {
+    height: 100%;
+}
+
+
+.write {
+    padding: 30px 0;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    min-width: 100%;
+}
+
+.write .avatar {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.write .send-btn {
+    background-color: var(--primary-color);
+    color: white;
+    height: 39px;
+
+    mat-icon {
+        color: inherit;
+    }
+}
+
+.write .write-post {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 80%;
+}
+
+.write-post .text {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.write-post .upload-file-btn {
+    box-sizing: border-box;
+    height: 40px;
+    width: 120px;
+    border: none;
+    background-color: white;
+    border-radius: 20px;
+    border: 2px solid var(--primary-color);
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    align-items: center;
+
+    mat-icon {
+        padding: 0;
+        height: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+::ng-deep .text mat-form-field {
+    .mat-mdc-form-field-infix {
+        min-height: 0;
+    }
+
+    .mat-mdc-form-field-subscript-wrapper {
+        height: 8px;
+    }
+
+    .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+}
+
+.timeline {
+    padding-top: 30px;
+}

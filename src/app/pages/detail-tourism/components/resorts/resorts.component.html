@@ -1,8 +1,7 @@
 <h3>Khu nghỉ dưỡng</h3>
 
 <div class="resorts">
-    <mat-card class="resort-card-horizontal" *ngFor="let resort of resortsList; let idx = index">
-        <div class="item-card">
+    <mat-card class="item-card" *ngFor="let resort of resortsList; let idx = index">
             <img class="images-content" [src]="resort.images[0]" alt="Photo of a Resort">
             <div class="content">
                 <mat-card-header>
@@ -12,6 +11,9 @@
                             </a></h5>
                     </mat-card-title>
                 </mat-card-header>
+                <mat-card-subtitle>
+                    <app-star-rating [showVote]="resort.rate"></app-star-rating>
+                </mat-card-subtitle>
                 <mat-card-actions>
                     <button mat-icon-button class="action-icon-btn">
                         <mat-icon svgIcon="icon-heart-unlike"></mat-icon>
@@ -21,6 +23,5 @@
                     </button>
                 </mat-card-actions>
             </div>
-        </div>
     </mat-card>
 </div>

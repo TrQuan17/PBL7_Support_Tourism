@@ -1,7 +1,16 @@
-.resort-card-horizontal {
+.resorts .item-card {
     width: 250px;
 
     img {
         width: 100%;
+    }
+
+    mat-card-subtitle {
+        padding: 0 16px;
+        font-size: 14px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
     }
 }

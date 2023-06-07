@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { TourismComponent } from './tourism/tourism.component';
 import { DetailTourismComponent } from './detail-tourism/detail-tourism.component';
 import { HomeComponent } from './home/home.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
     {
@@ -16,6 +17,10 @@ const routes: Routes = [
     {
         path: 'tourism/:tourismId',
         component: DetailTourismComponent
+    },
+    {
+        path: 'account/:accountId',
+        component: ProfileComponent
     },
     {
         path: '**',

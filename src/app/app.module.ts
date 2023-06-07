@@ -11,6 +11,7 @@ import { LayoutModule } from './layout/layout.module';
 import { PagesModule } from './pages/pages.module';
 import { AuthModule } from './auth/auth.module';
 import { JsonTokenWebInterceptor } from './core/interceptor/jwt';
+import { ManagesModule } from './manages/manages.module';
 
 @NgModule({
     declarations: [
@@ -19,6 +20,7 @@ import { JsonTokenWebInterceptor } from './core/interceptor/jwt';
     imports: [
         BrowserModule,
         AuthModule,
+        ManagesModule,
         PagesModule,
         AppRoutingModule,
         HttpClientModule,

@@ -5,6 +5,7 @@ import { CommonAppModule } from '../common/common.module';
 import { TourismModule } from './tourism/tourism.module';
 import { DetailTourismModule } from './detail-tourism/detail-tourism.module';
 import { HomeModule } from './home/home.module';
+import { ProfileModule } from './profile/profile.module';
 
 @NgModule({
     declarations: [],
@@ -15,7 +16,8 @@ import { HomeModule } from './home/home.module';
 
         HomeModule,
         TourismModule,
-        DetailTourismModule
+        DetailTourismModule,
+        ProfileModule
 
     ]
 })

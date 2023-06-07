@@ -6,16 +6,18 @@ import { MaterialModule } from '../material/material.module';
 import { RouterModule } from '@angular/router';
 import { StarRatingComponent } from './components/star-rating/star-rating.component';
 import { RequiresLoginDialogComponent } from './components/requires-login-dialog/requires-login-dialog.component';
+import { TimelineComponent } from './components/timeline/timeline.component';
 
 const CommonComponents = [
     SearchComponent,
-    StarRatingComponent
+    StarRatingComponent,
+    RequiresLoginDialogComponent,
+    TimelineComponent
 ]
 
 @NgModule({
     declarations: [
-        ...CommonComponents,
-        RequiresLoginDialogComponent
+        ...CommonComponents
     ],
     imports: [
         CommonModule,
