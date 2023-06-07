@@ -75,6 +75,26 @@ class AccountController {
         }
     }
 
+    myAccount(req, res, next) {
+        const { account } = res.data
+        return res.json(responseJson(true, account))
+    }
+
+    async getById(req, res, next) {
+        try {
+            const account = await Account.findOne({ _id: req.params.accountId })
+            if(!account) {
+                const err = { account: { message: 'Account does not exist!' } }
+                return res.json(responseJson(false, err))
+            }   
+
+            return res.json(responseJson(true, account))
+        }
+        catch(err) {
+            return res.json(responseJson(false, err.errors))
+        }
+    }
+
     async update(req, res, next) {
         try {
             const account = res.data.account

@@ -58,6 +58,9 @@ const AccountSchema = new Schema({
         type: String,
         validate: phoneValidate
     },
+    birthday: {
+        type: Schema.Types.Date
+    },
     role: {
         type: String,
         required: [true, 'Role is required!']

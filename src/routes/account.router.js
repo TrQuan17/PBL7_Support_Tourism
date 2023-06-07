@@ -6,6 +6,8 @@ const favouriteController = require('../app/controllers/favourite.controller')
 
 const { verifyAccount } = require('../app/middlewares/authorization.middleware')
 
+router.get('/me', verifyAccount, accountController.myAccount)
+router.get('/:accountId', accountController.getById)
 router.get('/:accountId/favourites', verifyAccount, favouriteController.getByAccountId)
 router.post('/register', accountController.register)
 router.post('/login', accountController.login)
