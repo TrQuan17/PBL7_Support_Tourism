@@ -2,6 +2,10 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const TourismSchema = new Schema({
+    account: {
+        type: Schema.Types.ObjectId,
+        required: [true, 'Creater is required!']
+    },
     name: {
         type: String,
         required: [true, 'Tourism name is required!']

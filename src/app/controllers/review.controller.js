@@ -4,6 +4,7 @@ const Resort = require('../models/resort.model')
 const Account = require('../models/account.model')
 
 const { responseJson } = require('../../config/response')
+const { uploadMultiImagesCloud } = require('../../utils/uploadImages.util')
 
 class ReviewController {
     async getByTourismId(req, res, next) {
@@ -14,7 +15,7 @@ class ReviewController {
             }
 
             const reviews = await Review.find({ tourism: req.params.tourismId })
-                .populate({ path: 'account', select: 'fullname avatar createdAt'})
+                .populate({ path: 'account', select: 'fullname avatar createdAt' })
 
             return res.json(responseJson(true, reviews))
         }
@@ -32,7 +33,7 @@ class ReviewController {
             }
 
             const reviews = await Review.find({ resort: req.params.resortId })
-                .populate({ auth: 'account' , select: 'fullname avatar createdAt'})
+                .populate({ auth: 'account', select: 'fullname avatar createdAt' })
 
             return res.json(responseJson(true, reviews))
         }
@@ -57,27 +58,33 @@ class ReviewController {
                 tourism: req.body.tourism
             })
 
-            if(reviewWithTourism) {
+            if (reviewWithTourism) {
                 const err = { review: { message: 'Review with tourism already exist!' } }
                 return res.json(responseJson(false, err))
             }
 
-            const totalVoteBefore = tourism.rate * tourism.votesNum
+            var imagesUpload = req.files
+
+            if (imagesUpload) {
+                const urlImages = imagesUpload.map(value => value.path)
+                req.body.images = uploadMultiImagesCloud(urlImages);
+            }
 
             await newReview.save()
 
-            const reviewsNum = await Review.countDocuments({tourism: tourism._id})
-            const avgVote = (totalVoteBefore + newReview.vote)/reviewsNum
+            const totalVoteBefore = tourism.rate * tourism.votesNum
 
-            await Tourism.updateOne({_id: tourism._id}, {
+            const reviewsNum = await Review.countDocuments({ tourism: tourism._id })
+            const avgVote = (totalVoteBefore + newReview.vote) / reviewsNum
+
+            await Tourism.updateOne({ _id: tourism._id }, {
                 votesNum: reviewsNum,
                 rate: avgVote
             })
-            
+
             return res.json(responseJson(true, newReview))
         }
         catch (err) {
-            console.log(err)
             return res.json(responseJson(false, err.errors))
         }
     }
@@ -98,7 +105,7 @@ class ReviewController {
                 resort: req.body.resort
             })
 
-            if(reviewWithResort) {
+            if (reviewWithResort) {
                 const err = { review: { message: 'Review with resort already exist!' } }
                 return res.json(responseJson(false, err))
             }
@@ -107,14 +114,14 @@ class ReviewController {
 
             await newReview.save()
 
-            const reviewsNum = await Review.countDocuments({resort: resort._id})
-            const avgVote = (totalVoteBefore + newReview.vote)/reviewsNum
+            const reviewsNum = await Review.countDocuments({ resort: resort._id })
+            const avgVote = (totalVoteBefore + newReview.vote) / reviewsNum
 
-            await Resort.updateOne({_id: resort._id}, {
+            await Resort.updateOne({ _id: resort._id }, {
                 votesNum: reviewsNum,
                 rate: avgVote
             })
-            
+
             return res.json(responseJson(true, newReview))
         }
         catch (err) {

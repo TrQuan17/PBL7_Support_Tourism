@@ -3,12 +3,21 @@ const router = express.Router()
 
 const accountController = require('../app/controllers/account.controller')
 const favouriteController = require('../app/controllers/favourite.controller')
+const tourismController = require('../app/controllers/tourism.controller')
+const resortController = require('../app/controllers/resort.controller')
+const serviceController = require('../app/controllers/service.controller')
 
-const { verifyAccount } = require('../app/middlewares/authorization.middleware')
+const { verifyAccount, verifyManagerRole } = require('../app/middlewares/authorization.middleware')
 
 router.get('/me', verifyAccount, accountController.myAccount)
+
+router.get('/tourisms', verifyAccount, verifyManagerRole, tourismController.getByAccountId)
+router.get('/resorts', verifyAccount, verifyManagerRole, resortController.getByAccountId)
+router.get('/services', verifyAccount, verifyManagerRole, serviceController.getByAccountId)
+
 router.get('/:accountId', accountController.getById)
 router.get('/:accountId/favourites', verifyAccount, favouriteController.getByAccountId)
+
 router.post('/register', accountController.register)
 router.post('/login', accountController.login)
 router.patch('/update/info', verifyAccount, accountController.update)

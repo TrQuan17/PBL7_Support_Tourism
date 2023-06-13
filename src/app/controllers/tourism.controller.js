@@ -31,6 +31,20 @@ class TourismController {
         }
     }
 
+    async getByAccountId(req, res, next) {
+        try {
+            const accountId = res.data.account._id
+
+            const tourisms = await Tourism.find({ account: accountId })
+            
+            return res.json(responseJson(true, tourisms))
+        }
+        catch(err) {
+            console.log(err)
+            return res.json(responseJson(false, err.errors))
+        }
+    }
+
     async getById(req, res, next) {
         try {
             if(!req.params.tourismId) {
@@ -49,7 +63,9 @@ class TourismController {
 
     async create(req, res, next) {
         try {
-            var newTourism = new Tourism(req.body)
+            const newTourism = new Tourism(req.body)
+
+            newTourism.account = res.data.account._id
 
             var category = await Category.findOne({ _id: req.body.category })
             if(!category) { 
@@ -69,12 +85,12 @@ class TourismController {
 
     async update(req, res, next) {
         try {
-            if (!req.body.id) { 
+            if (!req.body._id) { 
                 const err = { id: { message: 'TourismId does not exist!' } }
                 return res.json(responseJson(false, err))
             }
 
-            const tourism = await Tourism.findOne({ _id: req.body.id })
+            const tourism = await Tourism.findOne({ _id: req.body._id })
             if (!tourism) { 
                 const err = { tourism: { message: 'Tourism does not exist!' } }
                 return res.json(responseJson(false, err))
@@ -88,7 +104,7 @@ class TourismController {
                 }
             }
 
-            await Tourism.updateOne({ _id: req.body.id }, req.body)
+            await Tourism.updateOne({ _id: req.body._id }, req.body)
 
             return res.json(responseJson(true, req.body))
         }
@@ -99,12 +115,12 @@ class TourismController {
 
     async delete(req, res, next) {
         try {
-            if (!req.body.id) { 
+            if (!req.body._id) { 
                 const err = { 'id': { message: 'TourismId does not exist!' } }
                 return res.json(responseJson(false, err))
             }
 
-            var tourism = await Tourism.findOneAndDelete({ _id: req.body.id })
+            var tourism = await Tourism.findOneAndDelete({ _id: req.body._id })
             if (!tourism) { 
                 const err = { 'Tourism': { message: 'Tourism does not exist!' } }
                 return res.json(responseJson(false, err))

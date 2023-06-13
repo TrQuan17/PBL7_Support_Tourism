@@ -1,6 +1,8 @@
 const Service = require('../models/service.model')
 const Resort = require('../models/resort.model')
 
+const { responseJson } = require('../../config/response')
+
 class ServiceController {
     async getByResortId(req, res, next) {
         try {
@@ -18,9 +20,25 @@ class ServiceController {
         }
     }
 
+    async getByAccountId(req, res, next) {
+        try {
+            const accountId = res.data.account._id
+
+            const services = await Service.find({ account: accountId })
+                .populate({ path: 'resort', select: 'name' })
+
+            return res.json(responseJson(true, services))
+        }
+        catch(err) {
+            return res.json(responseJson(false, err.errors))
+        }
+    }
+
     async create(req, res, next) {
         try {
             const newService = new Service(req.body)
+
+            newService.account = res.data.account._id
 
             const resort = await Resort.findOne({ _id: req.body.resort })
             if(!resort) {
@@ -38,12 +56,12 @@ class ServiceController {
 
     async update(req, res, next) {
         try {
-            if(!req.body.id) {
+            if(!req.body._id) {
                 const err = { id: { message: 'ServiceId does not exist!' } }
                 return res.json(responseJson(false, err))
             }
 
-            const service = await Service.findOne({ _id: req.body.id })
+            const service = await Service.findOne({ _id: req.body._id })
             if(!service) {
                 const err = { service: { message: 'Service does not exist!' } }
                 return res.json(responseJson(false, err))
@@ -55,7 +73,7 @@ class ServiceController {
                 return res.json(responseJson(false, err))
             }
 
-            await Service.updateOne({ _id: req.body.id }, req.body)
+            await Service.updateOne({ _id: req.body._id }, req.body)
 
             return res.json(responseJson(true, req.body))
         }
@@ -66,12 +84,12 @@ class ServiceController {
 
     async delete(req, res, next) {
         try {
-            if(!req.body.id) {
+            if(!req.body._id) {
                 const err = { id: { message: 'ServiceId does not exist!' } }
                 return res.json(responseJson(false, err))
             }
 
-            const service = await Service.findOneAndDelete({ _id: req.body.id })
+            const service = await Service.findOneAndDelete({ _id: req.body._id })
             if(!service) {
                 const err = { service: { message: 'Service does not exist!' } }
                 return res.json(responseJson(false, err))

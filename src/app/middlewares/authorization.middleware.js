@@ -16,7 +16,7 @@ const verifyAccount = async (req, res, next) => {
 
         res.data = { account }
 
-        next()
+        return next()
     }
     catch (err) {
         console.log(err)
@@ -27,7 +27,7 @@ const verifyAccount = async (req, res, next) => {
 const verifyAdminRole = async (req, res, next) => {
     const account = res.data.account
 
-    if(account.role === 'admin') next()
+    if(account.role === 'admin') return next()
 
     const err = { permission: { message: 'Denied access!' } }
     return res.json(responseJson(false, err))
@@ -36,7 +36,7 @@ const verifyAdminRole = async (req, res, next) => {
 const verifyManagerRole = async (req, res, next) => {
     const account = res.data.account
 
-    if(account.role === 'manager' || account.role === 'admin') next()
+    if(account.role === 'manager' || account.role === 'admin') return next()
 
     const err = { permission: { message: 'Denied access!' } }
     return res.json(responseJson(false, err))

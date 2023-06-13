@@ -9,15 +9,19 @@ const phoneValidate = {
 }
 
 const ResortSchema = new Schema({
+    account: {
+        type: Schema.Types.ObjectId,
+        required: [true, 'Creater is required!']
+    },
     name: {
         type: String,
         required: [true, 'Resort name is required!']
     },
     images: [{
-	type: String
+        type: String
     }],
     about: {
-	type: String
+        type: String
     },
     tourism: {
         type: Schema.Types.ObjectId,
