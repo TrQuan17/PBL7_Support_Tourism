@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import {  ResortResponse, ReviewModel, ReviewResponse, SnackBarPanelClass, TourismResponse } from 'src/app/common/models';
+import {  ResortResponse, ReviewResponse, SnackBarPanelClass, TourismResponse } from 'src/app/common/models';
 import { ResortService, ReviewService, TourismService } from 'src/app/common/services';
 
 const SNACK_BAR_CONFIG = new MatSnackBarConfig();
@@ -61,17 +60,8 @@ export class DetailTourismComponent implements OnInit {
         )
     }
 
-    public writeReview(data: FormGroup): void {
-        const review: ReviewModel = {
-            vote: data.get('vote')?.value,
-            title: data.get('title')?.value,
-            text:  data.get('text')?.value,
-            images: [],
-            time:  data.get('time')?.value,
-            tourism:  data.get('tourism')?.value
-        }
-
-        this.reviewService.createWithTourism(review).subscribe(
+    public writeReview(data: FormData): void {
+        this.reviewService.createWithTourism(data).subscribe(
             (res: ReviewResponse) => {
                 let snackBarPanel = SnackBarPanelClass.errorClass;
                 let message = 'Bạn không thể bình luận cho địa điểm này!';
@@ -87,6 +77,5 @@ export class DetailTourismComponent implements OnInit {
                 this.snackbar.open(message, undefined, SNACK_BAR_CONFIG);
             }
         )
-        console.log(data);
     }
 }

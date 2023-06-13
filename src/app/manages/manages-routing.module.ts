@@ -3,6 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthProfileComponent } from './components/auth-profile/auth-profile.component';
 import { ManagesComponent } from './manages.component';
 import { AuthGuard } from '../core/gaurds/auth.guard';
+import { ManageTourismComponent } from './components/manage-tourism/manage-tourism.component';
+import { ManageResortComponent } from './components/manage-resort/manage-resort.component';
+import { ManageServiceComponent } from './components/manage-service/manage-service.component';
 
 const routes: Routes = [
     {
@@ -12,6 +15,21 @@ const routes: Routes = [
                 component: AuthProfileComponent, 
                 canActivate: [AuthGuard] 
             },
+            {
+                path: 'manage/tourism',
+                component: ManageTourismComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'manage/resort',
+                component: ManageResortComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'manage/service',
+                component: ManageServiceComponent,
+                canActivate: [AuthGuard]
+            }
         ]
     }
 ]

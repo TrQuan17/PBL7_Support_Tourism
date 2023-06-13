@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TourismModel } from 'src/app/common/models';
 
@@ -10,6 +11,7 @@ import { TourismModel } from 'src/app/common/models';
 })
 export class WriteReviewDialogComponent {
     public reviewForm!: FormGroup;
+    public imagesFile: File[] = [];
 
     constructor(
         private formBuider: FormBuilder,
@@ -21,21 +23,37 @@ export class WriteReviewDialogComponent {
 
     public createFormGroup(): void {
         this.reviewForm = this.formBuider.group({
-            account: new FormControl(null),
             vote: new FormControl(null),
-            title: new FormControl(''),
-            text: new FormControl(''),
+            title: new FormControl('', { validators: Validators.required }),
+            text: new FormControl('', { validators: Validators.required }),
             images: new FormControl([]),
-            time: new FormControl(null),
+            time: new FormControl(null, { validators: Validators.required }),
             tourism: new FormControl(this.dialogData?._id)
         });
     }
 
     public voteTourim(vote: number): void {
-       this.reviewForm.get('vote')?.setValue(vote);
+        this.reviewForm.get('vote')?.setValue(vote);
+    }
+
+    public onFileChange(event: any): void {
+        if (event.target.files && event.target.files.length > 0) {
+            this.imagesFile = Array.from(event.target.files);
+          }
     }
 
     public writeReview(): void {
-        this.dialogRef.close(this.reviewForm);
+        const formData = new FormData();
+
+        const fields = ['vote', 'title', 'text', 'time', 'tourism']
+        fields.forEach(element => {
+            formData.append(element, this.reviewForm.get(element)?.value);
+        })
+
+        this.imagesFile.forEach((element: File) => {
+            formData.append('images', element);
+        })
+        
+        this.dialogRef.close(formData);
     }
 }

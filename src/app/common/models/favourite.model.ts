@@ -3,7 +3,7 @@ import { AccountModel } from "./account.model";
 import { TourismModel } from "./tourism.model";
 
 export interface FavouriteModel {
-    _id: string,
+    _id?: string,
     account: AccountModel | string,
     tourism: TourismModel | string
 }

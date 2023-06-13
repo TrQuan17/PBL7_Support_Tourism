@@ -5,10 +5,9 @@
 }
 
 .contribute .write-review {
-    --mdc-outlined-button-outline-color: var(--primary-color);
-    --mdc-outlined-button-label-text-color: var(--primary-color);
-    --mat-mdc-button-persistent-ripple-color: var(--primary-color);
-
+    --mdc-filled-button-container-color: var(--primary-color);
+    --mdc-filled-button-label-text-color: white;
+    
     height: 40px;
     width: 200px;
     display: flex;
@@ -16,14 +15,10 @@
     align-items: center;
 
     mat-icon {
-        height: 50vh;
+        color: white;
     }
 
-    &:focus {
-        outline: none;
-        background-color: var(--primary-color);
-        --mdc-outlined-button-label-text-color: white;
-    }
+
 }
 
 .show-reviews {

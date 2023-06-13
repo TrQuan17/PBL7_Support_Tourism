@@ -19,6 +19,9 @@ export const ApiPathConfig = {
         login: 'account/login',
         register: 'account/register',
         update: 'account/update/info',
-        change_pass: 'account/update/password'
+        change_pass: 'account/update/password',
+        tourism_by_account: 'account/tourisms',
+        resort_by_account: 'account/resorts',
+        service_by_account: 'account/services'
     }
 }

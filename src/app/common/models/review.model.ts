@@ -9,7 +9,7 @@ export interface ReviewModel {
     vote: number,
     title: string,
     text: string,
-    images: string[],
+    images: File[],
     time: Date,
     like?: string[],
     dislike?: string[],

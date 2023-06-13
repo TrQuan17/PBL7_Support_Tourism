@@ -1,22 +1,18 @@
+<app-header></app-header>
 <div class="wrapper">
-    <app-header></app-header>
-
     <div class="app-tourism">
         <app-detail [tourismResponse]="tourism"></app-detail>
     </div>
     <mat-divider></mat-divider>
 
     <div class="app-resort">
-        <app-resorts [resortResponse]="resortsTourism" ></app-resorts>
+        <app-resorts [resortResponse]="resortsTourism"></app-resorts>
     </div>
     <mat-divider></mat-divider>
 
     <div class="app-review">
-        <app-reviews 
-            [reviewResponse]="reviewsTourism"
-            [tourismResponse]="tourism" 
+        <app-reviews [reviewResponse]="reviewsTourism" [tourismResponse]="tourism"
             (reviewEmitter)="writeReview($event)"></app-reviews>
     </div>
-
-    <app-footer></app-footer>
 </div>
+<app-footer></app-footer>

@@ -91,6 +91,12 @@ button:focus {
     }
 }
 
+// Mat flat button disable
+.mat-mdc-unelevated-button[disabled][disabled] {
+    --mdc-filled-button-disabled-container-color: rgba(46, 62, 82, 0.6);
+    --mdc-filled-button-disabled-label-text-color: white;
+}
+
 .mat-mdc-button,
 .mat-mdc-icon-button {
     &:focus {
@@ -136,7 +142,5 @@ mat-snack-bar-container:not(.success-snackbar) {
 // Mat icon
 mat-icon {
     padding: 0;
-    max-height: 20px;
-    max-width: 20px;
     color: var(--primary-color);
 }

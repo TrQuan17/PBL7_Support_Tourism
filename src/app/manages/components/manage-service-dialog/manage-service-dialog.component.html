@@ -1,0 +1,61 @@
+<div class="wrapper">
+    <div class="header">
+        <h4 *ngIf="dialogData">Cập nhật dịch vụ khu nghỉ dưỡng</h4>
+        <h4 *ngIf="!dialogData">Thêm dịch vụ khu nghỉ dưỡng</h4>
+        <mat-icon svgIcon="icon-close" matDialogClose></mat-icon>
+    </div>
+
+
+
+    <form [formGroup]="serviceForm" class="tourism-form">
+        <mat-divider></mat-divider>
+        <div class="name">
+            <h5>Tên dịch vụ</h5>
+            <mat-form-field appearance="outline">
+                <input matInput formControlName="name" type="text">
+            </mat-form-field>
+
+        </div>
+
+        <div class="about">
+            <h5>Giới thiệu chung</h5>
+            <mat-form-field appearance="outline">
+                <textarea formControlName="about" matInput rows="4"></textarea>
+                <mat-hint>{{ serviceForm.get('about')?.value?.length }}/1000 ký tự tối đa</mat-hint>
+            </mat-form-field>
+        </div>
+
+        <div class="name">
+            <h5>Giá dịch vụ</h5>
+            <mat-form-field appearance="outline">
+                <input matInput formControlName="price" type="number">
+            </mat-form-field>
+
+        </div>
+
+        <div class="category">
+            <h5>Lựu chọn khu nghỉ dưỡng</h5>
+            <mat-form-field appearance="outline">
+                <mat-select formControlName="resort">
+                    <mat-option *ngFor="let resort of resortsList" [value]="resort._id">
+                        {{ resort.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="images">
+            <h5>Thêm một số bức ảnh</h5>
+            <button class="upload-file-btn" (click)="fileInput.click()">
+                <mat-icon class="custom" svgIcon="icon-upload-file"></mat-icon>
+                <span>Ảnh ... </span>
+            </button>
+            <input #fileInput formControlName="images" type="file" (change)="onFileChange($event)" multiple hidden>
+        </div>
+
+        <button mat-flat-button class="save-btn" (click)="saveService()" [disabled]="serviceForm.invalid">
+            <mat-icon svgIcon="icon-save"></mat-icon>
+            <span>Lưu</span>
+        </button>
+    </form>
+</div>

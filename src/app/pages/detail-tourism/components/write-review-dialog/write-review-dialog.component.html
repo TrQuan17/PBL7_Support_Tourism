@@ -46,9 +46,15 @@
 
         <div class="images">
             <h5>Thêm một số bức ảnh</h5>
+            <button class="upload-file-btn" (click)="fileInput.click()">
+                <mat-icon class="custom" svgIcon="icon-upload-file"></mat-icon>
+                <span>Nhấn vào để thêm ảnh</span>
+            </button>
+            <input #fileInput formControlName="images" type="file" 
+                (change)="onFileChange($event)" multiple hidden>
         </div>
 
-        <button mat-stroked-button class="send-btn" (click)="writeReview()">
+        <button mat-flat-button class="send-btn" (click)="writeReview()" [disabled]="reviewForm.invalid">
             <mat-icon svgIcon="icon-send"></mat-icon>
             <span>Gửi đánh giá</span>
         </button>

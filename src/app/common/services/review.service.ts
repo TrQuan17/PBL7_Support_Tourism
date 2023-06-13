@@ -22,7 +22,7 @@ export class ReviewService {
         return this.http.get<ReviewResponse>(url);
     }
 
-    public createWithTourism(review: ReviewModel): Observable<ReviewResponse> {
+    public createWithTourism(review: FormData): Observable<ReviewResponse> {
         return this.http.post<ReviewResponse>(this.apiWriteReviewTourismUrl, review);
     }
 

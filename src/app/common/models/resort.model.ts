@@ -3,18 +3,19 @@ import { AccountModel } from "./account.model";
 import { TourismModel } from "./tourism.model";
 
 export interface ResortModel {
-    _id: string, 
+    _id?: string, 
+    account?: string,
     name: string,
+    address: string,
     images: string[],
     about: string,
     tourism: TourismModel | string,
     price: number,
-    address: string,
     reservationLimit: number,
-    reservations: AccountModel[] | string[],
+    reservations?: AccountModel[] | string[],
     phone: string,
-    rate: number,
-    votesNum: number
+    rate: 0,
+    votesNum: 0
 }
 
 export type ResortResponse = HttpResponse<ResortModel>

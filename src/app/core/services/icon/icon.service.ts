@@ -38,5 +38,9 @@ export class IconService {
         this.iconRegistry.addSvgIcon('icon-email', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/envelope-solid.svg'));
         this.iconRegistry.addSvgIcon('icon-phone', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/phone-solid.svg'));
         this.iconRegistry.addSvgIcon('icon-upload-file', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/upload-solid.svg'));
+        this.iconRegistry.addSvgIcon('icon-add', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/plus-solid.svg'));
+        this.iconRegistry.addSvgIcon('icon-edit', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/pen-to-square-regular.svg'));
+        this.iconRegistry.addSvgIcon('icon-delete', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/trash-can-regular.svg'));
+        this.iconRegistry.addSvgIcon('icon-save', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/floppy-disk-regular.svg'));
     }
 }

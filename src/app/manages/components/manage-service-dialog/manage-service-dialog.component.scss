@@ -1,0 +1,68 @@
+.wrapper {
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tourism-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.tourism-form .save-btn {
+    width: 30%;
+    margin-left: 70%;
+    box-sizing: border-box;
+    border-radius: 50vh;
+
+    --mdc-filled-button-container-color: var(--primary-color);
+    --mdc-filled-button-label-text-color: white;
+    
+    mat-icon {
+        color: white;
+    }
+}
+
+.tourism-form mat-form-field {
+    width: 100%;
+
+    mat-hint {
+        width: 100%;
+        font-size: 13px;
+        text-align: right;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.images {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+.images .upload-file-btn {
+    width: 100px;
+    height: 40px;
+    border-radius: 20px;
+    border: 2px solid var(--primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    background-color: white;
+
+    mat-icon {
+        height: 18px;
+        width: 18px;
+    }
+}

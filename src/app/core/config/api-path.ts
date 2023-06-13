@@ -15,6 +15,9 @@ export class ApiPath {
     public static REGISTER = env.API.concat(ApiPathConfig.auth.register);
     public static UPDATE_INFO = env.API.concat(ApiPathConfig.auth.update);
     public static CHANGE_PASS = env.API.concat(ApiPathConfig.auth.change_pass);
+    public static TOURISM_BY_ACCOUNT = env.API.concat(ApiPathConfig.auth.tourism_by_account);
+    public static RESORT_BY_ACCOUNT = env.API.concat(ApiPathConfig.auth.resort_by_account);
+    public static SERVICE_BY_ACCOUNT = env.API.concat(ApiPathConfig.auth.service_by_account);
 
     // Review
     public static REVIEW = env.API.concat(ApiPathConfig.pages.review);

@@ -4,7 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { clone } from 'lodash';
 import { AccountModel, RatesNumModel, ReviewModel, ReviewResponse, TourismModel, TourismResponse } from 'src/app/common/models';
 import { WriteReviewDialogComponent } from '../write-review-dialog/write-review-dialog.component';
-import { FormGroup } from '@angular/forms';
 import { Utils } from 'src/app/common/utils/utils';
 import { RequiresLoginDialogComponent } from 'src/app/common/components/requires-login-dialog/requires-login-dialog.component';
 
@@ -16,7 +15,7 @@ import { RequiresLoginDialogComponent } from 'src/app/common/components/requires
 export class ReviewsComponent implements OnChanges {
     @Input() reviewResponse!: ReviewResponse;
     @Input() tourismResponse!: TourismResponse;
-    @Output() reviewEmitter = new EventEmitter<FormGroup>;
+    @Output() reviewEmitter = new EventEmitter<FormData>;
 
     public tourism?: TourismModel;
     public reviewsList: any[] = [];
