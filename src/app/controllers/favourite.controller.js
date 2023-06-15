@@ -47,18 +47,18 @@ class FavouriteController {
     }
     async delete(req, res, next) {
         try {
-            if (!req.body.id) {
+            if (!req.body._id) {
                 const err = { id: { message: 'FavouriteId does not exist!' } }
                 return res.json(responseJson(false, err)) 
             }
 
-            var favourite = await Favourite.findOne({ _id: req.body.id })
+            var favourite = await Favourite.findOne({ _id: req.body._id })
             if (!favourite) { 
                 const err = { favourite: { message: 'Favourite does not exist!' } }
                 return res.json(responseJson(false, err)) 
             }
 
-            await Favourite.deleteOne({ _id: req.body.id })
+            await Favourite.deleteOne({ _id: req.body._id })
 
             return res.json(responseJson(true, favourite))
         }

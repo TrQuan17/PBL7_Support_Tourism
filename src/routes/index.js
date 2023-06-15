@@ -5,6 +5,7 @@ const resortRouter = require('./resort.router')
 const serviceRouter = require('./service.router')
 const reviewRouter = require('./review.router')
 const favouriteRouter = require('./favourite.router')
+const postRouter = require('./post.router')
 
 function routes(app) {
     app.use('/account', accountRouter)
@@ -14,6 +15,7 @@ function routes(app) {
     app.use('/service', serviceRouter)
     app.use('/review', reviewRouter)
     app.use('/favourite', favouriteRouter)
+    app.use('/post', postRouter)
 }
 
 module.exports = routes

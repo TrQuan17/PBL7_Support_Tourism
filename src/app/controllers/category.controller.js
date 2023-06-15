@@ -26,18 +26,18 @@ class CategoryController {
 
     async update(req, res, next) {
         try {
-            if (!req.body.id) {
+            if (!req.body._id) {
                 const err = { 'id': { message: 'CategoryId does not exist!' } }
                 return res.json(responseJson(false, err))
             }
 
-            var category = await Category.findOne({ _id: req.body.id }, req.body)
+            var category = await Category.findOne({ _id: req.body._id }, req.body)
             if (!category) {
                 const err = { 'category': { message: 'Category does not exist!' } }
                 return res.json(response(false, err))
             }
 
-            await Category.updateOne({ _id: req.body.id }, req.body)
+            await Category.updateOne({ _id: req.body._id }, req.body)
 
             return res.json(responseJson(true, req.body))
         }
@@ -48,12 +48,12 @@ class CategoryController {
 
     async delete(req, res, next) {
         try {
-            if (!req.body.id) {
+            if (!req.body._id) {
                 const err = { 'id': { message: 'CategoryId does not exist!' } }
                 return res.json(responseJson(false, err))
             }
 
-            var category = await Category.findOneAndDelete({ _id: req.body.id })
+            var category = await Category.findOneAndDelete({ _id: req.body._id })
             if (!category) {
                 const err = { 'category': { message: 'Category does not exist!' } }
                 return res.json(responseJson(false, err))

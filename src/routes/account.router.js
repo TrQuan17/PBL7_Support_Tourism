@@ -6,8 +6,9 @@ const favouriteController = require('../app/controllers/favourite.controller')
 const tourismController = require('../app/controllers/tourism.controller')
 const resortController = require('../app/controllers/resort.controller')
 const serviceController = require('../app/controllers/service.controller')
+const postController = require('../app/controllers/post.controller')
 
-const { verifyAccount, verifyManagerRole } = require('../app/middlewares/authorization.middleware')
+const { verifyAccount, verifyManagerRole, verifyAdminRole } = require('../app/middlewares/authorization.middleware')
 
 router.get('/me', verifyAccount, accountController.myAccount)
 
@@ -15,8 +16,11 @@ router.get('/tourisms', verifyAccount, verifyManagerRole, tourismController.getB
 router.get('/resorts', verifyAccount, verifyManagerRole, resortController.getByAccountId)
 router.get('/services', verifyAccount, verifyManagerRole, serviceController.getByAccountId)
 
-router.get('/:accountId', accountController.getById)
 router.get('/:accountId/favourites', verifyAccount, favouriteController.getByAccountId)
+router.get('/:accountId/timeline', verifyAccount, postController.getByAccountId)
+router.get('/:accountId', accountController.getById)
+
+router.get('/', verifyAccount, verifyAdminRole, accountController.getAll)
 
 router.post('/register', accountController.register)
 router.post('/login', accountController.login)

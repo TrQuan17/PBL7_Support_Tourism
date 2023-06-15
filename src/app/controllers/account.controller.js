@@ -16,13 +16,13 @@ const encodedToken = (accountId) => {
 class AccountController {
     async register(req, res, next) {
         try {
-            const salt = await bcrypt.genSalt(10)
-            const hashPass = await bcrypt.hash(req.body.password, salt)
-
-            req.body.password = hashPass
-            req.body.role = 'user'
-
             const newAccount = new Account(req.body)
+
+            const salt = await bcrypt.genSalt(10)
+            const hashPass = await bcrypt.hash(newAccount.password, salt)
+
+            newAccount.password = hashPass
+            newAccount.role = 'user'
 
             await newAccount.save()
 
@@ -75,6 +75,16 @@ class AccountController {
         }
     }
 
+    async getAll(req, res, next) {
+        try {
+            const accounts = await Account.find().select('fullname username avatar role')
+            return res.json(responseJson(true, accounts))
+        }
+        catch(err) {
+            return res.json(responseJson(false, err.errors))
+        }
+    }
+
     myAccount(req, res, next) {
         const { account } = res.data
         return res.json(responseJson(true, account))
@@ -82,7 +92,9 @@ class AccountController {
 
     async getById(req, res, next) {
         try {
-            const account = await Account.findOne({ _id: req.params.accountId })
+            const account = await Account.findOne({
+                 _id: req.params.accountId 
+                }).select('-password')
             if(!account) {
                 const err = { account: { message: 'Account does not exist!' } }
                 return res.json(responseJson(false, err))
@@ -97,9 +109,18 @@ class AccountController {
 
     async update(req, res, next) {
         try {
-            const account = res.data.account
+            if(!req.body._id) {
+                const err = { id: { message: 'AccountId does not exist!' } }
+                return res.json(responseJson(false, err))
+            }
 
-            await Account.updateOne({ _id: account._id }, req.body)
+            const account = await Account.findOne({ _id: req.body._id })
+            if(!account) {
+                const err = { account: { message: 'Account does not exist!' } }
+                return res.json(responseJson(false, err))
+            }
+
+            await Account.updateOne({ _id: req.body._id }, req.body)
 
             return res.json(responseJson(true, req.body))
         }
@@ -133,7 +154,7 @@ class AccountController {
 
             await Account.updateOne({ _id: account._id }, { password: hashPass })
 
-            return res.json(responseJson(true, account))
+            return res.json(responseJson(true))
         }
         catch (err) {
             return res.json(responseJson(false, err.errors))

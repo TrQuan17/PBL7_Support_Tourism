@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const USERNAME_REGEX = /^[a-zA-Z0-9]{6,18}$/
-const PASSWORD_REGEX = /^[0-9a-zA-Z]{8,}$/
+const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
 const PHONE_REGEX = /^0\d{9}$/
 const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
 
@@ -31,7 +31,7 @@ const AccountSchema = new Schema({
         type: String,
         unique: [true, '{VALUE} is exist!'],
         required: [true, 'Username is required!'],
-	validate: usernameValidate
+        validate: usernameValidate
     },
     password: {
         type: String,
@@ -45,6 +45,9 @@ const AccountSchema = new Schema({
     avatar: {
         type: String
     },
+    background: {
+        type: String
+    },
     address: {
         type: String
     },
@@ -52,7 +55,7 @@ const AccountSchema = new Schema({
         type: String,
         unique: [true, '{VALUE} is exist!'],
         validate: emailValidate,
-	    required: [true, 'Email is required!']
+        required: [true, 'Email is required!']
     },
     phone: {
         type: String,
