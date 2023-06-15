@@ -4,6 +4,7 @@ export const ApiPathConfig = {
         resort: 'resort',
         service: 'service',
         favourite: 'favourite',
+        post: 'post',
 
         // Review
         review: 'review',

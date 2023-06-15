@@ -36,7 +36,7 @@ export class ManageResortDialogComponent implements OnInit{
             phone: new FormControl(data?.phone,  { validators: Validators.required }),
             price: new FormControl(data?.price, { validators: Validators.required }),
             reservationLimit: new FormControl(data?.reservationLimit,  { validators: Validators.required }),
-            tourism: new FormControl((data?.tourism as TourismModel)._id, { validators: Validators.required }),
+            tourism: new FormControl((data?.tourism as TourismModel)?._id, { validators: Validators.required }),
             isEdit: new FormControl(data ? 'update' : 'create')
         })
     }

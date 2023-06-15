@@ -42,5 +42,6 @@ export class IconService {
         this.iconRegistry.addSvgIcon('icon-edit', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/pen-to-square-regular.svg'));
         this.iconRegistry.addSvgIcon('icon-delete', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/trash-can-regular.svg'));
         this.iconRegistry.addSvgIcon('icon-save', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/floppy-disk-regular.svg'));
+        this.iconRegistry.addSvgIcon('icon-confirm', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/check-solid.svg'));
     }
 }

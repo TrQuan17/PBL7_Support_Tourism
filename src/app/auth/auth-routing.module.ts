@@ -6,8 +6,15 @@ import { AuthComponent } from './auth.component';
 const routes: Routes = [
     {
         path: '', component: AuthComponent, children: [
-            { path: 'login', component: LoginRegisterComponent },
-            // { path: 'forgot-password', component: ForgotPaswordComponent }
+            {
+                path: 'login',
+                component: LoginRegisterComponent
+            },
+            {
+                path: '',
+                redirectTo: '/home',
+                pathMatch: 'full'
+            }
         ]
     }
 ]

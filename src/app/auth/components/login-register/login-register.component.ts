@@ -119,10 +119,12 @@ export class LoginRegisterComponent implements OnInit {
     public register(): void {
         const account: RegisterRequestModel = {
             username: this.registerForm.get('username')?.value,
-            fullname: this.registerForm.get('username')?.value,
+            fullname: this.registerForm.get('fullname')?.value,
             email: this.registerForm.get('email')?.value,
             password: this.registerForm.get('password')?.value,
-            rePass: this.registerForm.get('re_pass')?.value
+            rePass: this.registerForm.get('re_pass')?.value,
+            avatar: 'assets/images/avatar-default-user.jpg',
+            background: 'assets/images/background-default-user.jpg'
         }
 
         this.authService.onRegister(account).subscribe(

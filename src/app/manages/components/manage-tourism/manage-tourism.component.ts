@@ -3,9 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { ManageTourismDialogComponent } from '../manage-tourism-dialog/manage-tourism-dialog.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { TourismService } from 'src/app/common/services';
-import { SnackBarPanelClass, TourismModel, TourismResponse } from 'src/app/common/models';
+import { ConfirmDialogConfig, SnackBarPanelClass, TourismModel, TourismResponse } from 'src/app/common/models';
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { ConfirmDialogComponent } from 'src/app/common/components/confirm-dialog/confirm-dialog.component';
 
 const SNACK_BAR_CONFIG = new MatSnackBarConfig();
 SNACK_BAR_CONFIG.duration = 2000;
@@ -36,7 +37,7 @@ export class ManageTourismComponent implements OnInit {
     public getTourisms(): void {
         this.tourismService.getTourismByAccount().subscribe(
             (res: TourismResponse) => {
-                if(res.status === 'SUCCESS') {
+                if (res.status === 'SUCCESS') {
                     this.dataSource = new MatTableDataSource(res.data as TourismModel[]);
                 }
             }
@@ -76,7 +77,7 @@ export class ManageTourismComponent implements OnInit {
                 if (res.status === 'SUCCESS') {
                     message = 'Cảm ơn sự đóng góp của bạn';
                     snackBarPanel = SnackBarPanelClass.successClass;
-                    
+
                     this.getTourisms();
                 }
 
@@ -119,6 +120,30 @@ export class ManageTourismComponent implements OnInit {
         dialogRef.afterClosed().subscribe(data => {
             if (data) {
                 this.saveTourism(data);
+            }
+        })
+    }
+
+    public deleteTourism(tourism: TourismModel): void {
+        const dialogData: ConfirmDialogConfig = {
+            type: 'delete-dialog',
+            header: 'Xác nhận xóa điểm du lịch',
+            message: `Bạn xác nhận xóa điểm du lịch ${tourism.name} ?`,
+            image: tourism.images[0]
+        }
+
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+            width: '30vw',
+            data: dialogData
+        })
+
+        dialogRef.afterClosed().subscribe(confirm => {
+            if (confirm) {
+                const snackBarPanel = SnackBarPanelClass.successClass;
+                const message = 'Xóa dữ liệu thành công';
+
+                SNACK_BAR_CONFIG.panelClass = snackBarPanel;
+                this.snackbar.open(message, undefined, SNACK_BAR_CONFIG);
             }
         })
     }

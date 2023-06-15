@@ -3,9 +3,10 @@ import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
-import { ServiceModel, ServiceResponse, SnackBarPanelClass } from 'src/app/common/models';
+import { ConfirmDialogConfig, ServiceModel, ServiceResponse, SnackBarPanelClass } from 'src/app/common/models';
 import { ServiceService } from 'src/app/common/services';
 import { ManageServiceDialogComponent } from '../manage-service-dialog/manage-service-dialog.component';
+import { ConfirmDialogComponent } from 'src/app/common/components/confirm-dialog/confirm-dialog.component';
 
 const SNACK_BAR_CONFIG = new MatSnackBarConfig();
 SNACK_BAR_CONFIG.duration = 2000;
@@ -114,6 +115,30 @@ export class ManageServiceComponent implements OnInit {
         dialogRef.afterClosed().subscribe(data => {
             if (data) {
                 this.saveService(data);
+            }
+        })
+    }
+
+    public deleteService(service: ServiceModel): void {
+        const dialogData: ConfirmDialogConfig = {
+            type: 'delete-dialog',
+            header: 'Xác nhận xóa dịch vụ du lịch',
+            message: `Bạn xác nhận xóa dịch vụ ${service.name} ?`,
+            image: service.images[0]
+        }
+
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+            width: '30vw',
+            data: dialogData
+        })
+
+        dialogRef.afterClosed().subscribe(confirm => {
+            if (confirm) {
+                const snackBarPanel = SnackBarPanelClass.successClass;
+                const message = 'Xóa dữ liệu thành công';
+
+                SNACK_BAR_CONFIG.panelClass = snackBarPanel;
+                this.snackbar.open(message, undefined, SNACK_BAR_CONFIG);
             }
         })
     }

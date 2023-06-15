@@ -7,6 +7,7 @@ export class ApiPath {
     public static RESORT = env.API.concat(ApiPathConfig.pages.resort);
     public static SERVICE = env.API.concat(ApiPathConfig.pages.service);
     public static FAVOURITE = env.API.concat(ApiPathConfig.pages.favourite);
+    public static POST = env.API.concat(ApiPathConfig.pages.post);
 
     // Account
     public static ACCOUNT = env.API.concat(ApiPathConfig.auth.account);

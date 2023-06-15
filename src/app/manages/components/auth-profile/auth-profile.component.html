@@ -1,6 +1,6 @@
 <div class="wrapper">
     <div class="info-image">
-        <img class="background-info" src="assets\images\background-search-home.jpg" alt="" srcset="">
+        <img class="background-info" [src]="account?.background" alt="" srcset="">
         <div class="user">
             <img class="avatar" [src]="account?.avatar" alt="">
             <h4>{{ account?.fullname }}</h4>
@@ -10,6 +10,9 @@
     <mat-divider></mat-divider>
 
     <div class="timeline">
-        <app-timeline [authResponse]="accountResponse"></app-timeline>
+        <app-timeline 
+            [authResponse]="accountResponse"
+            [postResponse]="postResponse"
+            (postEmitter)="writePost($event)"></app-timeline>
     </div>
 </div>

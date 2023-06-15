@@ -3,9 +3,10 @@ import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
-import { ResortModel, ResortResponse, SnackBarPanelClass } from 'src/app/common/models';
+import { ConfirmDialogConfig, ResortModel, ResortResponse, SnackBarPanelClass } from 'src/app/common/models';
 import { ResortService } from 'src/app/common/services';
 import { ManageResortDialogComponent } from '../manage-resort-dialog/manage-resort-dialog.component';
+import { ConfirmDialogComponent } from 'src/app/common/components/confirm-dialog/confirm-dialog.component';
 
 const SNACK_BAR_CONFIG = new MatSnackBarConfig();
 SNACK_BAR_CONFIG.duration = 2000;
@@ -119,6 +120,30 @@ export class ManageResortComponent implements OnInit {
         dialogRef.afterClosed().subscribe(data => {
             if (data) {
                 this.saveResort(data);
+            }
+        })
+    }
+
+    public deleteResort(resort: ResortModel): void {
+        const dialogData: ConfirmDialogConfig = {
+            type: 'delete-dialog',
+            header: 'Xác nhận xóa khu nghỉ dưỡng',
+            message: `Bạn xác nhận xóa khu nghỉ dưỡng ${resort.name} ?`,
+            image: resort.images[0]
+        }
+
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+            width: '30vw',
+            data: dialogData
+        })
+
+        dialogRef.afterClosed().subscribe(confirm => {
+            if (confirm) {
+                const snackBarPanel = SnackBarPanelClass.successClass;
+                const message = 'Xóa dữ liệu thành công';
+
+                SNACK_BAR_CONFIG.panelClass = snackBarPanel;
+                this.snackbar.open(message, undefined, SNACK_BAR_CONFIG);
             }
         })
     }

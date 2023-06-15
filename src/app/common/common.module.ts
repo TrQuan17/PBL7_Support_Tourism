@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { StarRatingComponent } from './components/star-rating/star-rating.component';
 import { RequiresLoginDialogComponent } from './components/requires-login-dialog/requires-login-dialog.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 const CommonComponents = [
     SearchComponent,
@@ -17,7 +18,8 @@ const CommonComponents = [
 
 @NgModule({
     declarations: [
-        ...CommonComponents
+        ...CommonComponents,
+        ConfirmDialogComponent
     ],
     imports: [
         CommonModule,

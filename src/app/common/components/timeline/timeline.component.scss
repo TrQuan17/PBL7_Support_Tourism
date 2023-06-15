@@ -11,10 +11,12 @@ button {
     min-width: 100%;
 }
 
-.write .avatar {
+.write .avatar,
+.post .avatar {
     height: 50px;
     width: 50px;
     border-radius: 50%;
+    border: 1px solid var(--primary-color);
 }
 
 .write .send-btn {
@@ -34,7 +36,8 @@ button {
     width: 80%;
 }
 
-.write-post .text {
+.write-post .text,
+.post .text {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -77,6 +80,20 @@ button {
     }
 }
 
-.timeline {
+.post {
     padding-top: 30px;
+}
+
+.post .header {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    padding-bottom: 8px;
+    span {
+        font-size: 14px;
+    }
+}
+
+.post .text {
+    padding-left: 62px;
 }

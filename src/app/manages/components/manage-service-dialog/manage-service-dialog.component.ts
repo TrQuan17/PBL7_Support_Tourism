@@ -33,7 +33,7 @@ export class ManageServiceDialogComponent implements OnInit {
             images: new FormControl([]),
             about: new FormControl(data?.about, { validators: Validators.required }),
             price: new FormControl(data?.price, { validators: Validators.required }),
-            resort: new FormControl((data?.resort as ResortModel)._id, { validators: Validators.required }),
+            resort: new FormControl((data?.resort as ResortModel)?._id, { validators: Validators.required }),
             isEdit: new FormControl(data ? 'update' : 'create')
         })
     }

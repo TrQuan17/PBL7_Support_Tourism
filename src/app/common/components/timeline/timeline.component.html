@@ -1,13 +1,13 @@
 <div class="write" *ngIf="authResponse">
     <img class="avatar" [src]="account?.avatar" alt="Avatar" srcset="">
-    <form class="write-post">
+    <form [formGroup]="postForm" class="write-post">
         <div class="text">
             <mat-form-field appearance="outline">
-                <input matInput type="text" placeholder="Tiêu đề ...">
+                <input matInput formControlName="title" type="text" placeholder="Tiêu đề ...">
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-                <textarea matInput rows="3" placeholder="Bạn đang nghĩ gì ..."></textarea>
+                <textarea matInput formControlName="content" rows="3" placeholder="Bạn đang nghĩ gì ..."></textarea>
             </mat-form-field>
         </div>
 
@@ -20,7 +20,7 @@
         <div class="image-upload"></div>
     </form>
 
-    <button mat-stroked-button class="send-btn">
+    <button mat-stroked-button class="send-btn" (click)="writePost()">
         <mat-icon svgIcon="icon-send"></mat-icon>
         <span>Đăng</span>
     </button>
@@ -28,4 +28,16 @@
 
 <mat-divider *ngIf="authResponse"></mat-divider>
 
-<div class="timeline">Time line o day ne</div>
+<div class="post" *ngFor="let post of postsList">
+    <div class="header">
+        <img class="avatar" [src]="post?.account.avatar" alt="Avatar" srcset="">
+        <div>
+            <h6> {{ post?.account.fullname }} </h6>
+            <span>{{ post?.createdAt | date: 'dd/MM/yyyy' }}</span>
+        </div>
+    </div>
+    <div class="text">
+        <h5> {{ post.title }} </h5>
+        <span> {{ post.content }} </span>
+    </div>
+</div>

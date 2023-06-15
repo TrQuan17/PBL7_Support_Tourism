@@ -6,6 +6,8 @@ export interface LoginRequestModel {
 }
 
 export interface RegisterRequestModel {
+    avatar: string,
+    background: string,
     username: string,
     fullname: string,
     email: string,
@@ -19,5 +21,14 @@ export interface AuthModel {
     accessToken: string,
     expiresIn: number
 }
+
+export enum Role {
+    admin = 'Quản trị viên',
+    tourism_manager = 'Quản lý điểm du lịch',
+    resort_manager = 'Quản lý khu nghỉ dưỡng',
+    user = 'Người dùng'
+}
+
+export type RoleKey = keyof typeof Role;
 
 export type AuthResponse = HttpResponse<AuthModel>

@@ -1,0 +1,52 @@
+<div class="wrapper">
+    <div class="info-image">
+        <img class="background-info" [src]="account?.background" alt="" srcset="">
+        <div class="user">
+            <img class="avatar" [src]="account?.avatar" alt="">
+            <div>
+                <h4>{{ account?.fullname }}</h4>
+                <button class="fill-btn" mat-flat-button>Đổi ảnh đại diện</button>
+            </div>
+            <button mat-flat-button class="outline-btn">Đổi ảnh nền</button>
+        </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <form [formGroup]="accountForm" *ngIf="account" class="account-form">
+        <div class="fullname">
+            <mat-form-field appearance="outline">
+                <mat-label>Họ</mat-label>
+                <input matInput formControlName="lastName" type="text">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Tên</mat-label>
+                <input matInput formControlName="firstName" type="text">
+            </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Địa chỉ</mat-label>
+            <input matInput formControlName="address" type="text">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Số điện thoại</mat-label>
+            <input matInput formControlName="phone" type="text">
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+            <mat-label>Ngày sinh</mat-label>
+            <input matInput formControlName="birthday" [matDatepicker]="picker" readonly>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <div class="action">
+            <button mat-flat-button class="outline-btn" (click)="resetForm()">Khôi phục</button>
+            <button mat-flat-button class="fill-btn" (click)="updateInfo()">Lưu thay đổi</button>
+        </div>
+    </form>
+
+</div>

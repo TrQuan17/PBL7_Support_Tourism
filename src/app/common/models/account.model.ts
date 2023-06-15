@@ -6,6 +6,7 @@ export interface AccountModel {
     password: string,
     fullname: string,
     avatar: string,
+    background: string,
     address: string,
     email: string,
     phone: string,
