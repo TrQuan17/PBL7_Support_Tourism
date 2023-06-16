@@ -19,7 +19,7 @@ const routes: Routes = [
         component: DetailTourismComponent
     },
     {
-        path: 'account/:accountId',
+        path: 'profile/:accountId',
         component: ProfileComponent
     },
     {

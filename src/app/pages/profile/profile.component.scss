@@ -3,13 +3,15 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    background-color: var(--theme-bg);
 }
 
 .info-image {
     padding: 20px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     height: 360px;
     border-radius: 12px;
+    background-color: white;
 
     .background-info {
         width: 100%;
@@ -25,6 +27,11 @@
 
     .user h3 {
         padding-top: 14px;
+    }
+
+    .user h3 span {
+        font-size: 16px;
+        font-weight: 550;
     }
 
     .user .avatar {
@@ -48,11 +55,12 @@
 .content .info-text {
     padding: 20px;
     width: 30%;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    background-color: white;
 
     span {
         display: flex;
@@ -69,7 +77,13 @@
 }
 
 .content .timeline {
+    padding-left: 20px;
     width: 70%;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     border-radius: 12px;
+    background-color: white;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 import { LayoutModule } from '../layout/layout.module';
 import { CommonAppModule } from '../common/common.module';
 import { TourismModule } from './tourism/tourism.module';
@@ -12,6 +13,7 @@ import { ProfileModule } from './profile/profile.module';
     imports: [
         CommonModule,
         LayoutModule,
+        ClipboardModule,
         CommonAppModule.forRoot(),
 
         HomeModule,

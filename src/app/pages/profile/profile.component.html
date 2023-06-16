@@ -5,7 +5,10 @@
         <img class="background-info" [src]="account?.background" alt="" srcset="">
         <div class="user">
             <img class="avatar" [src]="account?.avatar" alt="">
-            <h3>{{ account?.fullname }}</h3>
+            <h3>
+                {{ account?.fullname }} <br>
+                <span>@{{account?.username}}</span>
+            </h3>
         </div>
     </div>
 
@@ -33,7 +36,10 @@
             </span>
         </div>
         <div class="timeline">
-            <app-timeline [guestResponse]="accountResponse"></app-timeline>
+            <app-timeline 
+                [guestResponse]="accountResponse"
+                [postResponse]="postResponse">
+            </app-timeline>
         </div>
     </div>
 </div>

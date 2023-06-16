@@ -30,14 +30,14 @@
 }
 
 .item-card {
-    height: 360px;
+    height: 320px;
     width: 300px;
-    border-radius: 10px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     img {
         width: 100%;
         height: 200px;
-        border-radius: 10px;
+        border-radius: 6px;
     }
 
     mat-card-subtitle {

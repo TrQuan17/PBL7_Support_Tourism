@@ -7,9 +7,13 @@
     --color-confirm: var(--error-color);
 }
 
+.update-dialog {
+    --color-confirm: var(--primary-color);
+}
+
 .title {
     width: 100%;
-    background-color: var(--primary-color);
+    background-color: var(--color-confirm);
     color: white;
     font-size: 18px;
     font-weight: 550;

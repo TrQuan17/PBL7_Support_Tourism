@@ -75,7 +75,7 @@
 
         <div class="user-reviews">
             <div class="review" *ngFor="let review of reviewsList">
-                <div class="account">
+                <div class="account" routerLink="/profile/{{review.account._id}}">
                     <div class="avatar">
                         <img [src]="review.account.avatar" alt="">
                     </div>

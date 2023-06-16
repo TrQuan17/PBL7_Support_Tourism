@@ -1,4 +1,3 @@
-import { DialogRef } from '@angular/cdk/dialog';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -92,7 +91,7 @@ export class ManageAccountComponent implements OnInit {
         }
 
         const dialogData: ConfirmDialogConfig = {
-            type: 'delete-dialog',
+            type: 'update-dialog',
             header: 'Xác nhận thay đổi quyền',
             message: `Bạn xác nhận thay đổi quyền của người dùng @${form.get('username')?.value} ?`,
             image: form.get('avatar')?.value

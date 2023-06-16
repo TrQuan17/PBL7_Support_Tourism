@@ -8,18 +8,27 @@ import { StarRatingComponent } from './components/star-rating/star-rating.compon
 import { RequiresLoginDialogComponent } from './components/requires-login-dialog/requires-login-dialog.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { CUSTOM_DATE_FORMATS } from './models';
+import { ScrollToTopDirective } from 'src/directive/scroll.directive';
 
 const CommonComponents = [
     SearchComponent,
     StarRatingComponent,
     RequiresLoginDialogComponent,
+    ConfirmDialogComponent,
     TimelineComponent
+]
+
+const CommonDirective = [
+    ScrollToTopDirective
 ]
 
 @NgModule({
     declarations: [
         ...CommonComponents,
-        ConfirmDialogComponent
+        ...CommonDirective
     ],
     imports: [
         CommonModule,
@@ -30,6 +39,7 @@ const CommonComponents = [
     ],
     exports: [
         ...CommonComponents,
+        ...CommonDirective,
         RouterModule,
         MaterialModule,
         ReactiveFormsModule
@@ -42,7 +52,10 @@ export class CommonAppModule {
     public static forRoot(): ModuleWithProviders<CommonAppModule> {
         return {
             ngModule: CommonAppModule,
-            providers: []
+            providers: [
+                { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+                { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS },
+            ]
         };
     }
 }

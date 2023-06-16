@@ -3,7 +3,10 @@
         <img class="background-info" [src]="account?.background" alt="" srcset="">
         <div class="user">
             <img class="avatar" [src]="account?.avatar" alt="">
-            <h4>{{ account?.fullname }}</h4>
+            <h4>
+                {{ account?.fullname }} <br>
+                <span>@{{account?.username}}</span>
+            </h4>
         </div>
     </div>
 

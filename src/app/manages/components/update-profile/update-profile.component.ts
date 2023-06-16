@@ -72,7 +72,7 @@ export class UpdateProfileComponent implements OnInit {
             fullname: fullName,
             address: this.accountForm.get('address')?.value,
             phone: this.accountForm.get('phone')?.value,
-            birthday: this.accountForm.get('phone')?.value,
+            birthday: this.accountForm.get('birthday')?.value,
         }
 
         this.accountService.updateAccount(account).subscribe(

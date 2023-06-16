@@ -8,18 +8,24 @@ import { ManageResortComponent } from './components/manage-resort/manage-resort.
 import { ManageServiceComponent } from './components/manage-service/manage-service.component';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 import { ManageAccountComponent } from './components/manage-account/manage-account.component';
+import { UpdatePasswordComponent } from './components/update-password/update-password.component';
 
 const routes: Routes = [
     {
         path: '', component: ManagesComponent, children: [
             {
-                path: 'account/me',
+                path: 'profile/me',
                 component: AuthProfileComponent,
                 canActivate: [AuthGuard]
             },
             {
-                path: 'account/me/update',
+                path: 'profile/me/update',
                 component: UpdateProfileComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'profile/me/update/password',
+                component: UpdatePasswordComponent,
                 canActivate: [AuthGuard]
             },
             {

@@ -12,6 +12,7 @@ export class AccountService {
     public apiAccountUrl = ApiPath.ACCOUNT;
     public apiAuthAccountUrl = ApiPath.AUTH_ACCOUNT;
     public apiUpdateAccountUrl = ApiPath.UPDATE_INFO;
+    public apiUpdatePasswordUrl = ApiPath.CHANGE_PASS;
 
     constructor(
         public loadingDialog: LoadingSpinnerDialogService,
@@ -39,6 +40,15 @@ export class AccountService {
         this.loadingDialog.showSpinner(true);
 
         return this.http.patch<AccountResponse>(this.apiUpdateAccountUrl, account).pipe(
+            finalize(() => this.loadingDialog.showSpinner(false))
+        );
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    public updatePassword(pass: any): Observable<AccountResponse> {
+        this.loadingDialog.showSpinner(true);
+
+        return this.http.patch<AccountResponse>(this.apiUpdatePasswordUrl, pass).pipe(
             finalize(() => this.loadingDialog.showSpinner(false))
         );
     }

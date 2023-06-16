@@ -4,8 +4,20 @@ export enum SnackBarPanelClass {
 }
 
 export interface ConfirmDialogConfig {
-    type: 'delete-dialog',
+    type: 'delete-dialog' | 'update-dialog',
     header: string,
     message: string,
     image?: string
 }
+
+export const CUSTOM_DATE_FORMATS = {
+    parse: {
+      dateInput: 'LL',
+    },
+    display: {
+      dateInput: 'DD/MM/YYYY',
+      monthYearLabel: 'YYYY',
+      dateA11yLabel: 'LL',
+      monthYearA11yLabel: 'YYYY',
+    },
+  };

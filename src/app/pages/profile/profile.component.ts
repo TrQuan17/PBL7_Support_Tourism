@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AccountModel, AccountResponse } from 'src/app/common/models';
-import { AccountService } from 'src/app/common/services';
+import { AccountModel, AccountResponse, PostResponse } from 'src/app/common/models';
+import { AccountService, PostService } from 'src/app/common/services';
 import { Utils } from 'src/app/common/utils/utils';
 
 @Component({
@@ -13,10 +13,12 @@ export class ProfileComponent implements OnInit{
     public utils = Utils;
     public accountId: string;
     public accountResponse!: AccountResponse;
+    public postResponse!: PostResponse;
     public account?: AccountModel;
 
     constructor(
         private router: ActivatedRoute,
+        private postService: PostService,
         private accountService: AccountService
     ) {
         this.accountId = this.router.snapshot.paramMap.get('accountId') as string;
@@ -32,6 +34,18 @@ export class ProfileComponent implements OnInit{
                 if(res.status === 'SUCCESS') {
                     this.accountResponse = res;
                     this.account = res.data as AccountModel;
+
+                    this.getPostsByAccount(this.account._id as string);
+                }
+            }
+        )
+    }
+
+    public getPostsByAccount(accountId: string): void {
+        this.postService.getPostsByAccount(accountId).subscribe(
+            (res: PostResponse) => {
+                if(res.status === 'SUCCESS') {
+                    this.postResponse = res;
                 }
             }
         )
