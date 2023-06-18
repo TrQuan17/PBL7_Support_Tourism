@@ -1,16 +1,37 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
+# dotenv
+from dotenv import dotenv_values
+
+# Machine learining
+from sklearn import metrics
 import tensorflow as tf
+from tqdm import tqdm
+import pandas as pd
+import numpy as np
+import gensim
+import re
 from pyvi import ViTokenizer, ViPosTagger
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.decomposition import TruncatedSVD
-from sklearn import metrics
-import numpy as np
-import pandas as pd
-import re
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Activation, Flatten
+from tensorflow.keras.layers import  GRU, LSTM, Bidirectional
+from tensorflow.keras.layers import Input, Convolution1D, Reshape
+
+# Fast API
+from fastapi import FastAPI
+from pydantic import BaseModel
+import pymongo
+import bson
 
 app = FastAPI()
+
+# Env
+config = dotenv_values('.env')
+MONGO_URL = config.get('MONGO_URL')
+MONGO_DB = config.get('MONGO_DB')
+
+# Train model ---------------------------------------------------
 
 data = pd.read_csv('CrawData/comments.csv', header=0)
 
@@ -19,10 +40,11 @@ def convert_rate(rate):
 
 data.Rate = data.Rate.apply(lambda rate: convert_rate(rate))
 
+
 def LowerText(text):
     result = ''
     for i in text.split():
-        result += i.lower() + ' '
+       result += i.lower() + ' '
 
     return result
 
@@ -30,7 +52,7 @@ def SplitSentence(text):
     return text.split('.')
 
 def RemovePunctuation(text):
-    return re.sub(r'[^\w\s]', '', text)
+    return re.sub(r'[^\w\s]','', text)
 
 def TokenizingText(text):
     return ViTokenizer.tokenize(text)
@@ -57,9 +79,9 @@ def RemoveStopword(text):
 
 def StandardizingText(text):
     lookup_dict = {
-        'ko': 'không',
-        'đc': 'được',
-        'bt': 'bình thường',
+        'ko' : 'không',
+        'đc' : 'được',
+        'bt' : 'bình thường',
 
     }
 
@@ -83,31 +105,81 @@ def preprocessing(text):
 
 data.Comment = data.Comment.apply(lambda text: preprocessing(text))
 
-def predict(text):
-    input_text = preprocessing(text)
-    input_text = [input_text]
+tfidf_vect = TfidfVectorizer(analyzer='word', max_features=30000)
+tfidf_fit = tfidf_vect.fit(data.Comment)
+X_data_tfidf =  tfidf_vect.transform(data.Comment)
+
+svd = TruncatedSVD(n_components=300, random_state=99)
+svd_fit = svd.fit(X_data_tfidf)
+X_data_tfidf_svd = svd.transform(X_data_tfidf)
+
+
+X_train_val, X_test, y_train_val, y_test = train_test_split(X_data_tfidf_svd, data.Rate, test_size=0.2, random_state=99)
+X_train, X_val, y_train, y_val = train_test_split(X_train_val, y_train_val, test_size=0.1, random_state=99)
+
+RNN_model = Sequential()
+
+RNN_model.add(Input(shape=(300,)))
+RNN_model.add(Reshape((10, 30)))
+RNN_model.add(Bidirectional(LSTM(128)))
+RNN_model.add(Dense(512, activation='relu'))
+RNN_model.add(Dense(512, activation='relu'))
+RNN_model.add(Dense(128, activation='relu'))
+RNN_model.add(Dense(2, activation='softmax'))
+RNN_model.summary()
+
+RNN_model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+
+history = RNN_model.fit(X_train, y_train, validation_data=(X_val, y_val), epochs=10, batch_size=256)
+
+val_predictions = RNN_model.predict(X_val)
+test_predictions = RNN_model.predict(X_test)
+val_predictions = val_predictions.argmax(axis=-1)
+test_predictions = test_predictions.argmax(axis=-1)
+
+print("Validation accuracy: ", metrics.accuracy_score(val_predictions, y_val))
+print("Test accuracy: ", metrics.accuracy_score(test_predictions, y_test))
+
+# -----------------------------------------------------------------
+
+# Config mongodb
+client = pymongo.MongoClient(MONGO_URL)
+dbname = client[MONGO_DB]
+
+class Review(BaseModel):
+    id: str
+    text: str
+
+def update(id, emotion, reliability): 
+    collection_name = dbname["reviews"]
+
+    myquery = { "_id": bson.ObjectId(id) }
+    newvalues = { "$set": {
+         "emotion": str(emotion),
+         "reliability": str(reliability)
+    } }
+
+    print('id', id)
+
+    collection_name.update_one(myquery, newvalues)
+
+@app.put('/review/classify')
+def classifyReview(review: Review):
+    try:
+        input_text = preprocessing(review.text)
+        input_text = [input_text]
+
+        input_tf_fitted = tfidf_fit.transform(input_text)
+        input_svd_fitted = svd_fit.transform(input_tf_fitted)
+
+        predictions = RNN_model.predict(input_svd_fitted)
+
+        emotion = np.argmax(predictions)
+        reliability = max(predictions[0])
+
+        print('elo', emotion, reliability)
+
+        update(review.id, emotion, reliability)
+    except:
+        pass
     
-    tfidf_vect = TfidfVectorizer(analyzer='word', max_features=30000)
-    tfidf_fit = tfidf_vect.fit(data.Comment)
-    X_data_tfidf =  tfidf_vect.transform(data.Comment)
-    
-    svd = TruncatedSVD(n_components=300, random_state=99)
-    svd_fit = svd.fit(X_data_tfidf)
-
-    input_tf_fitted = tfidf_fit.transform(input_text)
-    input_svd_fitted = svd_fit.transform(input_tf_fitted)
-    
-    RNN_Model = tf.keras.models.load_model('Model/RNN_Model')
-    RNN_Model.predict(input_svd_fitted)
-    
-print(predict('Bãi biển đẹp'))
-
-
-# class Review(BaseModel):
-#     _id: str
-#     text: str
-
-
-# @app.put('/review/classification')
-# def reviewClassification(review: Review):
-#     return review.text
