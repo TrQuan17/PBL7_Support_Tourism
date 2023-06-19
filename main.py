@@ -20,11 +20,23 @@ from tensorflow.keras.layers import Input, Convolution1D, Reshape
 
 # Fast API
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import pymongo
 import bson
 
 app = FastAPI()
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 # Env
 config = dotenv_values('.env')
@@ -163,6 +175,8 @@ def update(id, emotion, reliability):
 
     collection_name.update_one(myquery, newvalues)
 
+    return { 'status': 'SUCCESS' }
+
 @app.put('/review/classify')
 def classifyReview(review: Review):
     try:
@@ -177,9 +191,7 @@ def classifyReview(review: Review):
         emotion = np.argmax(predictions)
         reliability = max(predictions[0])
 
-        print('elo', emotion, reliability)
-
         update(review.id, emotion, reliability)
     except:
-        pass
+        print('Error predictions')
     
