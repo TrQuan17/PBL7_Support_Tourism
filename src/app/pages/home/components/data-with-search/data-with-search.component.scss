@@ -1,0 +1,33 @@
+.list {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+}
+
+.item-card {
+    height: 320px;
+    width: 300px;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    img {
+        width: 100%;
+        height: 200px;
+        border-radius: 6px;
+    }
+
+    mat-card-subtitle {
+        padding: 0 16px;
+        font-size: 14px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .item-name {
+        font-size: 18px;
+    }
+}

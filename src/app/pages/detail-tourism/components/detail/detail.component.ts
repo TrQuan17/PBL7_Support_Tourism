@@ -1,8 +1,11 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { clone } from 'lodash';
-import { SnackBarPanelClass, TourismModel, TourismResponse } from 'src/app/common/models';
+import { FavouriteModel, SnackBarPanelClass, TourismModel, TourismResponse } from 'src/app/common/models';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { Utils } from 'src/app/common/utils/utils';
+import { MatDialog } from '@angular/material/dialog';
+import { RequiresLoginDialogComponent } from 'src/app/common/components/requires-login-dialog/requires-login-dialog.component';
 
 const SNACK_BAR_CONFIG = new MatSnackBarConfig();
 SNACK_BAR_CONFIG.duration = 2000;
@@ -17,10 +20,13 @@ SNACK_BAR_CONFIG.horizontalPosition = 'center';
 })
 export class DetailComponent implements OnChanges {
     @Input() tourismResponse!: TourismResponse;
+    @Output() favouriteEmitter = new EventEmitter<FavouriteModel>;
     public tourism?: TourismModel;
+
 
     constructor(
         public snackbar: MatSnackBar,
+        public dialog: MatDialog,
         private clipboard: Clipboard
     ) { }
 
@@ -29,6 +35,23 @@ export class DetailComponent implements OnChanges {
             this.tourismResponse = clone(changes?.['tourismResponse'].currentValue);
             this.tourism = this.tourismResponse.data as TourismModel;
         }
+    }
+
+    public saveFavourite(): void {
+        if (!Utils.isCurrentAccount()) {
+            this.dialog.open(RequiresLoginDialogComponent, {
+                height: '500px',
+                width: '410px',
+                data: 'Đăng nhập để tiếp tục để lại đánh giá của bạn.'
+            });
+            return;
+        }
+        
+        const favourite: FavouriteModel = {
+            tourism: this.tourism?._id as string
+        };
+
+        this.favouriteEmitter.emit(favourite);
     }
 
     public copyLink(): void {

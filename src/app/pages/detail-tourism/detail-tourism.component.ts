@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import {  ResortResponse, ReviewResponse, SnackBarPanelClass, TourismResponse } from 'src/app/common/models';
-import { ResortService, ReviewService, TourismService } from 'src/app/common/services';
+import {  FavouriteModel, FavouriteResponse, ResortResponse, ReviewModel, ReviewResponse, SnackBarPanelClass, TourismResponse } from 'src/app/common/models';
+import { FavouriteService, ResortService, ReviewService, TourismService } from 'src/app/common/services';
 
 const SNACK_BAR_CONFIG = new MatSnackBarConfig();
 SNACK_BAR_CONFIG.duration = 2000;
@@ -21,11 +21,12 @@ export class DetailTourismComponent implements OnInit {
     public reviewsTourism!: ReviewResponse;
 
     constructor(
+        public snackbar: MatSnackBar,
         private router: ActivatedRoute,
         private tourismService: TourismService,
         private resortService: ResortService,
         private reviewService: ReviewService,
-        public snackbar: MatSnackBar
+        private favouriteService: FavouriteService
     ) {
         this.tourismId = this.router.snapshot.paramMap.get('tourismId');
     }
@@ -60,6 +61,15 @@ export class DetailTourismComponent implements OnInit {
         )
     }
 
+    public reviewClassify(review: ReviewModel) {
+        const data = {
+            id: review._id,
+            text: review.text
+        }
+
+        this.reviewService.reviewClassify(data).subscribe();
+    }
+
     public writeReview(data: FormData): void {
         this.reviewService.createWithTourism(data).subscribe(
             (res: ReviewResponse) => {
@@ -70,7 +80,25 @@ export class DetailTourismComponent implements OnInit {
                     message = 'Cảm ơn sự đóng góp của bạn';
                     snackBarPanel = SnackBarPanelClass.successClass;
 
+                    this.reviewClassify(res.data as ReviewModel);
                     this.getReviewsTourism();
+                }
+
+                SNACK_BAR_CONFIG.panelClass = snackBarPanel;
+                this.snackbar.open(message, undefined, SNACK_BAR_CONFIG);
+            }
+        )
+    }
+
+    public saveFavourite(favourite: FavouriteModel): void {
+        this.favouriteService.createFavourite(favourite).subscribe(
+            (res: FavouriteResponse) => {
+                let snackBarPanel = SnackBarPanelClass.errorClass;
+                let message = 'Bạn không thể lưu địa điểm này!';
+
+                if(res.status === 'SUCCESS') {
+                    message = 'Đã thêm vào danh mục yêu thích!';
+                    snackBarPanel = SnackBarPanelClass.successClass;
                 }
 
                 SNACK_BAR_CONFIG.panelClass = snackBarPanel;

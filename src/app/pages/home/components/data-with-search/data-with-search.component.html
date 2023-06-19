@@ -1,0 +1,22 @@
+<div class="wrapper" *ngIf="keyWord">
+    <h3>Kết quả tìm kiếm {{ typeSearch }} với từ khóa '{{ keyWord }}'</h3>
+
+    <div class="list">
+        <mat-card class="item-card" *ngFor="let tourism of tourismsList; let idx = index">
+            <img class="images-content" [src]="tourism.images[0]" alt="Photo of a Touirsm">
+            <div class="content">
+                <mat-card-header>
+                    <mat-card-title>
+                        <h5 class="item-name"><a [routerLink]="'/tourism/' + tourism._id">
+                                {{idx + 1}}. {{ tourism.name }}
+                            </a></h5>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-subtitle>
+                    <app-star-rating [showVote]="tourism.rate"></app-star-rating>
+                    <span>{{tourism.votesNum}} đánh giá</span>
+                </mat-card-subtitle>
+            </div>
+        </mat-card>
+    </div>
+</div>

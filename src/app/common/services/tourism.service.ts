@@ -18,11 +18,13 @@ export class TourismService {
         private loadingDialog: LoadingSpinnerDialogService
     ) { }
 
-    public getTourismsAndSearch(): Observable<TourismResponse> {
+    public getTourismsAndSearch(q?: string): Observable<TourismResponse> {
         this.loadingDialog.showSpinner(true);
 
-        return this.http.get<TourismResponse>(this.apiTourismUrl)
-            .pipe(finalize(() => this.loadingDialog.showSpinner(false)));
+        const url = `${this.apiTourismUrl}?q=${q ? q : ''}`;
+        return this.http.get<TourismResponse>(url).pipe(
+            finalize(() => this.loadingDialog.showSpinner(false))
+        );
     }
 
     public getTourismByAccount(): Observable<TourismResponse> {

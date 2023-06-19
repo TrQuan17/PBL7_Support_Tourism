@@ -17,6 +17,7 @@ export const ApiPathConfig = {
     auth: {
         account: 'account',
         auth_account: 'account/me',
+        auth_favourite: 'account/me/favourites',
         login: 'account/login',
         register: 'account/register',
         update: 'account/update/info',
@@ -24,5 +25,8 @@ export const ApiPathConfig = {
         tourism_by_account: 'account/tourisms',
         resort_by_account: 'account/resorts',
         service_by_account: 'account/services'
+    },
+    model: {
+        text_classify: 'review/classify'
     }
 }

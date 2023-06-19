@@ -18,8 +18,13 @@ export class ResortService {
         private loadingDialog: LoadingSpinnerDialogService
     ) { }
 
-    public getResortsAndSearch(): Observable<ResortResponse> {
-        return this.http.get<ResortResponse>(this.apiResortUrl);
+    public getResortsAndSearch(q?: string): Observable<ResortResponse> {
+        this.loadingDialog.showSpinner(true);
+
+        const url = `${this.apiResortUrl}?q=${q ? q : ''}`
+        return this.http.get<ResortResponse>(url).pipe(
+            finalize(() => this.loadingDialog.showSpinner(false))
+        );
     }
 
     public getResortsByTourismId(tourismId: string | null): Observable<ResortResponse> {

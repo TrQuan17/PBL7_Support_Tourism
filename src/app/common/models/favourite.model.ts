@@ -4,7 +4,7 @@ import { TourismModel } from "./tourism.model";
 
 export interface FavouriteModel {
     _id?: string,
-    account: AccountModel | string,
+    account?: AccountModel | string,
     tourism: TourismModel | string
 }
 

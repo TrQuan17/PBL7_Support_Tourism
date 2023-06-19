@@ -31,7 +31,7 @@ export class IconService {
         this.iconRegistry.addSvgIcon('icon-show-pass', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/eye-solid.svg'));
         this.iconRegistry.addSvgIcon('icon-hidden-pass', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/eye-slash-solid.svg'));
         this.iconRegistry.addSvgIcon('icon-menu-bars', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/bars-solid.svg'));
-        this.iconRegistry.addSvgIcon('icon-logout', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/right-from-bracket-solid.svg'));
+        this.iconRegistry.addSvgIcon('icon-logout', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/power-off-solid.svg'));
         this.iconRegistry.addSvgIcon('icon-page', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/pager-solid.svg'));
         this.iconRegistry.addSvgIcon('icon-home', this.sanitizer.bypassSecurityTrustResourceUrl(domain + '/assets/icon-svg/house-solid.svg'));
         this.iconRegistry.addSvgIcon('icon-birthday', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/cake-candles-solid.svg'));
@@ -43,5 +43,11 @@ export class IconService {
         this.iconRegistry.addSvgIcon('icon-delete', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/trash-can-regular.svg'));
         this.iconRegistry.addSvgIcon('icon-save', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/floppy-disk-regular.svg'));
         this.iconRegistry.addSvgIcon('icon-confirm', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/check-solid.svg'));
+        this.iconRegistry.addSvgIcon('icon-account-manage', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/users-gear-solid.svg'));
+        this.iconRegistry.addSvgIcon('icon-resort-manage', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/hotel-solid.svg'));
+        this.iconRegistry.addSvgIcon('icon-tourism-manage', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/map-location-dot-solid.svg'));
+        this.iconRegistry.addSvgIcon('icon-service-manage', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/bell-concierge-solid.svg'));
+
+
     }
 }

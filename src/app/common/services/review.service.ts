@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -12,6 +13,7 @@ export class ReviewService {
     public apiWriteReviewTourismUrl = ApiPath.WRITE_REVIEW_TOURISM;
     public apiWriteReviewResortUrl = ApiPath.WRITE_REVIEW_RESORT;
     public apiTourismUrl = ApiPath.TOURISM;
+    public apiReviewClassify = ApiPath.REVIEW_CLASSIFY;
 
     constructor(private http: HttpClient) { }
 
@@ -28,5 +30,10 @@ export class ReviewService {
 
     public createWithResort(review: ReviewModel): Observable<ReviewResponse> {
         return this.http.post<ReviewResponse>(this.apiWriteReviewResortUrl, review);
+    }
+
+    public reviewClassify(review: any): Observable<ReviewResponse> {
+        console.log(review);
+        return this.http.put<ReviewResponse>(this.apiReviewClassify, review);
     }
 }

@@ -12,6 +12,7 @@ export class ApiPath {
     // Account
     public static ACCOUNT = env.API.concat(ApiPathConfig.auth.account);
     public static AUTH_ACCOUNT = env.API.concat(ApiPathConfig.auth.auth_account);
+    public static AUTH_FAVOURITE = env.API.concat(ApiPathConfig.auth.auth_favourite);
     public static LOGIN = env.API.concat(ApiPathConfig.auth.login);
     public static REGISTER = env.API.concat(ApiPathConfig.auth.register);
     public static UPDATE_INFO = env.API.concat(ApiPathConfig.auth.update);
@@ -24,5 +25,6 @@ export class ApiPath {
     public static REVIEW = env.API.concat(ApiPathConfig.pages.review);
     public static WRITE_REVIEW_TOURISM = env.API.concat(ApiPathConfig.pages.write_review_tourism);
     public static WRITE_REVIEW_RESORT = env.API.concat(ApiPathConfig.pages.write_review_resort);
+    public static REVIEW_CLASSIFY = env.TEXT_CLASSIFY_FASTAPI.concat(ApiPathConfig.model.text_classify);
 
 }

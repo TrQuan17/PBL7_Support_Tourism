@@ -1,22 +1,22 @@
 <app-header [showSearchbox]="false"></app-header>
 
 <div class="search">
-    <h1>Bạn muốn đi đâu nào ?</h1>
-
-    <mat-form-field appearance="outline" class="search-box">
-        <input matInput type="text">
-        <button mat-icon-button matSuffix>
-            <mat-icon svgIcon="icon-search"></mat-icon>
-        </button>
-    </mat-form-field>
+    <app-search-home (searchEmitter)="searchData($event)">
+    </app-search-home>
 </div>
 
 <div class="wrapper">
+    <app-data-with-search 
+        [typeSearch]="typeSearch"
+        [keyWord]="keyWord"
+        [tourismResponse]="tourismSearch"
+        [resortResponse]="resortSearch">
+    </app-data-with-search>
+
     <app-recommend 
         [tourismsRecommendRes]="tourismsRecommend" 
-        [resortRecommendRes]="resortsRecommend"></app-recommend>
+        [resortRecommendRes]="resortsRecommend">
+    </app-recommend>
 </div>
-
-
 
 <app-footer></app-footer>

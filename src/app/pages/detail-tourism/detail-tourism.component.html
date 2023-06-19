@@ -1,7 +1,10 @@
 <app-header></app-header>
 <div class="wrapper">
     <div class="app-tourism">
-        <app-detail [tourismResponse]="tourism"></app-detail>
+        <app-detail 
+            [tourismResponse]="tourism"
+            (favouriteEmitter)="saveFavourite($event)">
+        </app-detail>
     </div>
     <mat-divider></mat-divider>
 
