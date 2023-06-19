@@ -6,3 +6,4 @@ tensorflow
 pandas
 pymongo
 python-dotenv
+gensim
