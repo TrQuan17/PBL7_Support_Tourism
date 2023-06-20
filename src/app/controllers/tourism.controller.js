@@ -6,7 +6,9 @@ const CategoryModel = require('../models/category.model')
 class TourismController {
     async getAll(req, res, next) {
         try {
-            const tourisms = await Tourism.find({})
+            const tourisms = await Tourism.find({
+                name: { $regex: req.query.q, $options: 'i' }
+            })
 
             return res.json(responseJson(true, tourisms))
         }

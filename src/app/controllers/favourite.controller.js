@@ -19,16 +19,16 @@ class FavouriteController {
 
     async create(req, res, next) {
         try {
-            var newFavourite = new Favourite(req.body)
+            const newFavourite = new Favourite(req.body)
             newFavourite.account = res.data.account._id
 
-            var tourism = await Tourism.findOne({ _id: req.body.tourism })
+            const tourism = await Tourism.findOne({ _id: req.body.tourism })
             if (!tourism) { 
                 const err = { tourism: { message: 'Tourism does not exist!' } }
                 return res.json(responseJson(false, err)) 
             }
 
-            var favourite = await Favourite.findOne({
+            const favourite = await Favourite.findOne({
                 account: res.data.account._id,
                 tourism: req.body.tourism
             })
@@ -52,7 +52,7 @@ class FavouriteController {
                 return res.json(responseJson(false, err)) 
             }
 
-            var favourite = await Favourite.findOne({ _id: req.body._id })
+            const favourite = await Favourite.findOne({ _id: req.body._id })
             if (!favourite) { 
                 const err = { favourite: { message: 'Favourite does not exist!' } }
                 return res.json(responseJson(false, err)) 

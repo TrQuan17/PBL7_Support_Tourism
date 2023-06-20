@@ -6,7 +6,9 @@ const { responseJson } = require('../../config/response')
 class ResortController {
     async getAll(req, res, next) {
         try {
-            const resorts = await Resort.find({})
+            const resorts = await Resort.find({
+                name: { $regex: req.query.q, $options: 'i' }
+            })
             
             return res.json(responseJson(true, resorts))
         }

@@ -10,6 +10,7 @@ const postController = require('../app/controllers/post.controller')
 
 const { verifyAccount, verifyManagerRole, verifyAdminRole } = require('../app/middlewares/authorization.middleware')
 
+router.get('/me/favourites', verifyAccount, favouriteController.getByAccountId)
 router.get('/me', verifyAccount, accountController.myAccount)
 
 router.get('/tourisms', verifyAccount, verifyManagerRole, tourismController.getByAccountId)
