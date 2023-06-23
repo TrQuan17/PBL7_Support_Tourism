@@ -4,15 +4,10 @@
     align-items: center;
     gap: 30px;
     padding: 30px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
-.close {
-    margin-left: calc(100% - 18px);
-}
-
-.tourism {
-    height: 100%;
+.location {
     width: 30vw;
     padding-right: 20px;
     border-right: 0.5px solid var(--border-color);
@@ -28,15 +23,21 @@
     }
 
     .card img {
+        width: 100%;
+        height: 40vh;
         border-radius: 10px;
     }
 }
 
 .write-review {
-    width: 90%;
+    width: calc(100% - 30vw);
     display: flex;
     flex-direction: column;
     gap: 30px;
+
+    .close {
+        margin-left: calc(100% - 18px);
+    }
 
     .send-btn {
         width: 100%;

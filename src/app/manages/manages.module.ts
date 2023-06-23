@@ -17,25 +17,25 @@ import { ManageAccountComponent } from './components/manage-account/manage-accou
 import { UpdatePasswordComponent } from './components/update-password/update-password.component';
 
 @NgModule({
-  declarations: [
-    AuthProfileComponent,
-    ManagesComponent,
-    ManageTourismComponent,
-    ManageTourismDialogComponent,
-    ManageResortComponent,
-    ManageResortDialogComponent,
-    ManageServiceComponent,
-    ManageServiceDialogComponent,
-    UpdateProfileComponent,
-    ManageAccountComponent,
-    UpdatePasswordComponent
-  ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    LayoutModule,
-    ManagesRoutingModule,
-    CommonAppModule.forRoot()
-  ]
+    declarations: [
+        AuthProfileComponent,
+        ManagesComponent,
+        ManageTourismComponent,
+        ManageTourismDialogComponent,
+        ManageResortComponent,
+        ManageResortDialogComponent,
+        ManageServiceComponent,
+        ManageServiceDialogComponent,
+        UpdateProfileComponent,
+        ManageAccountComponent,
+        UpdatePasswordComponent
+    ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        LayoutModule,
+        ManagesRoutingModule,
+        CommonAppModule.forRoot()
+    ]
 })
 export class ManagesModule { }

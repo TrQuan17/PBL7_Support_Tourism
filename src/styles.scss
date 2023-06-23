@@ -34,13 +34,11 @@ $Support_Tourism_FE-theme: mat.define-light-theme((color: (primary: $Support_Tou
 html,
 body {
     height: 100%;
-}
-
-body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     font-size: 16px;
     color: var(--text-color);
+    min-width: 911px;
 }
 
 // CSS variable
@@ -143,4 +141,16 @@ mat-snack-bar-container:not(.success-snackbar) {
 mat-icon {
     padding: 0;
     color: var(--primary-color);
+}
+
+img:before {
+    content: ' ';
+    display: block;
+    position: relative;
+    height: inherit;
+    width: inherit;
+    background-image: url(assets/images/background-default-travel.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: inherit;
 }

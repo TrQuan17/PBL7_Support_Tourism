@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { clone } from 'lodash';
 import { ResortModel, ResortResponse, TourismModel, TourismResponse } from 'src/app/common/models';
 
@@ -12,6 +12,7 @@ export class DataWithSearchComponent implements OnChanges {
     @Input() keyWord = '';
     @Input() tourismResponse?: TourismResponse;
     @Input() resortResponse?: ResortResponse; 
+    @Output() resetEmiiter = new EventEmitter<void>;
 
     public tourismsList: TourismModel[] = [];
     public resortsList: ResortModel[] = [];
@@ -30,5 +31,9 @@ export class DataWithSearchComponent implements OnChanges {
                 this.resortsList = this.resortResponse.data as ResortModel[];
             }
         }
+    }
+
+    public reset(): void {
+        this.resetEmiiter.emit();
     }
 }

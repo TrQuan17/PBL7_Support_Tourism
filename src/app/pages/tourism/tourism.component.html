@@ -1,5 +1,6 @@
 <app-header (searchEmitter)="searchTourism($event)"></app-header>
 <app-show class="container" 
+    [searchTourism]="keyWord"
     [tourismResponse]="tourismResponse" 
     [categoryResponse]="categoryResponse"
     (categoryEmitter)="getTourismByCategory($event)">

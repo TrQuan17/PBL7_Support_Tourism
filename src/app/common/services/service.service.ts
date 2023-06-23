@@ -11,6 +11,7 @@ import { LoadingSpinnerDialogService } from 'src/app/layout/services';
 export class ServiceService {
     public apiServiceUrl = ApiPath.SERVICE;
     public apiServiceByAccountUrl = ApiPath.SERVICE_BY_ACCOUNT;
+    public apiResortUrl = ApiPath.RESORT;
 
     constructor(
         private http: HttpClient,
@@ -19,6 +20,11 @@ export class ServiceService {
 
     public getServicesAndSearch(): Observable<ServiceResponse> {
         return this.http.get<ServiceResponse>(this.apiServiceUrl);
+    }
+
+    public getServicesByResort(resortId: string): Observable<ServiceResponse> {
+        const url = `${this.apiResortUrl}/${resortId}/services`;
+        return this.http.get<ServiceResponse>(url);
     }
 
     public getServicesByAccount(): Observable<ServiceResponse> {

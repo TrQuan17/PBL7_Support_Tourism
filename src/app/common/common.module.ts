@@ -12,13 +12,17 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { CUSTOM_DATE_FORMATS } from './models';
 import { ScrollToTopDirective } from 'src/directive/scroll.directive';
+import { ReviewsComponent } from './components/reviews/reviews.component';
+import { WriteReviewDialogComponent } from './components/write-review-dialog/write-review-dialog.component';
 
 const CommonComponents = [
     SearchComponent,
     StarRatingComponent,
     RequiresLoginDialogComponent,
     ConfirmDialogComponent,
-    TimelineComponent
+    TimelineComponent,
+    ReviewsComponent,
+    WriteReviewDialogComponent
 ]
 
 const CommonDirective = [

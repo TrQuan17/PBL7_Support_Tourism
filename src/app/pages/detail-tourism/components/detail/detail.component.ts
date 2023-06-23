@@ -12,7 +12,6 @@ SNACK_BAR_CONFIG.duration = 2000;
 SNACK_BAR_CONFIG.verticalPosition = 'bottom';
 SNACK_BAR_CONFIG.horizontalPosition = 'center';
 
-
 @Component({
     selector: 'app-detail',
     templateUrl: './detail.component.html',
@@ -33,7 +32,9 @@ export class DetailComponent implements OnChanges {
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes?.['tourismResponse']?.currentValue) {
             this.tourismResponse = clone(changes?.['tourismResponse'].currentValue);
-            this.tourism = this.tourismResponse.data as TourismModel;
+            if(this.tourismResponse.status === 'SUCCESS') {
+                this.tourism = this.tourismResponse.data as TourismModel;
+            }  
         }
     }
 

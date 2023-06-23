@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="wrapper">
-    <div class="app-tourism">
+    <div class="app">
         <app-detail 
             [tourismResponse]="tourism"
             (favouriteEmitter)="saveFavourite($event)">
@@ -8,12 +8,12 @@
     </div>
     <mat-divider></mat-divider>
 
-    <div class="app-resort">
+    <div class="app">
         <app-resorts [resortResponse]="resortsTourism"></app-resorts>
     </div>
     <mat-divider></mat-divider>
 
-    <div class="app-review">
+    <div class="app">
         <app-reviews [reviewResponse]="reviewsTourism" [tourismResponse]="tourism"
             (reviewEmitter)="writeReview($event)"></app-reviews>
     </div>

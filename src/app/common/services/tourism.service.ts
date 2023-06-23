@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, finalize } from 'rxjs';
 import { ApiPath } from 'src/app/core/config';
 import { LoadingSpinnerDialogService } from 'src/app/layout/services';
-import { CategoryModel, TourismModel, TourismResponse } from '../models';
+import { TourismModel, TourismResponse } from '../models';
 
 @Injectable({
     providedIn: 'root'
@@ -27,18 +27,19 @@ export class TourismService {
         );
     }
 
-    public getTourismByAccount(): Observable<TourismResponse> {
+    public getTourismByAccount(q?: string): Observable<TourismResponse> {
         this.loadingDialog.showSpinner(true);
 
-        return this.http.get<TourismResponse>(this.apiTourismByAccountUrl).pipe(
+        const url = `${this.apiTourismByAccountUrl}?q=${ q ? q : '' }`
+        return this.http.get<TourismResponse>(url).pipe(
             finalize(() => this.loadingDialog.showSpinner(false))
         );
     }
 
-    public getTourismsByCategory(category: CategoryModel): Observable<TourismResponse> {
+    public getTourismsByCategory(categoryId: string, q?: string): Observable<TourismResponse> {
         this.loadingDialog.showSpinner(true);
 
-        const url = `${this.apiCategoryUrl}/${category._id}/tourisms`;
+        const url = `${this.apiCategoryUrl}/${categoryId}/tourisms?q=${q ? q : ''}`;
 
         return this.http.get<TourismResponse>(url).pipe(
             finalize(() => this.loadingDialog.showSpinner(false)));

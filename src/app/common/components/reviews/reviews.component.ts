@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { AccountModel, RatesNumModel, ResortModel, ResortResponse, ReviewModel, ReviewResponse, TourismModel, TourismResponse } from '../../models';
+import { Utils } from '../../utils/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { clone } from 'lodash';
-import { AccountModel, RatesNumModel, ReviewModel, ReviewResponse, TourismModel, TourismResponse } from 'src/app/common/models';
+import { RequiresLoginDialogComponent } from '../requires-login-dialog/requires-login-dialog.component';
 import { WriteReviewDialogComponent } from '../write-review-dialog/write-review-dialog.component';
-import { Utils } from 'src/app/common/utils/utils';
-import { RequiresLoginDialogComponent } from 'src/app/common/components/requires-login-dialog/requires-login-dialog.component';
 
 @Component({
     selector: 'app-reviews',
@@ -14,15 +14,17 @@ import { RequiresLoginDialogComponent } from 'src/app/common/components/requires
 })
 export class ReviewsComponent implements OnChanges {
     @Input() reviewResponse!: ReviewResponse;
-    @Input() tourismResponse!: TourismResponse;
+    @Input() tourismResponse?: TourismResponse;
+    @Input() resortResponse?: ResortResponse;
     @Output() reviewEmitter = new EventEmitter<FormData>;
 
     public tourism?: TourismModel;
+    public resort?: ResortModel;
     public reviewsList: any[] = [];
     public utils = Utils;
     public ratesNum: RatesNumModel;
 
-    constructor( public dialog: MatDialog ) {
+    constructor(public dialog: MatDialog) {
         this.ratesNum = {
             excellent: 0,
             veryGood: 0,
@@ -30,24 +32,37 @@ export class ReviewsComponent implements OnChanges {
             unsatisfactory: 0,
             terrible: 0
         }
-     }
+    }
 
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes?.['reviewResponse']?.currentValue) {
             this.reviewResponse = clone(changes?.['reviewResponse'].currentValue);
-            this.reviewsList = this.reviewResponse.data as ReviewModel[];
-            
-            this.reviewsList = (this.reviewResponse.data as ReviewModel[]).map(review => {
-                review.account = review.account as AccountModel;
-                return review;
-            })
+            if (this.reviewResponse.status === 'SUCCESS') {
+                this.reviewsList = this.reviewResponse.data as ReviewModel[];
 
-            this.getNumRateByStar();
+                this.reviewsList = (this.reviewResponse.data as ReviewModel[]).map(review => {
+                    review.account = review.account as AccountModel;
+                    return review;
+                })
+
+                this.getNumRateByStar();
+            }
         }
 
-        if(changes?.['tourismResponse']?.currentValue) {
+        if (changes?.['tourismResponse']?.currentValue) {
             this.tourismResponse = clone(changes?.['tourismResponse'].currentValue);
-            this.tourism = this.tourismResponse.data as TourismModel;
+
+            if (this.tourismResponse?.status === 'SUCCESS') {
+                this.tourism = this.tourismResponse.data as TourismModel;
+            }
+        }
+
+        if (changes?.['resortResponse']?.currentValue) {
+            this.resortResponse = clone(changes?.['resortResponse'].currentValue);
+
+            if (this.resortResponse?.status === 'SUCCESS') {
+                this.resort = this.resortResponse.data as ResortModel;
+            }
         }
     }
 
@@ -62,7 +77,7 @@ export class ReviewsComponent implements OnChanges {
     }
 
     public openWriteReview(): void {
-        if(!Utils.isCurrentAccount()) {
+        if (!Utils.isCurrentAccount()) {
             this.dialog.open(RequiresLoginDialogComponent, {
                 height: '500px',
                 width: '410px',
@@ -71,15 +86,25 @@ export class ReviewsComponent implements OnChanges {
             return;
         }
 
+        let dialogData;
+
+        if (this.tourismResponse) {
+            dialogData = { field: 'tourism', data: this.tourism }
+        }
+
+        if (this.resortResponse) {
+            dialogData = { field: 'resort', data: this.resort }
+        }
+
         const diaogRef = this.dialog.open(WriteReviewDialogComponent, {
             height: '90%',
-            data: this.tourism,
+            data: dialogData,
             disableClose: true,
             autoFocus: false
         })
 
         diaogRef.afterClosed().subscribe(data => {
-            if(data) {
+            if (data) {
                 this.reviewEmitter.emit(data);
             }
         })

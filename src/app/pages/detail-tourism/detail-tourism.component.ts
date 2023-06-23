@@ -15,7 +15,7 @@ SNACK_BAR_CONFIG.horizontalPosition = 'center';
     styleUrls: ['./detail-tourism.component.scss']
 })
 export class DetailTourismComponent implements OnInit {
-    public tourismId: string | null;
+    public tourismId = '';
     public tourism!: TourismResponse;
     public resortsTourism!: ResortResponse;
     public reviewsTourism!: ReviewResponse;
@@ -28,7 +28,7 @@ export class DetailTourismComponent implements OnInit {
         private reviewService: ReviewService,
         private favouriteService: FavouriteService
     ) {
-        this.tourismId = this.router.snapshot.paramMap.get('tourismId');
+        this.tourismId = this.router.snapshot.paramMap.get('tourismId') as string;
     }
 
     public ngOnInit(): void {
@@ -38,7 +38,7 @@ export class DetailTourismComponent implements OnInit {
     }
 
     public getTourismDetail(): void {
-        this.tourismService.getTourismById(this.tourismId ? this.tourismId : '').subscribe(
+        this.tourismService.getTourismById(this.tourismId).subscribe(
             (res: TourismResponse) => {
                 this.tourism = res;
             }
@@ -46,7 +46,7 @@ export class DetailTourismComponent implements OnInit {
     }
 
     public getReviewsTourism(): void {
-        this.reviewService.getReviewsByTourismId(this.tourismId).subscribe(
+        this.reviewService.getReviewsByTourism(this.tourismId).subscribe(
             (res: ReviewResponse) => {
                 this.reviewsTourism = res;
             }
@@ -54,7 +54,7 @@ export class DetailTourismComponent implements OnInit {
     }
 
     public getResortsTourism(): void {
-        this.resortService.getResortsByTourismId(this.tourismId).subscribe(
+        this.resortService.getResortsByTourism(this.tourismId).subscribe(
             (res: ResortResponse) => {
                 this.resortsTourism = res;
             }

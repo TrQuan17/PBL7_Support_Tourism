@@ -11,25 +11,22 @@
 
     <h2>Địa điểm du lịch</h2>
 
-    <ng-container class="tourisms-vertical">
+    <ng-container class="list">
         <h4 *ngIf="categorySelect !== 'All'">Chủ đề {{categorySelect}}</h4>
-        <mat-card class="tourism-card-horizontal" *ngFor="let tourism of tourismsList; let idx = index">
-            <div class="item-card">
-                <img class="images-content" [src]="tourism.images[0]" alt="Photo of a Touirsm">
-                <button mat-icon-button class="action-icon-btn" (click)="copyLink()">
-                    <mat-icon svgIcon="icon-share"></mat-icon>
-                </button>
-                <div class="content">
-                    <mat-card-header>
-                        <mat-card-title>
-                            <h5><a routerLink="{{tourism._id}}">
-                                    {{idx + 1}}. {{ tourism.name }}
-                                </a></h5>
-                        </mat-card-title>
-                        <mat-card-subtitle>{{ tourism.title }}</mat-card-subtitle>
-                    </mat-card-header>
-                </div>
-            </div>
+        <h4 *ngIf="searchTourism">Kết quả tìm kiếm với từ khóa [ {{searchTourism}} ]</h4>
+        <mat-card class="item-card" *ngFor="let tourism of tourismsList; let idx = index">
+            <img class="images-content" [src]="tourism.images[0]" alt="Photo of a Touirsm">
+            <button mat-icon-button class="action-icon-btn" (click)="copyLink()">
+                <mat-icon svgIcon="icon-share"></mat-icon>
+            </button>
+            <mat-card-header class="content">
+                <mat-card-title>
+                    <h5><a routerLink="{{tourism._id}}">
+                            {{idx + 1}}. {{ tourism.name }}
+                        </a></h5>
+                </mat-card-title>
+                <mat-card-subtitle>{{ tourism.title }}</mat-card-subtitle>
+            </mat-card-header>
         </mat-card>
     </ng-container>
 </div>

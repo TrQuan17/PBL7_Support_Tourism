@@ -1,11 +1,11 @@
 <div class="wrapper">
-    <div class="tourism">
+    <div class="location">
         <h4>Hãy cho tôi biết chuyến đi của bạn như thế nào ?</h4>
         <div class="card">
-            <img [src]="dialogData ? dialogData.images[0]: 'assets/images/no-image.jpg'" alt="">
+            <img [src]="model ? model.images[0] : ''" alt="">
             <div class="title">
-                <h4>{{ dialogData?.name }}</h4>
-                <span>{{ dialogData?.address }}</span>
+                <h4>{{ model?.name }}</h4>
+                <span>{{ model?.address }}</span>
             </div>
         </div>
     </div>

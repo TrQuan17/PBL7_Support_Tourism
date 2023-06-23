@@ -13,7 +13,7 @@
         <div class="rating" *ngIf="tourism">
             <div class="header">
                 <div class="show-rate">
-                    <h4>{{ tourism.rate }}</h4>
+                    <h4>{{ tourism.rate | number:'1.0-1' }}</h4>
                     <app-star-rating [showVote]="tourism.rate"></app-star-rating>
                 </div>
                 <span>{{ tourism.votesNum }} đánh giá</span>
@@ -25,7 +25,7 @@
                     <span>Xuất sắc</span>
                     <span>{{ ratesNum.excellent }}</span>
                 </div>
-                <mat-progress-bar class="rates-num" mode="determinate" 
+                <mat-progress-bar class="rates-num" mode="determinate"
                     [value]="tourism.votesNum ? ratesNum.excellent / tourism.votesNum * 100 : 0">
                 </mat-progress-bar>
             </div>
@@ -35,7 +35,7 @@
                     <span>Rất tốt</span>
                     <span>{{ ratesNum.veryGood }}</span>
                 </div>
-                <mat-progress-bar class="rates-num" mode="determinate" 
+                <mat-progress-bar class="rates-num" mode="determinate"
                     [value]=" tourism.votesNum ? ratesNum.veryGood / tourism.votesNum * 100 : 0">
                 </mat-progress-bar>
             </div>
@@ -45,7 +45,7 @@
                     <span>Bình thường</span>
                     <span>{{ ratesNum.average }}</span>
                 </div>
-                <mat-progress-bar class="rates-num" mode="determinate" 
+                <mat-progress-bar class="rates-num" mode="determinate"
                     [value]=" tourism.votesNum ? ratesNum.average / tourism.votesNum * 100 : 0">
                 </mat-progress-bar>
             </div>
@@ -55,7 +55,7 @@
                     <span>Khá tệ</span>
                     <span>{{ ratesNum.unsatisfactory }}</span>
                 </div>
-                <mat-progress-bar class="rates-num" mode="determinate" 
+                <mat-progress-bar class="rates-num" mode="determinate"
                     [value]=" tourism.votesNum ? ratesNum.unsatisfactory / tourism.votesNum * 100 : 0">
                 </mat-progress-bar>
             </div>
@@ -65,7 +65,7 @@
                     <span>Tệ</span>
                     <span>{{ ratesNum.terrible }}</span>
                 </div>
-                <mat-progress-bar class="rates-num" mode="determinate" 
+                <mat-progress-bar class="rates-num" mode="determinate"
                     [value]=" tourism.votesNum ? ratesNum.terrible / tourism.votesNum * 100 : 0">
                 </mat-progress-bar>
             </div>

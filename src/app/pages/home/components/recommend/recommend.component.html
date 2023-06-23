@@ -6,7 +6,7 @@
     <mat-divider></mat-divider>
     <div class="list">
         <mat-card class="item-card" *ngFor="let tourism of tourismsList; let idx = index">
-            <img class="images-content" [src]="tourism.images[0]" alt="Photo of a Touirsm">
+            <img class="images-content" [src]="tourism.images[0]">
             <div class="content">
                 <mat-card-header>
                     <mat-card-title>
@@ -21,17 +21,24 @@
                 </mat-card-subtitle>
             </div>
         </mat-card>
+
+        <div class="show-more">
+            <button mat-icon-button>
+                <mat-icon svgIcon="icon-show-more-right"></mat-icon>
+            </button>
+        </div>
     </div>
+
     <mat-divider></mat-divider>
 
     <div class="header">
         <h3>Khu nghỉ dưỡng được đề xuất cho bạn</h3>
-        <button mat-flat-button>Tất cả</button>
+        <button mat-flat-button routerLink="/resort">Tất cả</button>
     </div>
     <mat-divider></mat-divider>
     <div class="list">
         <mat-card class="item-card" *ngFor="let resort of resortsList; let idx = index">
-            <img class="images-content" [src]="resort.images[0]" alt="Photo of a Resort">
+            <img class="images-content" [src]="resort.images[0]">
             <div class="content">
                 <mat-card-header>
                     <mat-card-title>

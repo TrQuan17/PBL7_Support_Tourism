@@ -1,0 +1,6 @@
+<app-header (searchEmitter)="searchResort($event)"></app-header>
+<app-show class="container" 
+    [searchResort]="keyWord"
+    [resortResponse]="resortResponse" >
+</app-show>
+<app-footer></app-footer>

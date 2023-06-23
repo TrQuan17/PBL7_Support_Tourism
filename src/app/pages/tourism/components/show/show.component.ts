@@ -17,6 +17,7 @@ SNACK_BAR_CONFIG.horizontalPosition = 'center';
 export class ShowComponent implements OnChanges{
     @Input() tourismResponse!: TourismResponse;
     @Input() categoryResponse!: CategoryResponse;
+    @Input() searchTourism = ''; 
     @Output() categoryEmitter = new EventEmitter<CategoryModel>;
 
     public tourismsList: TourismModel[] = [];

@@ -7,6 +7,8 @@ import { TourismModule } from './tourism/tourism.module';
 import { DetailTourismModule } from './detail-tourism/detail-tourism.module';
 import { HomeModule } from './home/home.module';
 import { ProfileModule } from './profile/profile.module';
+import { ResortModule } from './resort/resort.module';
+import { DetailResortModule } from './detail-resort/detail-resort.module';
 
 @NgModule({
     declarations: [],
@@ -19,6 +21,8 @@ import { ProfileModule } from './profile/profile.module';
         HomeModule,
         TourismModule,
         DetailTourismModule,
+        ResortModule,
+        DetailResortModule,
         ProfileModule
 
     ]

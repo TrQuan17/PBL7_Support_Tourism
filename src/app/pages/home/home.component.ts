@@ -14,6 +14,7 @@ export class HomeComponent {
     public resortsRecommend!: ResortResponse;
     public tourismSearch?: TourismResponse;
     public resortSearch?: ResortResponse;
+    public isResetSearch = false;
     public typeSearch = '';
     public keyWord = '';
 
@@ -49,9 +50,11 @@ export class HomeComponent {
         switch(this.typeSearch) {
             case 'tourism':
                 this.getTourismSearch(this.keyWord);
+                this.typeSearch = 'Địa điểm du lịch';
                 break;
             case 'resort':
                 this.getResortSearch(this.keyWord);
+                this.typeSearch = 'Khu nghỉ dưỡng';
                 break;
         }
     }
@@ -74,5 +77,10 @@ export class HomeComponent {
                 }
             }
         )
+    }
+
+    public resetSearch(): void {
+       this.keyWord = '';
+       this.isResetSearch = true;
     }
 }

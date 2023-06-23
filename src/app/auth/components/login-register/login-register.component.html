@@ -1,10 +1,4 @@
 <div class="wrapper">
-    <div class="header">
-        <a class="logo" routerLink="/home">
-            <img src="assets\images\logo.jpg" alt="" srcset="">
-        </a>
-    </div>
-
     <div class="show">
         <div class="introduce">
             <h4>KHÁM PHÁ NHỮNG ĐỊA ĐIỂM LÂN CẬN</h4>
@@ -16,7 +10,9 @@
         </div>
 
         <form [formGroup]="loginForm" class="login-form" *ngIf="isLogin">
-            <h4>Wellcome, Back!</h4>
+            <a class="logo" routerLink="/home">
+                <img src="assets\images\logo-header.jpg" alt="" srcset="">
+            </a>
             <mat-form-field appearance="outline">
                 <mat-label>Tên đăng nhập</mat-label>
                 <input matInput formControlName="username" type="text">
@@ -38,7 +34,7 @@
                 [disabled]="loginForm.invalid" (click)="login()">Đăng nhập</button>
             <mat-divider></mat-divider>
             <span>
-                Bạn chưa có tài khoản ? <a (click)="isLogin = !isLogin">Đăng kí ngay</a>
+                Bạn chưa có tài khoản ? <strong (click)="isLogin = !isLogin">Đăng kí ngay</strong>
             </span>
         </form>
 
@@ -82,7 +78,7 @@
                 [disabled]="registerForm.invalid" >Đăng ký</button>
             <mat-divider></mat-divider>
             <span>
-                Bạn đã có tài khoản ? <a (click)="isLogin = !isLogin">Đăng nhập ngay</a>
+                Bạn đã có tài khoản ? <strong (click)="isLogin = !isLogin" class="">Đăng nhập ngay</strong>
             </span>
         </form>
 

@@ -29,22 +29,16 @@
     }
 }
 
-.tourisms {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
-    gap: 20px;
-}
-
-.tourisms-vertical {
+.list {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.tourism-card-horizontal {
+.item-card {
     min-width: 70vw;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 
     .content {
         display: flex;

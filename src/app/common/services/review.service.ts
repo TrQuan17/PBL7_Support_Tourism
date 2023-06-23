@@ -13,14 +13,18 @@ export class ReviewService {
     public apiWriteReviewTourismUrl = ApiPath.WRITE_REVIEW_TOURISM;
     public apiWriteReviewResortUrl = ApiPath.WRITE_REVIEW_RESORT;
     public apiTourismUrl = ApiPath.TOURISM;
+    public apiResortUrl = ApiPath.RESORT;
     public apiReviewClassify = ApiPath.REVIEW_CLASSIFY;
 
     constructor(private http: HttpClient) { }
 
-    public getReviewsByTourismId(tourismId: string | null): Observable<ReviewResponse> {
-        tourismId = tourismId ? tourismId : '';
+    public getReviewsByTourism(tourismId: string): Observable<ReviewResponse> {
         const url = `${this.apiTourismUrl}/${tourismId}/reviews`;
+        return this.http.get<ReviewResponse>(url);
+    }
 
+    public getReviewsByResort(resortId: string): Observable<ReviewResponse> {
+        const url = `${this.apiResortUrl}/${resortId}/reviews`;
         return this.http.get<ReviewResponse>(url);
     }
 

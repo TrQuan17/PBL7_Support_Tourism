@@ -8,10 +8,11 @@
     background-repeat: no-repeat;
     min-width: 1072px;
     background-size: cover;
-}
 
-.header img {
-    height: 60px;
+    strong {
+        cursor: pointer;
+        font-weight: 500;
+    }
 }
 
 .show {
@@ -19,6 +20,10 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+}
+
+.show .logo img {
+    height: 60px;
 }
 
 .show .introduce {

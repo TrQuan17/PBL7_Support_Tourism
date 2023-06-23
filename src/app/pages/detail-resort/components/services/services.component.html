@@ -1,0 +1,10 @@
+<h3>Dịch vụ khu nghỉ dưỡng</h3>
+
+<div class="services">
+    <div class="item-card" *ngFor="let service of servicesList">
+        <img [src]="service.images[0]">
+        <div class="text">
+            <span class="name"> {{ service.name }} </span>
+        </div>
+    </div>
+</div>

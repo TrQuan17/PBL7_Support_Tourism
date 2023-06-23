@@ -4,22 +4,18 @@ import { DetailComponent } from './components/detail/detail.component';
 import { DetailTourismComponent } from './detail-tourism.component';
 import { CommonAppModule } from 'src/app/common/common.module';
 import { LayoutModule } from 'src/app/layout/layout.module';
-import { ReviewsComponent } from './components/reviews/reviews.component';
-import { WriteReviewDialogComponent } from './components/write-review-dialog/write-review-dialog.component';
 import { ResortsComponent } from './components/resorts/resorts.component';
 
 @NgModule({
-  declarations: [
-    DetailComponent,
-    DetailTourismComponent,
-    ReviewsComponent,
-    WriteReviewDialogComponent,
-    ResortsComponent
-  ],
-  imports: [
-    CommonModule,
-    LayoutModule,
-    CommonAppModule.forRoot()
-  ]
+    declarations: [
+        DetailComponent,
+        DetailTourismComponent,
+        ResortsComponent
+    ],
+    imports: [
+        CommonModule,
+        LayoutModule,
+        CommonAppModule.forRoot()
+    ]
 })
 export class DetailTourismModule { }

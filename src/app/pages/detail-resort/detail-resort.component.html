@@ -1,0 +1,18 @@
+<app-header></app-header>
+<div class="wrapper">
+    <div class="app">
+        <app-detail [resortResponse]="resortResponse"></app-detail>
+    </div>
+    <mat-divider></mat-divider>
+
+    <div class="app">
+        <app-services [serviceResponse]="servicesResort"></app-services>
+    </div>
+    <mat-divider></mat-divider>
+
+    <div class="app">
+        <app-reviews [reviewResponse]="reviewsResort" [resortResponse]="resortResponse"
+            (reviewEmitter)="writeReview($event)"></app-reviews>
+    </div>
+</div>
+<app-footer></app-footer>

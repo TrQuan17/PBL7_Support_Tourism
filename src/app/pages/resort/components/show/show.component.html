@@ -1,0 +1,17 @@
+<div class="wrapper">
+    <h2>Khu nghỉ dưỡng</h2>
+    <h4 *ngIf="searchResort">Kết quả tìm kiếm với từ khóa [ {{searchResort}} ]</h4>
+    <mat-card class="item-card" *ngFor="let resort of resortsList; let idx = index">
+        <img class="images-content" [src]="resort.images[0]" alt="Photo of a Touirsm">
+        <button mat-icon-button class="action-icon-btn" (click)="copyLink()">
+            <mat-icon svgIcon="icon-share"></mat-icon>
+        </button>
+        <mat-card-header>
+            <mat-card-title>
+                <h5><a routerLink="{{resort._id}}">
+                        {{idx + 1}}. {{ resort.name }}
+                    </a></h5>
+            </mat-card-title>
+        </mat-card-header>
+    </mat-card>
+</div>

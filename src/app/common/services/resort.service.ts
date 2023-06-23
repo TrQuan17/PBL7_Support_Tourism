@@ -27,17 +27,20 @@ export class ResortService {
         );
     }
 
-    public getResortsByTourismId(tourismId: string | null): Observable<ResortResponse> {
-        tourismId = tourismId ? tourismId : '';
-        const url = `${this.apiTourismUrl}/${tourismId}/resorts`;
+    public getResortById(resortId: string): Observable<ResortResponse> {
+        return this.http.get<ResortResponse>(`${this.apiResortUrl}/${resortId}`);
+    }
 
+    public getResortsByTourism(tourismId: string): Observable<ResortResponse> {
+        const url = `${this.apiTourismUrl}/${tourismId}/resorts`;
         return this.http.get<ResortResponse>(url);
     }
 
-    public getResortByAccount(): Observable<ResortResponse> {
+    public getResortByAccount(q?: string): Observable<ResortResponse> {
         this.loadingDialog.showSpinner(true);
 
-        return this.http.get<ResortResponse>(this.apiResortByAccountUrl).pipe(
+        const url = `${this.apiResortByAccountUrl}?q=${q ? q : ''}`
+        return this.http.get<ResortResponse>(url).pipe(
             finalize(() => this.loadingDialog.showSpinner(false))
         );
     }

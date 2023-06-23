@@ -11,7 +11,7 @@ import { CategoryService, TourismService } from 'src/app/common/services';
 export class TourismComponent implements OnInit {
     public tourismResponse!: TourismResponse;
     public categoryResponse!: CategoryResponse;
-    public search?: string;
+    public keyWord = '';
 
     constructor(
         private tourismService: TourismService,
@@ -24,12 +24,12 @@ export class TourismComponent implements OnInit {
     }
 
     public searchTourism(text: string): void {
-        this.search = text;
-        console.log(this.search);
+        this.keyWord = text;
+        this.getTourisms();
     }
 
     public getTourisms(): void {
-        this.tourismService.getTourismsAndSearch().subscribe(
+        this.tourismService.getTourismsAndSearch(this.keyWord).subscribe(
             (res: TourismResponse) => {
                 this.tourismResponse = res;
             }
@@ -46,7 +46,8 @@ export class TourismComponent implements OnInit {
 
     public getTourismByCategory(category?: CategoryModel): void {
         if(category) {
-            this.tourismService.getTourismsByCategory(category).subscribe(
+            const categoryId = category._id as string;
+            this.tourismService.getTourismsByCategory(categoryId, this.keyWord).subscribe(
                 (res: TourismResponse) => {
                     this.tourismResponse = res;
                 }

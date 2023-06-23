@@ -1,7 +1,9 @@
 <app-header [showSearchbox]="false"></app-header>
 
 <div class="search">
-    <app-search-home (searchEmitter)="searchData($event)">
+    <app-search-home
+        [resetSearch]="isResetSearch" 
+        (searchEmitter)="searchData($event)">
     </app-search-home>
 </div>
 
@@ -10,7 +12,8 @@
         [typeSearch]="typeSearch"
         [keyWord]="keyWord"
         [tourismResponse]="tourismSearch"
-        [resortResponse]="resortSearch">
+        [resortResponse]="resortSearch"
+        (resetEmiiter)="resetSearch()">
     </app-data-with-search>
 
     <app-recommend 

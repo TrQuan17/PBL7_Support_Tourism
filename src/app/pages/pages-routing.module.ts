@@ -4,6 +4,8 @@ import { TourismComponent } from './tourism/tourism.component';
 import { DetailTourismComponent } from './detail-tourism/detail-tourism.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ResortComponent } from './resort/resort.component';
+import { DetailResortComponent } from './detail-resort/detail-resort.component';
 
 const routes: Routes = [
     {
@@ -17,6 +19,14 @@ const routes: Routes = [
     {
         path: 'tourism/:tourismId',
         component: DetailTourismComponent
+    },
+    {
+        path: 'resort',
+        component: ResortComponent
+    },
+    {
+        path: 'resort/:resortId',
+        component: DetailResortComponent
     },
     {
         path: 'profile/:accountId',
