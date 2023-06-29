@@ -1,0 +1,46 @@
+.wrapper {
+    padding: var(--padding-wrapper);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.menu {
+    display: flex;
+    gap: 12px;
+
+    button {
+        height: 40px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+    }
+
+    button mat-icon {
+        height: 18px;
+        width: 18px;
+        margin-bottom: 4px;
+        box-sizing: border-box;
+    }
+
+    button:not(.selected) {
+        --mdc-filled-button-container-color: white;
+        --mdc-filled-button-label-text-color: var(--primary-color);
+        border: 1px solid var(--primary-color);
+        box-sizing: border-box;
+
+        mat-icon {
+            color: var(--primary-color);
+        }
+    }
+
+    button:not(.no-select) {
+        --mdc-filled-button-container-color: var(--primary-color);
+        --mdc-filled-button-label-text-color: white;
+
+        mat-icon {
+            color: white;
+        }
+    }
+}

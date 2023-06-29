@@ -1,0 +1,33 @@
+<app-header></app-header>
+<div class="wrapper">
+    <div class="menu">
+        <button mat-flat-button
+            [class]="getMenuSelected(menu.FAVOURITES)" 
+            (click)="selectMenu(menu.FAVOURITES)">
+            <mat-icon svgIcon="icon-heart-like"></mat-icon>
+            <span>Điểm du lịch yêu thích</span>
+        </button>
+
+        <button mat-flat-button
+            [class]="getMenuSelected(menu.TRIPS)" 
+            (click)="selectMenu(menu.TRIPS)">
+            <mat-icon svgIcon="icon-trip"></mat-icon>
+            <span>Chuyến đi của tôi</span>
+        </button>
+    </div> 
+
+    <app-favourites *ngIf="menuSelected === menu.FAVOURITES"
+        
+        [favouriteResponse]="favouriteResponse"
+        (deleteEmitter)="deleteFavourite($event)">
+    </app-favourites>
+
+    <app-trips *ngIf="menuSelected === menu.TRIPS"
+        [class]="getMenuSelected(menu.TRIPS)"
+        [favouriteResponse]="favouriteResponse"
+        [tripResponse]="tripResponse"
+        (createTripEmitter)="createTrip($event)"
+        (deleteTripEmitter)="deleteTrip($event)">
+    </app-trips>
+</div>
+<app-footer></app-footer>

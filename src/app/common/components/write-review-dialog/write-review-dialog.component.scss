@@ -1,10 +1,11 @@
 .wrapper {
     display: flex;
     flex-direction: row;
-    align-items: center;
     gap: 30px;
-    padding: 30px;
-    overflow-y: auto;
+    padding: 30px 0;
+    padding-left: 30px;
+    min-height: 500px;
+    min-width: 410px;
 }
 
 .location {
@@ -30,22 +31,31 @@
 }
 
 .write-review {
+    padding-right: 30px;
     width: calc(100% - 30vw);
+    height: 80vh;
     display: flex;
     flex-direction: column;
     gap: 30px;
+    overflow-y: auto;
+    overflow-x: hidden;
 
     .close {
         margin-left: calc(100% - 18px);
+        mat-icon {
+            height: 24px;
+            width: 24px;
+        }
     }
 
     .send-btn {
         width: 100%;
+        padding: 10px;
         border-radius: 50vh;
 
         --mdc-filled-button-container-color: var(--primary-color);
         --mdc-filled-button-label-text-color: white;
-        
+
         mat-icon {
             color: white;
         }
@@ -82,4 +92,3 @@
         width: 24px;
     }
 }
-

@@ -9,9 +9,13 @@ import { HomeModule } from './home/home.module';
 import { ProfileModule } from './profile/profile.module';
 import { ResortModule } from './resort/resort.module';
 import { DetailResortModule } from './detail-resort/detail-resort.module';
+import { FavouriteModule } from './favourite/favourite.module';
+import { DetailTripComponent } from './detail-trip/detail-trip.component';
 
 @NgModule({
-    declarations: [],
+    declarations: [
+    DetailTripComponent
+  ],
     imports: [
         CommonModule,
         LayoutModule,
@@ -23,7 +27,8 @@ import { DetailResortModule } from './detail-resort/detail-resort.module';
         DetailTourismModule,
         ResortModule,
         DetailResortModule,
-        ProfileModule
+        ProfileModule,
+        FavouriteModule
 
     ]
 })

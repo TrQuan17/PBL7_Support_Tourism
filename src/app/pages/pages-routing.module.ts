@@ -6,6 +6,9 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ResortComponent } from './resort/resort.component';
 import { DetailResortComponent } from './detail-resort/detail-resort.component';
+import { FavouriteComponent } from './favourite/favourite.component';
+import { AuthGuard } from '../core/gaurds/auth.guard';
+import { DetailTripComponent } from './detail-trip/detail-trip.component';
 
 const routes: Routes = [
     {
@@ -27,6 +30,15 @@ const routes: Routes = [
     {
         path: 'resort/:resortId',
         component: DetailResortComponent
+    },
+    {
+        path: 'profile/me/favourite',
+        component: FavouriteComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'trip/:tripId',
+        component: DetailTripComponent
     },
     {
         path: 'profile/:accountId',

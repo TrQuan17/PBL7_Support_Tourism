@@ -1,0 +1,33 @@
+<h2>Chuyến đi của tôi</h2>
+
+<div class="list">
+    <button mat-flat-button class="item-card outline-btn" (click)="openCreateTripDialog()">
+        <mat-icon svgIcon="icon-add"></mat-icon>
+        <span>Tạo chuyến đi</span>
+    </button>
+
+    <div class="item-card" *ngFor="let trip of tripsList">
+        <div class="header">
+            <img [src]="trip.background" class="background">
+
+            <div class="delete">
+                <button mat-flat-button (click)="deleteTrip(trip)">
+                    <mat-icon svgIcon="icon-close"></mat-icon>
+                </button>
+            </div>
+        </div>
+        
+        <div class="account">
+            <img [src]="trip.account.avatar">
+            <span>{{ trip.account.fullname }}</span>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="info">
+            <h6 routerLink="/trip/{{trip._id}}"> {{ trip.name }} </h6>
+            <span>
+                <mat-icon svgIcon="icon-location"></mat-icon>
+                {{ trip.about }}
+            </span>
+        </div>
+    </div>
+</div>

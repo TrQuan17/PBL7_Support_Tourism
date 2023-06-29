@@ -50,5 +50,7 @@ export class IconService {
         this.iconRegistry.addSvgIcon('icon-show-more-right', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/chevron-right-solid.svg'));
         this.iconRegistry.addSvgIcon('icon-made-reservation', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/key-solid.svg'));
         this.iconRegistry.addSvgIcon('icon-rooms-num', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/building-solid.svg'));
+        this.iconRegistry.addSvgIcon('icon-move', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/arrows-up-down-left-right-solid.svg'));
+        this.iconRegistry.addSvgIcon('icon-trip', this.sanitizer.bypassSecurityTrustResourceUrl(domain + 'assets/icon-svg/map-location-dot-solid.svg'));
     }
 }

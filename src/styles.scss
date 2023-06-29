@@ -28,14 +28,15 @@ $Support_Tourism_FE-theme: mat.define-light-theme((color: (primary: $Support_Tou
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include mat.all-component-themes($Support_Tourism_FE-theme);
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 /* You can add global styles to this file, and also import other style files */
 
 html,
 body {
-    height: 100%;
     margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 16px;
     color: var(--text-color);
     min-width: 911px;

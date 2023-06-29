@@ -4,6 +4,7 @@ export const ApiPathConfig = {
         resort: 'resort',
         service: 'service',
         favourite: 'favourite',
+        trip: 'trip',
         post: 'post',
 
         // Review
@@ -18,6 +19,7 @@ export const ApiPathConfig = {
         account: 'account',
         auth_account: 'account/me',
         auth_favourite: 'account/me/favourites',
+        auth_trip: 'account/me/trips',
         login: 'account/login',
         register: 'account/register',
         update: 'account/update/info',

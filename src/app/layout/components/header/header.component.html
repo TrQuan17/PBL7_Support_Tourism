@@ -7,7 +7,7 @@
         <app-search class="search" *ngIf="showSearchbox" (searchEmitter)="getTextSearch($event)"></app-search>
 
         <div class="tools">
-            <button mat-button class="tool-btn">
+            <button mat-button class="tool-btn" routerLink="/profile/me/favourite">
                 <mat-icon svgIcon="icon-heart-unlike"></mat-icon>
                 <span>Yêu thích</span>
             </button>

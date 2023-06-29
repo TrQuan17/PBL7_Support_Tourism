@@ -6,6 +6,7 @@ export class ApiPath {
     public static CATEGORY = env.API.concat(ApiPathConfig.common.category);
     public static RESORT = env.API.concat(ApiPathConfig.pages.resort);
     public static SERVICE = env.API.concat(ApiPathConfig.pages.service);
+    public static TRIP = env.API.concat(ApiPathConfig.pages.trip);
     public static FAVOURITE = env.API.concat(ApiPathConfig.pages.favourite);
     public static POST = env.API.concat(ApiPathConfig.pages.post);
 
@@ -13,6 +14,7 @@ export class ApiPath {
     public static ACCOUNT = env.API.concat(ApiPathConfig.auth.account);
     public static AUTH_ACCOUNT = env.API.concat(ApiPathConfig.auth.auth_account);
     public static AUTH_FAVOURITE = env.API.concat(ApiPathConfig.auth.auth_favourite);
+    public static AUTH_TRIPS = env.API.concat(ApiPathConfig.auth.auth_trip);
     public static LOGIN = env.API.concat(ApiPathConfig.auth.login);
     public static REGISTER = env.API.concat(ApiPathConfig.auth.register);
     public static UPDATE_INFO = env.API.concat(ApiPathConfig.auth.update);

@@ -49,13 +49,14 @@
 
 .action .cancel {
     font-weight: 500;
-    border: 1px solid var(--primary-color);
     --mdc-filled-button-container-color: white;
     --mdc-filled-button-label-text-color: var(--primary-color);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .action .confirm {
     font-weight: 500;
     --mdc-filled-button-container-color: var(--color-confirm);
     --mdc-filled-button-label-text-color: white;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px
 }

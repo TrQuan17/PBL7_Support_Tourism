@@ -1,0 +1,31 @@
+<app-header></app-header>
+<div class="wrapper">
+    <div class="trip">
+        <img class="background" [src]="trip.background">
+        <div class="account">
+            <img [src]="trip.account.avatar">
+            <span>{{ trip.account.fullname }}</span>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <h3>{{ trip.name }}</h3>
+        <div class="about">Mô tả</div>
+        <span>{{ trip.about }}</span>
+    </div>
+
+    <div class="favourites">
+        <div class="tourism" *ngFor="let item of trip.favourites; let idx = index">
+            <div class="index">{{ idx + 1}}</div>
+            <div class="item">
+                <img [src]="item.tourism.images[0]">
+                <h5>{{ item.tourism.name }}</h5>
+                <span>
+                    <mat-icon svgIcon="icon-location"></mat-icon>
+                    {{ item.tourism.address }}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>
