@@ -8,7 +8,7 @@ class FavouriteController {
     async getByAccountId(req, res, next) {
         try {
             const favourites = await Favourite.find({ account: res.data.account._id })
-                .populate({ path: 'tourism' })
+                .populate({ path: 'tourism', select: '_id name images address' })
 
             return res.json(responseJson(true, favourites))
         }

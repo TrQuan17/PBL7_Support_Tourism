@@ -1,7 +1,6 @@
+const { responseJson } = require('../../config/response')
 const Tourism = require('../models/tourism.model')
 const Category = require('../models/category.model')
-const { responseJson } = require('../../config/response')
-const CategoryModel = require('../models/category.model')
 
 class TourismController {
     async getAll(req, res, next) {
@@ -24,7 +23,10 @@ class TourismController {
                 return res.json(responseJson(false, err))
             }
 
-            const tourisms = await Tourism.find({ category: req.params.categoryId })
+            const tourisms = await Tourism.find({ 
+                category: req.params.categoryId ,
+                name: { $regex: req.query.q, $options: 'i' }
+            })
 
             return res.json(responseJson(true, tourisms))
         }
@@ -37,7 +39,10 @@ class TourismController {
         try {
             const accountId = res.data.account._id
 
-            const tourisms = await Tourism.find({ account: accountId })
+            const tourisms = await Tourism.find({ 
+                account: accountId,
+                name: { $regex: req.query.q, $options: 'i' }
+            })
             
             return res.json(responseJson(true, tourisms))
         }
@@ -55,6 +60,10 @@ class TourismController {
             }
 
             const tourism = await Tourism.findOne({ _id: req.params.tourismId })
+            if(!tourism) {
+                const err = { tourism: { message: 'Tourism does not exist!' } }
+                return res.json(responseJson(false, err)) 
+            }
 
             return res.json(responseJson(true, tourism))
         }

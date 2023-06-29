@@ -9,8 +9,28 @@ class ResortController {
             const resorts = await Resort.find({
                 name: { $regex: req.query.q, $options: 'i' }
             })
-            
+
             return res.json(responseJson(true, resorts))
+        }
+        catch (err) {
+            return res.json(responseJson(false, err.errors))
+        }
+    }
+
+    async getById(req, res, next) {
+        try {
+            if(!req.params.resortId) {
+                const err = { resortId : { message: 'ResortId does not exist!' } }
+                return res.json(responseJson(false, err))
+            }
+
+            const resort = await Resort.findOne({ _id: req.params.resortId })
+            if(!resort) {
+                const err = { resort: { message: 'Resort does not exist!' } }
+                return res.json(responseJson(false, err)) 
+            }
+
+            return res.json(responseJson(true, resort))
         }
         catch(err) {
             return res.json(responseJson(false, err.errors))
@@ -36,12 +56,17 @@ class ResortController {
         try {
             const accountId = res.data.account._id
 
-            const resorts = await Resort.find({ account: accountId })
-                .populate({ path: 'tourism', select: 'name' })
+            const resorts = await Resort.find({
+                account: accountId,
+                name: { $regex: req.query.q, $options: 'i' }
+            }).populate({
+                path: 'tourism', select: 'name'
+            })
 
             return res.json(responseJson(true, resorts))
         }
-        catch(err) {
+        catch (err) {
+            console.log(err)
             return res.json(responseJson(false, err.errors))
         }
     }

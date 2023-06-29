@@ -6,12 +6,12 @@ const { responseJson } = require('../../config/response')
 class ServiceController {
     async getByResortId(req, res, next) {
         try {
-            if(!req.body.resortId) {
+            if(!req.params.resortId) {
                 const err = { resortId: { message: 'ResortId does not exist!' } }
                 return res.json(responseJson(false, err))
             }
     
-            const services = await Serivice.find({ resort: req.body.resortId })
+            const services = await Service.find({ resort: req.params.resortId })
 
             return res.json(responseJson(true, services))
         }
@@ -96,7 +96,6 @@ class ServiceController {
             }
 
             return res.json(responseJson(true, service))
- 
         }
         catch(err) {
             return res.json(responseJson(false, err.errors))

@@ -5,6 +5,7 @@ const resortRouter = require('./resort.router')
 const serviceRouter = require('./service.router')
 const reviewRouter = require('./review.router')
 const favouriteRouter = require('./favourite.router')
+const tripRouter = require('./trip.router')
 const postRouter = require('./post.router')
 
 function routes(app) {
@@ -15,6 +16,7 @@ function routes(app) {
     app.use('/service', serviceRouter)
     app.use('/review', reviewRouter)
     app.use('/favourite', favouriteRouter)
+    app.use('/trip', tripRouter)
     app.use('/post', postRouter)
 }
 
