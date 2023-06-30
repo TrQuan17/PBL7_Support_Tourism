@@ -49,14 +49,14 @@ export class TourismService {
         return this.http.get<TourismResponse>(`${this.apiTourismUrl}/${tourismId}`);
     }
 
-    public createTourism(tourism: TourismModel): Observable<TourismResponse> {
+    public createTourism(tourism: FormData): Observable<TourismResponse> {
         this.loadingDialog.showSpinner(true);
         return this.http.post<TourismResponse>(this.apiTourismUrl, tourism).pipe(
             finalize(() => this.loadingDialog.showSpinner(false))
         );
     }
 
-    public updateTourism(tourism: TourismModel): Observable<TourismResponse> {
+    public updateTourism(tourism: FormData): Observable<TourismResponse> {
         this.loadingDialog.showSpinner(true);
         return this.http.put<TourismResponse>(this.apiTourismUrl, tourism).pipe(
             finalize(() => this.loadingDialog.showSpinner(false))

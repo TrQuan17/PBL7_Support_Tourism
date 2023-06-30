@@ -43,10 +43,10 @@ export class SidebarComponent {
                 role = ['admin']
                 break;
             case 'tourism':
-                role = ['admin', 'tourism-manager'];
+                role = ['admin', 'tourism_manager'];
                 break;
             case 'resort':
-                role = ['admin', 'tourism-manager', 'resort-manager'];
+                role = ['admin', 'tourism_manager', 'resort_manager'];
                 break;
         }
 

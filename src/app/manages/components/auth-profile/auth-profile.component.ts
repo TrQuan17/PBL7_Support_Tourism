@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { AccountModel, AccountResponse, SnackBarPanelClass } from 'src/app/common/models';
-import { PostModel, PostResponse } from 'src/app/common/models/post.model';
+import { PostResponse } from 'src/app/common/models/post.model';
 import { AccountService, PostService } from 'src/app/common/services';
 
 const SNACK_BAR_CONFIG = new MatSnackBarConfig();
@@ -53,14 +52,8 @@ export class AuthProfileComponent implements OnInit {
         )
     }
 
-    public writePost(form: FormGroup): void {
-        const post: PostModel = {
-            title: form.get('title')?.value,
-            content: form.get('content')?.value,
-            images: form.get('images')?.value
-        }
-
-        this.postService.createPost(post).subscribe(
+    public writePost(form: FormData): void {
+        this.postService.createPost(form).subscribe(
             (res: PostResponse) => {
                 let snackBarPanel = SnackBarPanelClass.errorClass;
                 let message = 'Đăng bài viết không thành công!';

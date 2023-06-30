@@ -1,7 +1,7 @@
 <div class="wrapper">
     <div class="contribute">
         <h4>Đóng góp</h4>
-        <button mat-flat-button class="write-review" (click)="openWriteReview()">
+        <button mat-flat-button class="write-review" (click)="openWriteReview()" [disabled]="isReview">
             <mat-icon svgIcon="icon-write"></mat-icon>
             <span>Đánh giá</span>
         </button>
@@ -67,6 +67,67 @@
                 </div>
                 <mat-progress-bar class="rates-num" mode="determinate"
                     [value]=" tourism.votesNum ? ratesNum.terrible / tourism.votesNum * 100 : 0">
+                </mat-progress-bar>
+            </div>
+        </div>
+
+        <div class="rating" *ngIf="resort">
+            <div class="header">
+                <div class="show-rate">
+                    <h4>{{ resort.rate | number:'1.0-1' }}</h4>
+                    <app-star-rating [showVote]="resort.rate"></app-star-rating>
+                </div>
+                <span>{{ resort.votesNum }} đánh giá</span>
+            </div>
+
+
+            <div class="rating-statistics">
+                <div class="text">
+                    <span>Xuất sắc</span>
+                    <span>{{ ratesNum.excellent }}</span>
+                </div>
+                <mat-progress-bar class="rates-num" mode="determinate"
+                    [value]="resort.votesNum ? ratesNum.excellent / resort.votesNum * 100 : 0">
+                </mat-progress-bar>
+            </div>
+
+            <div class="rating-statistics">
+                <div class="text">
+                    <span>Rất tốt</span>
+                    <span>{{ ratesNum.veryGood }}</span>
+                </div>
+                <mat-progress-bar class="rates-num" mode="determinate"
+                    [value]=" resort.votesNum ? ratesNum.veryGood / resort.votesNum * 100 : 0">
+                </mat-progress-bar>
+            </div>
+
+            <div class="rating-statistics">
+                <div class="text">
+                    <span>Bình thường</span>
+                    <span>{{ ratesNum.average }}</span>
+                </div>
+                <mat-progress-bar class="rates-num" mode="determinate"
+                    [value]=" resort.votesNum ? ratesNum.average / resort.votesNum * 100 : 0">
+                </mat-progress-bar>
+            </div>
+
+            <div class="rating-statistics">
+                <div class="text">
+                    <span>Khá tệ</span>
+                    <span>{{ ratesNum.unsatisfactory }}</span>
+                </div>
+                <mat-progress-bar class="rates-num" mode="determinate"
+                    [value]=" resort.votesNum ? ratesNum.unsatisfactory / resort.votesNum * 100 : 0">
+                </mat-progress-bar>
+            </div>
+
+            <div class="rating-statistics">
+                <div class="text">
+                    <span>Tệ</span>
+                    <span>{{ ratesNum.terrible }}</span>
+                </div>
+                <mat-progress-bar class="rates-num" mode="determinate"
+                    [value]=" resort.votesNum ? ratesNum.terrible / resort.votesNum * 100 : 0">
                 </mat-progress-bar>
             </div>
         </div>

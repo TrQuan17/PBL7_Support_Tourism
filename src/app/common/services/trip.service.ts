@@ -34,7 +34,7 @@ export class TripService {
         );
     }
 
-    public createTrip(trip: TripModel): Observable<TripResponse> {
+    public createTrip(trip: FormData): Observable<TripResponse> {
         this.loadingDialog.showSpinner(true);
 
         return this.http.post<TripResponse>(this.apiTripUrl, trip).pipe(

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiPath } from 'src/app/core/config';
-import { PostModel, PostResponse } from '../models';
+import { PostResponse } from '../models';
 import { Observable, finalize } from 'rxjs';
 import { LoadingSpinnerDialogService } from 'src/app/layout/services';
 
@@ -17,7 +17,7 @@ export class PostService {
         private http: HttpClient
     ) { }
 
-    public createPost(post: PostModel): Observable<PostResponse> {
+    public createPost(post: FormData): Observable<PostResponse> {
         this.loadingDialog.showSpinner(true);
 
         return this.http.post<PostResponse>(this.apiPostUrl, post).pipe(

@@ -35,7 +35,7 @@ export class ServiceService {
         );
     }
 
-    public createService(service: ServiceModel): Observable<ServiceResponse> {
+    public createService(service: FormData): Observable<ServiceResponse> {
         this.loadingDialog.showSpinner(true);
 
         return this.http.post<ServiceResponse>(this.apiServiceUrl, service).pipe(
@@ -43,7 +43,7 @@ export class ServiceService {
         );
     }
 
-    public updateService(service: ServiceModel): Observable<ServiceResponse> {
+    public updateService(service: FormData): Observable<ServiceResponse> {
         this.loadingDialog.showSpinner(true);
 
         return this.http.put<ServiceResponse>(this.apiServiceUrl, service).pipe(

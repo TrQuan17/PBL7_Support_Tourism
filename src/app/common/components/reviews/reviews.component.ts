@@ -16,6 +16,7 @@ export class ReviewsComponent implements OnChanges {
     @Input() reviewResponse!: ReviewResponse;
     @Input() tourismResponse?: TourismResponse;
     @Input() resortResponse?: ResortResponse;
+    @Input() checkAccountReview!: ReviewResponse;
     @Output() reviewEmitter = new EventEmitter<FormData>;
 
     public tourism?: TourismModel;
@@ -23,6 +24,7 @@ export class ReviewsComponent implements OnChanges {
     public reviewsList: any[] = [];
     public utils = Utils;
     public ratesNum: RatesNumModel;
+    public isReview = false; 
 
     constructor(public dialog: MatDialog) {
         this.ratesNum = {
@@ -62,6 +64,17 @@ export class ReviewsComponent implements OnChanges {
 
             if (this.resortResponse?.status === 'SUCCESS') {
                 this.resort = this.resortResponse.data as ResortModel;
+            }
+        }
+
+        if (changes?.['checkAccountReview']?.currentValue) {
+            this.checkAccountReview = clone(changes?.['checkAccountReview'].currentValue);
+
+            if (this.checkAccountReview.status === 'SUCCESS') {
+                this.isReview = false;
+            } 
+            else {
+                this.isReview = true;
             }
         }
     }

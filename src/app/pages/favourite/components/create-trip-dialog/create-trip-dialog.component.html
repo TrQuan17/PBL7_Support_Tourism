@@ -6,6 +6,8 @@
     <mat-icon class="icon-close" svgIcon="icon-close" matDialogClose></mat-icon>
 </div>
 
+<mat-divider></mat-divider>
+
 <div class="wrapper">
     <h4>Địa điểm du lịch yêu thích</h4>
     <div class="box tourism">
@@ -48,12 +50,14 @@
 
         <div class="background">
             <h6>Ảnh nền</h6>
-            <div class="show"></div>
+            <div class="show">
+                <img [src]="this.imagePreview" *ngIf="this.imagePreview">
+            </div>
             <button mat-flat-button class="upload-file-btn fill-btn" (click)="fileInput.click()">
                 <mat-icon class="custom" svgIcon="icon-upload-file"></mat-icon>
                 <span>Tải ảnh lên</span>
             </button>
-            <input #fileInput type="file" (change)="onFileChange($event)" multiple hidden>
+            <input #fileInput type="file" (change)="onFileChange($event)" hidden>
             
         </div>
 
@@ -64,7 +68,8 @@
 
             <span *ngIf="!savedToTrip.length" class="help">
                 <mat-icon svgIcon="icon-move"></mat-icon> 
-                Kéo thả địa điểm du lịch vào đây
+                Kéo thả địa điểm du lịch vào đây <br>
+                (Ít nhất 1 địa điểm)
             </span>
 
             <div class="item-card" *ngFor="let favourite of savedToTrip" cdkDrag>

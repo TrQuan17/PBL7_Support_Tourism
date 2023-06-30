@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { AuthModel } from 'src/app/auth/models/auth.model';
 import { AccountModel, AccountResponse, SnackBarPanelClass } from 'src/app/common/models';
 import { AccountService } from 'src/app/common/services';
 
@@ -17,6 +19,10 @@ SNACK_BAR_CONFIG.horizontalPosition = 'center';
 export class UpdateProfileComponent implements OnInit {
     public account?: AccountModel;
     public accountForm!: FormGroup;
+    public avatarFile?: File;
+    public avatarPreview = '';
+    public backgroundFile?: File;
+    public backgroundPreview = '';
 
     constructor(
         private fb: FormBuilder,
@@ -47,7 +53,7 @@ export class UpdateProfileComponent implements OnInit {
         const lastName = fullName.substring(0, spaceIndex);
 
         this.accountForm = this.fb.group({
-            id: new FormControl(account?._id),
+            _id: new FormControl(account?._id),
             firstName: new FormControl(firstName, { validators: Validators.required }),
             lastName: new FormControl(lastName, { validators: Validators.required }),
             address: new FormControl(account?.address, { validators: Validators.required }),
@@ -62,13 +68,63 @@ export class UpdateProfileComponent implements OnInit {
         this.initForm(this.account);
     }
 
+    public onFileChange(event: any, type: string): void {
+        if (event.target.files && event.target.files.length > 0) {
+            if (type === 'avatar') {
+                this.avatarFile = event.target.files[0];
+
+                const reader = new FileReader();
+                reader.onload = () => this.avatarPreview = reader.result as string;
+                reader.readAsDataURL(event.target.files[0]);
+            }
+
+            if (type === 'background') {
+                this.backgroundFile = event.target.files[0];
+
+                const reader = new FileReader();
+                reader.onload = () => this.backgroundPreview = reader.result as string;
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        }
+    }
+
+    public updateAvatar(): void {
+        if (this.avatarFile) {
+            const formData = new FormData();
+
+            formData.append('_id', this.accountForm.get('_id')?.value);
+            formData.append('avatar', this.avatarFile);
+
+            this.accountService.updateAccountAvatar(formData).subscribe(
+                (res: AccountResponse) => {
+                    if (res.status === 'SUCCESS') {
+                        const account = JSON.parse(localStorage.getItem('account') as string) as AuthModel;
+                        account.avatar = (res.data as AccountModel).avatar;
+                        localStorage.setItem('account', JSON.stringify(account));
+                    }
+                }
+            );
+        }
+    }
+
+    public updateBackground(): void {
+        if (this.backgroundFile) {
+            const formData = new FormData();
+
+            formData.append('_id', this.accountForm.get('_id')?.value);
+            formData.append('background', this.backgroundFile);
+
+            this.accountService.updateAccountBackground(formData).subscribe();
+        }
+    }
+
+
     public updateInfo(): void {
         const fullName = `${this.accountForm.get('lastName')?.value} `
             + `${this.accountForm.get('firstName')?.value}`
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const account: any = {
-            _id: this.accountForm.get('id')?.value,
+            _id: this.accountForm.get('_id')?.value,
             fullname: fullName,
             address: this.accountForm.get('address')?.value,
             phone: this.accountForm.get('phone')?.value,
@@ -83,11 +139,21 @@ export class UpdateProfileComponent implements OnInit {
                 if (res.status === 'SUCCESS') {
                     message = 'Cập nhật thành công!';
                     snackBarPanel = SnackBarPanelClass.successClass;
+
+                    const account = JSON.parse(localStorage.getItem('account') as string) as AuthModel;
+                    account.fullname = fullName;
+                    localStorage.setItem('account', JSON.stringify(account));
                 }
 
                 SNACK_BAR_CONFIG.panelClass = snackBarPanel;
                 this.snackbar.open(message, undefined, SNACK_BAR_CONFIG);
             }
         )
+    }
+
+    public updateAccount(): void {
+        this.updateInfo();
+        this.updateAvatar();
+        this.updateBackground();
     }
 }

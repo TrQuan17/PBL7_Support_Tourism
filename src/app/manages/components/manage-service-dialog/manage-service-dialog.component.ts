@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -12,7 +13,8 @@ import { ResortService } from 'src/app/common/services';
 export class ManageServiceDialogComponent implements OnInit {
     public resortsList: ResortModel[] = [];
     public serviceForm!: FormGroup;
-    public imagesFile: File[] = [];
+    public imageFile?: File;
+    public imagePreview = '';
 
     constructor(
         private fb: FormBuilder,
@@ -28,9 +30,9 @@ export class ManageServiceDialogComponent implements OnInit {
 
     public initForm(data?: ServiceModel): void {
         this.serviceForm = this.fb.group({
-            id: new FormControl(data?._id),
+            _id: new FormControl(data?._id),
             name: new FormControl(data?.name, { validators: Validators.required }),
-            images: new FormControl([]),
+            image: new FormControl(data?.image),
             about: new FormControl(data?.about, { validators: Validators.required }),
             price: new FormControl(data?.price, { validators: Validators.required }),
             resort: new FormControl((data?.resort as ResortModel)?._id, { validators: Validators.required }),
@@ -48,14 +50,26 @@ export class ManageServiceDialogComponent implements OnInit {
         )
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public onFileChange(event: any): void {
         if (event.target.files && event.target.files.length > 0) {
-            this.imagesFile = Array.from(event.target.files);
+            this.imageFile = event.target.files[0];
+
+            const reader = new FileReader();
+            reader.onload = () => this.imagePreview = reader.result as string;
+            reader.readAsDataURL(event.target.files[0]);
         }
     }
 
     public saveService(): void {
-        this.dialogRef.close(this.serviceForm);
+        const formData = new FormData();
+
+        const fields = ['_id', 'name', 'about', 'image', 'price', 'resort', 'isEdit']
+        fields.forEach(element => {
+            formData.append(element, this.serviceForm.get(element)?.value);
+        })
+
+        formData.append('imageUpload', this.imageFile as File);
+
+        this.dialogRef.close(formData);
     }
 }

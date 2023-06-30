@@ -39,7 +39,7 @@
         <span>Quản lý khu nghỉ dưỡng</span>
     </button>
 
-    <button mat-flat-button routerLink="/manage/service">
+    <button mat-flat-button routerLink="/manage/service" *ngIf="isRole('resort')">
         <mat-icon svgIcon="icon-service-manage"></mat-icon>
         <span>Quản lý dịch vụ</span>
     </button>

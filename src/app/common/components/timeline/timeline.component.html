@@ -1,6 +1,7 @@
 <div class="write" *ngIf="authResponse">
     <img class="avatar" [src]="account?.avatar" alt="Avatar" srcset="">
-    <form [formGroup]="postForm" class="write-post">
+
+    <form [formGroup]="postForm" class="write-post" *ngIf="showWritePost">
         <div class="text">
             <mat-form-field appearance="outline">
                 <input matInput formControlName="title" type="text" placeholder="Tiêu đề ...">
@@ -15,14 +16,28 @@
             <mat-icon class="custom" svgIcon="icon-upload-file"></mat-icon>
             <span>Ảnh ...</span>
         </button>
-        <input hidden #fileInput type="file" id="file">
+        <input hidden #fileInput type="file" (change)="onFileChange($event)" multiple id="file">
 
-        <div class="image-upload"></div>
+        <div class="images-preview">
+            <div class="item" *ngFor="let item of imagesPreview">
+                <img [src]="item">
+            </div>
+        </div>
     </form>
 
-    <button mat-stroked-button class="send-btn" (click)="writePost()">
+    <button mat-stroked-button class="fill-btn" (click)="writePost()" *ngIf="showWritePost">
         <mat-icon svgIcon="icon-send"></mat-icon>
         <span>Đăng</span>
+    </button>
+
+    <button mat-stroked-button class="close-btn" (click)="cancelPost()" *ngIf="showWritePost">
+        <mat-icon svgIcon="icon-close"></mat-icon>
+        <span>Hủy</span>
+    </button>
+
+    <button mat-stroked-button class="fill-btn" *ngIf="!showWritePost" (click)="showWritePost = !showWritePost">
+        <mat-icon svgIcon="icon-edit" *ngIf="!showWritePost"></mat-icon>
+        <span>Viết bài đăng</span>
     </button>
 </div>
 
@@ -39,5 +54,10 @@
     <div class="text">
         <h5> {{ post.title }} </h5>
         <span> {{ post.content }} </span>
+        <div class="images-preview">
+            <div class="item" *ngFor="let item of post.images">
+                <img [src]="item">
+            </div>
+        </div>
     </div>
 </div>

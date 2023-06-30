@@ -15,6 +15,7 @@ import { ManageServiceDialogComponent } from './components/manage-service-dialog
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 import { ManageAccountComponent } from './components/manage-account/manage-account.component';
 import { UpdatePasswordComponent } from './components/update-password/update-password.component';
+import { ManageRoomDialogComponent } from './components/manage-room-dialog/manage-room-dialog.component';
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import { UpdatePasswordComponent } from './components/update-password/update-pas
         ManageServiceDialogComponent,
         UpdateProfileComponent,
         ManageAccountComponent,
-        UpdatePasswordComponent
+        UpdatePasswordComponent,
+        ManageRoomDialogComponent
     ],
     imports: [
         CommonModule,

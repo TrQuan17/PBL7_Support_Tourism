@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, finalize } from 'rxjs';
@@ -12,6 +13,8 @@ export class AccountService {
     public apiAccountUrl = ApiPath.ACCOUNT;
     public apiAuthAccountUrl = ApiPath.AUTH_ACCOUNT;
     public apiUpdateAccountUrl = ApiPath.UPDATE_INFO;
+    public apiUpdateAvatarUrl = ApiPath.UPDATE_AVATAR;
+    public apiUpdateBackgroundUrl = ApiPath.UPDATE_BACKGROUND;
     public apiUpdatePasswordUrl = ApiPath.CHANGE_PASS;
 
     constructor(
@@ -35,7 +38,6 @@ export class AccountService {
         return this.http.get<AccountResponse>(`${this.apiAccountUrl}/${accountId}`);
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public updateAccount(account: any): Observable<AccountResponse> {
         this.loadingDialog.showSpinner(true);
 
@@ -44,7 +46,14 @@ export class AccountService {
         );
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    public updateAccountAvatar(avatar: FormData): Observable<AccountResponse> {
+        return this.http.patch<AccountResponse>(this.apiUpdateAvatarUrl, avatar);
+    }
+
+    public updateAccountBackground(background: FormData): Observable<AccountResponse> {
+        return this.http.patch<AccountResponse>(this.apiUpdateBackgroundUrl, background);
+    }
+
     public updatePassword(pass: any): Observable<AccountResponse> {
         this.loadingDialog.showSpinner(true);
 

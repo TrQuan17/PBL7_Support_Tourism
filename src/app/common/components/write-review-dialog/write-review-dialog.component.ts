@@ -62,7 +62,18 @@ export class WriteReviewDialogComponent {
     public writeReview(): void {
         const formData = new FormData();
 
-        const fields = ['vote', 'title', 'text', 'time', 'tourism', 'resort']
+        let fields: string[] = [];
+
+        switch (this.dialogData.field) {
+            case 'tourism':
+                fields = ['vote', 'title', 'text', 'time', 'tourism'];
+                break;
+
+            case 'resort':
+                fields = ['vote', 'title', 'text', 'time', 'resort'];
+                break;
+        }
+        
         fields.forEach(element => {
             formData.append(element, this.reviewForm.get(element)?.value);
         })
@@ -70,8 +81,7 @@ export class WriteReviewDialogComponent {
         this.imagesFile.forEach((element: File) => {
             formData.append('images', element);
         })
-
-        console.log(this.reviewForm);
-        // this.dialogRef.close(formData);
+;
+        this.dialogRef.close(formData);
     }
 }

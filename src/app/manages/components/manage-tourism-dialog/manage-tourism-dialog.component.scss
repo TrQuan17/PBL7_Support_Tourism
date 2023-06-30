@@ -1,31 +1,25 @@
-.wrapper {
-    padding: 20px;
-}
-
 .header {
+    padding: 20px 20px 0 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    h4 {
+        margin: 0;
+    }
 }
 
-.tourism-form {
+.wrapper {
+    padding: 10px 20px 10px 20px;
     display: flex;
-    flex-direction: column;
     gap: 20px;
 }
 
-.tourism-form .save-btn {
-    width: 30%;
-    margin-left: 70%;
-    box-sizing: border-box;
-    border-radius: 50vh;
-
-    --mdc-filled-button-container-color: var(--primary-color);
-    --mdc-filled-button-label-text-color: white;
-    
-    mat-icon {
-        color: white;
-    }
+.tourism-form {
+    flex: 0 0 calc(100% / 2 - 10px);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .tourism-form mat-form-field {
@@ -42,15 +36,77 @@
     }
 }
 
-.images {
+.right {
+    padding-top: 20px;
+    flex: 0 0 calc(100% / 2 - 10px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.right .delete {
+    height: 0;
+    position: relative;
+    top: 5px;
+    left: 5px;
+
+    button {
+        min-width: 0;
+        padding: 5px;
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+        mat-icon {
+            margin: 0;
+            padding: 0;
+            color: #eb5757;
+        }
+    }
+}
+
+.right .images {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    min-height: 150px;
+    padding-bottom: 30px;
+}
+
+.right .upload-image {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     gap: 20px;
+    padding-bottom: 20px;
 }
 
-.images .upload-file-btn {
+.right .images-preview {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+
+    .item {
+        flex: 0 0 calc(100% / 3 - 6px);
+        max-height: 150px;
+    }
+
+    .item img {
+        border-radius: 6px;
+        width: 100%;
+    }
+}
+
+.upload-image .upload-file-btn {
     width: 100px;
     height: 40px;
     border-radius: 20px;
@@ -64,5 +120,25 @@
     mat-icon {
         height: 18px;
         width: 18px;
+    }
+}
+
+.footer {
+    padding: 0 20px 20px 20px;
+    justify-content: flex-end;
+    .save-btn {
+        width: 30%;
+        margin-left: 70%;
+        box-sizing: border-box;
+        border-radius: 50vh;
+    
+        --mdc-filled-button-container-color: var(--primary-color);
+        --mdc-filled-button-label-text-color: white;
+        
+        mat-icon {
+            color: white;
+            height: 18px;
+            width: 18px;
+        }
     }
 }

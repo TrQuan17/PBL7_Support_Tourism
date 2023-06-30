@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
@@ -47,8 +46,8 @@ export class ManageResortComponent implements OnInit {
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 
-    public createResort(resort: ResortModel): void {
-        this.resortService.createResort(resort).subscribe(
+    public createResort(form: FormData): void {
+        this.resortService.createResort(form).subscribe(
             (res: ResortResponse) => {
                 let snackBarPanel = SnackBarPanelClass.errorClass;
                 let message = 'Bạn không thể tạo khu nghỉ dưỡng này!';
@@ -66,8 +65,8 @@ export class ManageResortComponent implements OnInit {
         )
     }
 
-    public updateResort(resort: ResortModel): void {
-        this.resortService.updateResort(resort).subscribe(
+    public updateResort(form: FormData): void {
+        this.resortService.updateResort(form).subscribe(
             (res: ResortResponse) => {
                 let snackBarPanel = SnackBarPanelClass.errorClass;
                 let message = 'Cập nhật thông tin thất bại!';
@@ -85,27 +84,13 @@ export class ManageResortComponent implements OnInit {
         )
     }
 
-    public saveResort(form: FormGroup): void {
-        const resort: ResortModel = {
-            _id: form.get('id')?.value,
-            name: form.get('name')?.value,
-            address: form.get('address')?.value,
-            images: form.get('images')?.value,
-            about: form.get('about')?.value,
-            tourism: form.get('tourism')?.value,
-            price: form.get('price')?.value,
-            reservationLimit: form.get('reservationLimit')?.value,
-            phone: form.get('phone')?.value,
-            rate: 0,
-            votesNum: 0
-        }
-
-        switch (form.get('isEdit')?.value) {
+    public saveResort(form: FormData): void {
+        switch (form.get('isEdit')) {
             case 'create':
-                this.createResort(resort);
+                this.createResort(form);
                 break;
             case 'update':
-                this.updateResort(resort);
+                this.updateResort(form);
                 break;
         }
     }

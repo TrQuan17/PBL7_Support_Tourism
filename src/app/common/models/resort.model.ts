@@ -1,5 +1,4 @@
 import { HttpResponse } from "src/app/core/models/http-response.model";
-import { AccountModel } from "./account.model";
 import { TourismModel } from "./tourism.model";
 
 export interface ResortModel {
@@ -11,8 +10,8 @@ export interface ResortModel {
     about: string,
     tourism: TourismModel | string,
     price: number,
-    reservationLimit: number,
-    reservations?: AccountModel[] | string[],
+    reservationLimit?: number,
+    reservationsNum?: number,
     phone: string,
     rate: 0,
     votesNum: 0

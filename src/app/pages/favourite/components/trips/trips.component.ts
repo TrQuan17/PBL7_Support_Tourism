@@ -4,7 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateTripDialogComponent } from '../create-trip-dialog/create-trip-dialog.component';
 import { ConfirmDialogConfig, FavouriteModel, FavouriteResponse, TourismModel } from 'src/app/common/models';
 import { clone } from 'lodash';
-import { FormGroup } from '@angular/forms';
 import { TripModel, TripResponse } from 'src/app/common/models/trip.model';
 import { ConfirmDialogComponent } from 'src/app/common/components/confirm-dialog/confirm-dialog.component';
 
@@ -16,7 +15,7 @@ import { ConfirmDialogComponent } from 'src/app/common/components/confirm-dialog
 export class TripsComponent implements OnChanges {
     @Input() tripResponse!: TripResponse;
     @Input() favouriteResponse!: FavouriteResponse; 
-    @Output() createTripEmitter = new EventEmitter<FormGroup>;
+    @Output() createTripEmitter = new EventEmitter<FormData>;
     @Output() deleteTripEmitter = new EventEmitter<TripModel>;
 
     public tripsList: any[] = [];

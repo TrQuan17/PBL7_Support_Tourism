@@ -1,13 +1,20 @@
 <div class="wrapper">
     <div class="info-image">
-        <img class="background-info" [src]="account?.background" alt="" srcset="">
+        <img class="background-info" [src]="backgroundPreview ? backgroundPreview : account?.background" alt="" srcset="">
         <div class="user">
-            <img class="avatar" [src]="account?.avatar" alt="">
+            <img class="avatar" [src]="avatarPreview ? avatarPreview : account?.avatar" alt="">
             <div>
                 <h4>{{ account?.fullname }}</h4>
-                <button class="fill-btn" mat-flat-button>Đổi ảnh đại diện</button>
+
+                <button mat-flat-button class="upload-file-btn fill-btn" (click)="avatarInput.click()">
+                    <span>Đổi ảnh đại diện</span>
+                </button>
+                <input #avatarInput type="file" (change)="onFileChange($event, 'avatar')" hidden>
             </div>
-            <button mat-flat-button class="outline-btn">Đổi ảnh nền</button>
+            <button mat-flat-button class="upload-file-btn outline-btn" (click)="backgroundInput.click()">
+                <span>Đổi ảnh nền</span>
+            </button>
+            <input #backgroundInput type="file" (change)="onFileChange($event, 'background')" hidden>
         </div>
     </div>
 
@@ -45,7 +52,7 @@
 
         <div class="action">
             <button mat-flat-button class="outline-btn" (click)="resetForm()">Khôi phục</button>
-            <button mat-flat-button class="fill-btn" (click)="updateInfo()">Lưu thay đổi</button>
+            <button mat-flat-button class="fill-btn" (click)="updateAccount()">Lưu thay đổi</button>
         </div>
     </form>
 

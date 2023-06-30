@@ -13,15 +13,18 @@ export class TimelineComponent implements OnChanges {
     @Input() authResponse?: AccountResponse;
     @Input() guestResponse?: AccountResponse;
     @Input() postResponse?: PostResponse;
-    @Output() postEmitter = new EventEmitter<FormGroup>;
+    @Output() postEmitter = new EventEmitter<FormData>;
 
     public postForm!: FormGroup;
     public account?: AccountModel;
     public postsList: any[] = [];
+    public showWritePost = false;
+    public imagesFile: File[] = [];
+    public imagesPreview: string[] = [];
 
     constructor(
         private fb: FormBuilder
-    ) { 
+    ) {
         this.initForm();
     }
 
@@ -40,14 +43,26 @@ export class TimelineComponent implements OnChanges {
             }
         }
 
-        if(changes?.['postResponse']?.currentValue) {
+        if (changes?.['postResponse']?.currentValue) {
             this.postResponse = clone(changes?.['postResponse'].currentValue);
-            if(this.postResponse?.status === 'SUCCESS') {
+            if (this.postResponse?.status === 'SUCCESS') {
                 this.postsList = (this.postResponse.data as PostModel[]).map(value => {
                     value.account = value.account as AccountModel;
                     return value;
                 })
             }
+        }
+    }
+
+    public onFileChange(event: any): void {
+        if (event.target.files && event.target.files.length > 0) {
+            this.imagesFile = Array.from(event.target.files);
+
+            this.imagesFile.forEach(element => {
+                const reader = new FileReader();
+                reader.onload = () => this.imagesPreview.push(reader.result as string);
+                reader.readAsDataURL(element);
+            })
         }
     }
 
@@ -59,7 +74,27 @@ export class TimelineComponent implements OnChanges {
         })
     }
 
+    public cancelPost(): void {
+        this.showWritePost = false;
+        this.imagesPreview = [];
+        this.imagesFile = [];
+        this.postForm.get('title')?.reset();
+        this.postForm.get('content')?.reset();
+        this.postForm.get('images')?.reset();
+    }
+
     public writePost(): void {
-        this.postEmitter.emit(this.postForm);
+        const formData = new FormData();
+
+        const fields = ['title', 'content'];
+        fields.forEach(element => {
+            formData.append(element, this.postForm.get(element)?.value);
+        })
+
+        this.imagesFile.forEach(element => {
+            formData.append('images', element);
+        })
+
+        this.postEmitter.emit(formData);
     }
 }

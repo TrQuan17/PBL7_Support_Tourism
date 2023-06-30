@@ -1,0 +1,8 @@
+<h3>Phòng khu nghỉ dưỡng</h3>
+
+<div class="rooms">
+    <div class="item" *ngFor="let item of roomsList">
+        <img [src]="item.image" alt="">
+        <span>{{ item.name }}</span>
+    </div>
+</div>

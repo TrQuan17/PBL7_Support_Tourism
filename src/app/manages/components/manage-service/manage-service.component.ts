@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
@@ -47,8 +46,8 @@ export class ManageServiceComponent implements OnInit {
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 
-    public createService(service: ServiceModel): void {
-        this.serviceService.createService(service).subscribe(
+    public createService(form: FormData): void {
+        this.serviceService.createService(form).subscribe(
             (res: ServiceResponse) => {
                 let snackBarPanel = SnackBarPanelClass.errorClass;
                 let message = 'Bạn không thể tạo dịch vụ này!';
@@ -66,8 +65,8 @@ export class ManageServiceComponent implements OnInit {
         )
     }
 
-    public updateService(service: ServiceModel): void {
-        this.serviceService.updateService(service).subscribe(
+    public updateService(form: FormData): void {
+        this.serviceService.updateService(form).subscribe(
             (res: ServiceResponse) => {
                 let snackBarPanel = SnackBarPanelClass.errorClass;
                 let message = 'Cập nhật thông tin thất bại!';
@@ -85,22 +84,14 @@ export class ManageServiceComponent implements OnInit {
         )
     }
 
-    public saveService(form: FormGroup): void {
-        const service: ServiceModel = {
-            _id: form.get('id')?.value,
-            name: form.get('name')?.value,
-            images: form.get('images')?.value,
-            about: form.get('about')?.value,
-            resort: form.get('resort')?.value,
-            price: form.get('price')?.value
-        }
+    public saveService(form: FormData): void {
 
-        switch (form.get('isEdit')?.value) {
+        switch (form.get('isEdit')) {
             case 'create':
-                this.createService(service);
+                this.createService(form);
                 break;
             case 'update':
-                this.updateService(service);
+                this.updateService(form);
                 break;
         }
     }
@@ -124,7 +115,7 @@ export class ManageServiceComponent implements OnInit {
             type: 'delete-dialog',
             header: 'Xác nhận xóa dịch vụ du lịch',
             message: `Bạn xác nhận xóa dịch vụ ${service.name} ?`,
-            image: service.images[0]
+            image: service.image
         }
 
         const dialogRef = this.dialog.open(ConfirmDialogComponent, {

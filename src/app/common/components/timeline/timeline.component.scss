@@ -19,13 +19,29 @@ button {
     border: 1px solid var(--primary-color);
 }
 
-.write .send-btn {
+.fill-btn {
     background-color: var(--primary-color);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     color: white;
     height: 39px;
 
     mat-icon {
         color: inherit;
+        width: 18px;
+        height: 18px;
+    }
+}
+
+.close-btn {
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    color: #eb5757;
+    height: 39px;
+
+    mat-icon {
+        color: inherit;
+        width: 18px;
+        height: 18px;
     }
 }
 
@@ -65,6 +81,22 @@ button {
     }
 }
 
+.images-preview {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+
+    .item {
+        flex: 0 0 calc(100% / 4 - 6px);
+    }
+
+    .item img {
+        width: 100%;
+    }
+}
+
 ::ng-deep .text mat-form-field {
     .mat-mdc-form-field-infix {
         min-height: 0;
@@ -89,6 +121,7 @@ button {
     flex-direction: row;
     gap: 12px;
     padding-bottom: 8px;
+
     span {
         font-size: 14px;
     }

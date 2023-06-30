@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -13,6 +14,7 @@ export class ManageTourismDialogComponent implements OnInit{
     public categoriesList: CategoryModel[] = [];
     public tourismForm!: FormGroup;
     public imagesFile: File[] = [];
+    public imagesPreview: string[] = [];
 
     constructor(
         private fb: FormBuilder,
@@ -28,10 +30,10 @@ export class ManageTourismDialogComponent implements OnInit{
 
     public initForm(data?: TourismModel): void {
         this.tourismForm = this.fb.group({
-            id: new FormControl(data?._id),
+            _id: new FormControl(data?._id),
             name: new FormControl(data?.name, { validators: Validators.required }),
             address: new FormControl(data?.address, { validators: Validators.required }),
-            images: new FormControl([]),
+            images: new FormControl(data?.images),
             title: new FormControl(data?.title, { validators: Validators.required }),
             about: new FormControl(data?.about, { validators: Validators.required }),
             category: new FormControl(data?.category, { validators: Validators.required }),
@@ -49,14 +51,40 @@ export class ManageTourismDialogComponent implements OnInit{
         )
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public onFileChange(event: any): void {
         if (event.target.files && event.target.files.length > 0) {
             this.imagesFile = Array.from(event.target.files);
-          }
+
+            this.imagesFile.forEach(element => {
+                const reader = new FileReader();
+                reader.onload = () => this.imagesPreview.push(reader.result as string);
+                reader.readAsDataURL(element);
+            })
+        }
+    }
+
+    public deleteImage(image: string): void {
+        let imageArr: string[] = this.tourismForm.get('images')?.value;
+        imageArr = imageArr.filter((item:string) => item !== image);
+
+        this.tourismForm.get('images')?.setValue(imageArr);
     }
 
     public saveTourism(): void {
-        this.dialogRef.close(this.tourismForm);
+        const formData = new FormData();
+
+        const fields = ['_id', 'name', 'address', 'title', 'about', 'category','isEdit'];
+        fields.forEach(element => {
+            formData.append(element, this.tourismForm.get(element)?.value)
+        });
+
+        (this.tourismForm.get('images')?.value as string[]).forEach((element: string) => {
+            formData.append('images', element);
+        })
+
+        this.imagesFile.forEach(element => {
+            formData.append('imagesUpload', element);
+        })
+        this.dialogRef.close(formData);
     }
 }

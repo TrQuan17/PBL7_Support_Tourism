@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { FavouriteModel, FavouriteResponse, SnackBarPanelClass } from 'src/app/common/models';
 import { TripModel, TripResponse } from 'src/app/common/models/trip.model';
@@ -62,15 +61,8 @@ export class FavouriteComponent implements OnInit {
         )
     }
 
-    public createTrip(form: FormGroup): void {
-        const trip: TripModel = {
-            name: form.get('name')?.value,
-            about: form.get('about')?.value,
-            background: form.get('background')?.value,
-            favourites: form.get('favourites')?.value
-        }
-
-        this.tripService.createTrip(trip).subscribe(
+    public createTrip(form: FormData): void {
+        this.tripService.createTrip(form).subscribe(
             (res: TripResponse) => {
                 let message = 'Tạo chuyến đi không thành công';
                 let snackBarPanel = SnackBarPanelClass.errorClass;

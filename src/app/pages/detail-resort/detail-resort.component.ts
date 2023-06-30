@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { ResortResponse, ReviewModel, ReviewResponse, ServiceResponse, SnackBarPanelClass } from 'src/app/common/models';
+import { RoomResponse } from 'src/app/common/models/room.model';
 import { ResortService, ReviewService, ServiceService } from 'src/app/common/services';
+import { RoomService } from 'src/app/common/services/room.service';
 
 const SNACK_BAR_CONFIG = new MatSnackBarConfig();
 SNACK_BAR_CONFIG.duration = 2000;
@@ -17,7 +19,9 @@ SNACK_BAR_CONFIG.horizontalPosition = 'center';
 export class DetailResortComponent implements OnInit {
     public resortResponse!: ResortResponse;
     public servicesResort!: ServiceResponse;
+    public roomsResort!: RoomResponse;
     public reviewsResort!: ReviewResponse;
+    public checkAccountReview!: ReviewResponse;
     public resortId = '';
 
     constructor(
@@ -25,6 +29,7 @@ export class DetailResortComponent implements OnInit {
         private router: ActivatedRoute,
         private resortService: ResortService,
         private serviceService: ServiceService,
+        private roomService: RoomService,
         private reviewService: ReviewService
     ) {
         this.resortId = this.router.snapshot.paramMap.get('resortId') as string;
@@ -33,7 +38,9 @@ export class DetailResortComponent implements OnInit {
     ngOnInit(): void {
         this.getResortDetail();
         this.getServicesResort();
+        this.getRoomsResort();
         this.getReviewsResort();
+        this.checkReview();
     }
 
     public getResortDetail(): void {
@@ -52,10 +59,26 @@ export class DetailResortComponent implements OnInit {
         )
     }
 
+    public getRoomsResort(): void {
+        this.roomService.getRoomsByResort(this.resortId).subscribe(
+            (res: RoomResponse) => {
+                this.roomsResort = res;
+            }
+        )
+    }
+
     public getReviewsResort(): void {
         this.reviewService.getReviewsByResort(this.resortId).subscribe(
             (res: ReviewResponse) => {
                 this.reviewsResort = res;
+            }
+        )
+    }
+
+    public checkReview(): void {
+        this.reviewService.checkAccountReviewResort(this.resortId).subscribe(
+            (res: ReviewResponse) => {
+                this.checkAccountReview = res;
             }
         )
     }
@@ -70,7 +93,7 @@ export class DetailResortComponent implements OnInit {
     }
 
     public writeReview(data: FormData): void {
-        this.reviewService.createWithTourism(data).subscribe(
+        this.reviewService.createWithResort(data).subscribe(
             (res: ReviewResponse) => {
                 let snackBarPanel = SnackBarPanelClass.errorClass;
                 let message = 'Bạn không thể bình luận cho địa điểm này!';

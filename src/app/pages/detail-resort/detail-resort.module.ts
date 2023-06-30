@@ -5,6 +5,7 @@ import { ServicesComponent } from './components/services/services.component';
 import { LayoutModule } from 'src/app/layout/layout.module';
 import { CommonAppModule } from 'src/app/common/common.module';
 import { DetailResortComponent } from './detail-resort.component';
+import { RoomsComponent } from './components/rooms/rooms.component';
 
 
 
@@ -12,7 +13,8 @@ import { DetailResortComponent } from './detail-resort.component';
     declarations: [
         DetailComponent,
         ServicesComponent,
-        DetailResortComponent
+        DetailResortComponent,
+        RoomsComponent
     ],
     imports: [
         CommonModule,

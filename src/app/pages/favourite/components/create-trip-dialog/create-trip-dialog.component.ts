@@ -16,6 +16,7 @@ export class CreateTripDialogComponent implements OnInit {
     public savedToTrip: any[] = [];
     public favouritesList: any[] = [];
     public imageFile?: File;
+    public imagePreview = '';
 
     constructor(
         public dialogRef: MatDialogRef<CreateTripDialogComponent>,
@@ -41,15 +42,34 @@ export class CreateTripDialogComponent implements OnInit {
     public onFileChange(event: any): void {
         if (event.target.files && event.target.files.length > 0) {
             this.imageFile = event.target.files[0];
+
+            const reader = new FileReader();
+            reader.onload = () => this.imagePreview = reader.result as string;
+            reader.readAsDataURL(event.target.files[0]);
         }
     }
 
     public saveTrip(): void {
         const favouritesId = this.savedToTrip.map((value: FavouriteModel) => value._id);
 
+        if(!favouritesId.length) return; 
+
         this.tripForm.get('favourites')?.setValue(favouritesId);
 
-        this.dialogRef.close(this.tripForm);
+        const formData = new FormData();
+        const fields = ['name', 'about']
+
+        fields.forEach(element => {
+            formData.append(element, this.tripForm.get(element)?.value);
+        })
+
+        this.tripForm.get('favourites')?.value.forEach((element: string) => {
+            formData.append('favourites', element);
+        })
+
+        formData.append('background', this.imageFile as File);
+
+        this.dialogRef.close(formData);
     }
 
     public drop(event: CdkDragDrop<string[]>) {

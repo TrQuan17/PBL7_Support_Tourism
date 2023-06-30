@@ -45,7 +45,7 @@ export class ResortService {
         );
     }
 
-    public createResort(resort: ResortModel): Observable<ResortResponse> {
+    public createResort(resort: FormData): Observable<ResortResponse> {
         this.loadingDialog.showSpinner(true);
 
         return this.http.post<ResortResponse>(this.apiResortUrl, resort).pipe(
@@ -53,7 +53,7 @@ export class ResortService {
         );
     }
 
-    public updateResort(resort: ResortModel): Observable<ResortResponse> {
+    public updateResort(resort: FormData): Observable<ResortResponse> {
         this.loadingDialog.showSpinner(true);
 
         return this.http.put<ResortResponse>(this.apiResortUrl, resort).pipe(

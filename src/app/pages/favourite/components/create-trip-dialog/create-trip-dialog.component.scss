@@ -8,11 +8,10 @@
 .header {
     width: 100%;
     padding: 4px 12px;
-    background-color: var(--primary-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: white;
+    background-color: var(--primary-color-rgba);
 
     h6 {
         margin: 0;
@@ -20,11 +19,10 @@
 
     .icon-close {
         cursor: pointer;
-        color: white;
     }
 
     .icon-heart {
-        color: white;
+        color: #eb5757;
         height: 16px;
         width: 16px;
     }
@@ -113,6 +111,12 @@
         border-radius: 8px;
         border: 1px solid var(--primary-color-rgba);
         margin-bottom: 12px;
+
+        img {
+            height: 100%;
+            width: 100%;
+            border-radius: 8px;
+        }
     }
 
     .list {

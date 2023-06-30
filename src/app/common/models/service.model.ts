@@ -7,7 +7,7 @@ export interface ServiceModel {
     name: string,
     resort: ResortModel | string,
     about: string,
-    images: string[],
+    image: string,
     price: string
 }
 

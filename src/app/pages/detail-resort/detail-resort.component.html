@@ -11,7 +11,15 @@
     <mat-divider></mat-divider>
 
     <div class="app">
-        <app-reviews [reviewResponse]="reviewsResort" [resortResponse]="resortResponse"
+        <app-rooms [roomResponse]="roomsResort"></app-rooms>
+    </div>
+    <mat-divider></mat-divider>
+
+    <div class="app">
+        <app-reviews 
+            [reviewResponse]="reviewsResort" 
+            [resortResponse]="resortResponse"
+            [checkAccountReview]="checkAccountReview"
             (reviewEmitter)="writeReview($event)"></app-reviews>
     </div>
 </div>

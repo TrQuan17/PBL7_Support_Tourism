@@ -2,7 +2,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ReviewModel, ReviewResponse } from '../models';
+import { ReviewResponse } from '../models';
 import { ApiPath } from 'src/app/core/config';
 
 @Injectable({
@@ -28,11 +28,21 @@ export class ReviewService {
         return this.http.get<ReviewResponse>(url);
     }
 
+    public checkAccountReviewTourism(tourismId: string): Observable<ReviewResponse> {
+        const url = `${this.apiReviewUrl}/tourism/${tourismId}/check`;
+        return this.http.get<ReviewResponse>(url);
+    }
+
+    public checkAccountReviewResort(resortId: string): Observable<ReviewResponse> {
+        const url = `${this.apiReviewUrl}/resort/${resortId}/check`;
+        return this.http.get<ReviewResponse>(url);
+    }
+
     public createWithTourism(review: FormData): Observable<ReviewResponse> {
         return this.http.post<ReviewResponse>(this.apiWriteReviewTourismUrl, review);
     }
 
-    public createWithResort(review: ReviewModel): Observable<ReviewResponse> {
+    public createWithResort(review: FormData): Observable<ReviewResponse> {
         return this.http.post<ReviewResponse>(this.apiWriteReviewResortUrl, review);
     }
 

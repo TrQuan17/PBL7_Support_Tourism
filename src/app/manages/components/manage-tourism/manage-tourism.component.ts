@@ -4,7 +4,6 @@ import { ManageTourismDialogComponent } from '../manage-tourism-dialog/manage-to
 import { MatTableDataSource } from '@angular/material/table';
 import { TourismService } from 'src/app/common/services';
 import { ConfirmDialogConfig, SnackBarPanelClass, TourismModel, TourismResponse } from 'src/app/common/models';
-import { FormGroup } from '@angular/forms';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ConfirmDialogComponent } from 'src/app/common/components/confirm-dialog/confirm-dialog.component';
 
@@ -49,8 +48,8 @@ export class ManageTourismComponent implements OnInit {
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 
-    public createTourism(tourism: TourismModel): void {
-        this.tourismService.createTourism(tourism).subscribe(
+    public createTourism(form: FormData): void {
+        this.tourismService.createTourism(form).subscribe(
             (res: TourismResponse) => {
                 let snackBarPanel = SnackBarPanelClass.errorClass;
                 let message = 'Bạn không thể tạo địa điểm này!';
@@ -68,8 +67,8 @@ export class ManageTourismComponent implements OnInit {
         )
     }
 
-    public updateTourism(tourism: TourismModel): void {
-        this.tourismService.updateTourism(tourism).subscribe(
+    public updateTourism(form: FormData): void {
+        this.tourismService.updateTourism(form).subscribe(
             (res: TourismResponse) => {
                 let snackBarPanel = SnackBarPanelClass.errorClass;
                 let message = 'Cập nhật thông tin thất bại!';
@@ -87,25 +86,13 @@ export class ManageTourismComponent implements OnInit {
         )
     }
 
-    public saveTourism(form: FormGroup): void {
-        const tourism: TourismModel = {
-            _id: form.get('id')?.value,
-            name: form.get('name')?.value,
-            address: form.get('address')?.value,
-            images: form.get('images')?.value,
-            title: form.get('title')?.value,
-            about: form.get('about')?.value,
-            category: form.get('category')?.value,
-            rate: 0,
-            votesNum: 0
-        }
-
-        switch (form.get('isEdit')?.value) {
+    public saveTourism(form: FormData): void {
+        switch (form.get('isEdit')) {
             case 'create':
-                this.createTourism(tourism);
+                this.createTourism(form);
                 break;
             case 'update':
-                this.updateTourism(tourism);
+                this.updateTourism(form);
                 break;
         }
     }
@@ -113,7 +100,7 @@ export class ManageTourismComponent implements OnInit {
     public openManageTourismDialog(tourism?: TourismModel) {
         const dialogRef = this.dialog.open(ManageTourismDialogComponent, {
             height: '90vh',
-            width: '60vw',
+            width: '70vw',
             data: tourism
         })
 
