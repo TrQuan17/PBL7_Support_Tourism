@@ -1,3 +1,4 @@
+const cloudinary = require('cloudinary').v2
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
@@ -32,7 +33,7 @@ class AccountController {
                 accessToken: encodedToken(newAccount._id),
                 expiresIn: new Date().setDate(new Date().getDate() + 1)
             }
-            
+
             return res.json(responseJson(true, data))
         }
         catch (err) {
@@ -48,7 +49,7 @@ class AccountController {
             }
 
             const account = await Account.findOne({ username: req.body.username })
-            if(!account) {
+            if (!account) {
                 const err = { account: { message: 'Account does not exist!' } }
                 return res.json(responseJson(false, err))
             }
@@ -66,7 +67,7 @@ class AccountController {
                 accessToken: encodedToken(account._id),
                 expiresIn: new Date().setDate(new Date().getDate() + 1)
             }
-            
+
             return res.json(responseJson(true, data))
         }
         catch (err) {
@@ -77,10 +78,11 @@ class AccountController {
 
     async getAll(req, res, next) {
         try {
-            const accounts = await Account.find().select('fullname username avatar role')
+            const accounts = await Account.find({ role: { $ne: 'admin' } })
+                .select('fullname username avatar role')
             return res.json(responseJson(true, accounts))
         }
-        catch(err) {
+        catch (err) {
             return res.json(responseJson(false, err.errors))
         }
     }
@@ -93,29 +95,29 @@ class AccountController {
     async getById(req, res, next) {
         try {
             const account = await Account.findOne({
-                 _id: req.params.accountId 
-                }).select('-password')
-            if(!account) {
+                _id: req.params.accountId
+            }).select('-password')
+            if (!account) {
                 const err = { account: { message: 'Account does not exist!' } }
                 return res.json(responseJson(false, err))
-            }   
+            }
 
             return res.json(responseJson(true, account))
         }
-        catch(err) {
+        catch (err) {
             return res.json(responseJson(false, err.errors))
         }
     }
 
     async update(req, res, next) {
         try {
-            if(!req.body._id) {
+            if (!req.body._id) {
                 const err = { id: { message: 'AccountId does not exist!' } }
                 return res.json(responseJson(false, err))
             }
 
             const account = await Account.findOne({ _id: req.body._id })
-            if(!account) {
+            if (!account) {
                 const err = { account: { message: 'Account does not exist!' } }
                 return res.json(responseJson(false, err))
             }
@@ -125,6 +127,60 @@ class AccountController {
             return res.json(responseJson(true, req.body))
         }
         catch (err) {
+            return res.json(responseJson(false, err.errors))
+        }
+    }
+
+    async updateAvatar(req, res, next) {
+        try {
+            if (!req.body._id) {
+                const err = { id: { message: 'AccountId does not exist!' } }
+                return res.json(responseJson(false, err))
+            }
+
+            const account = await Account.findOne({ _id: req.body._id })
+            if (!account) {
+                const err = { account: { message: 'Account does not exist!' } }
+                return res.json(responseJson(false, err))
+            }
+
+            var avatar = req.file
+            req.body.avatar = avatar ? avatar.path : ''
+
+            await Account.updateOne({ _id: req.body._id }, req.body)
+            return res.json(responseJson(true, req.body))
+        }
+        catch (err) {
+            if (avatar) {
+                cloudinary.uploader.destroy(avatar.filename)
+            }
+            return res.json(responseJson(false, err.errors))
+        }
+    }
+
+    async updateBackground(req, res, next) {
+        try {
+            if (!req.body._id) {
+                const err = { id: { message: 'AccountId does not exist!' } }
+                return res.json(responseJson(false, err))
+            }
+
+            const account = await Account.findOne({ _id: req.body._id })
+            if (!account) {
+                const err = { account: { message: 'Account does not exist!' } }
+                return res.json(responseJson(false, err))
+            }
+
+            var background = req.file
+            req.body.background = background ? background.path : ''
+
+            await Account.updateOne({ _id: req.body._id }, req.body)
+            return res.json(responseJson(true))
+        }
+        catch (err) {
+            if (background) {
+                cloudinary.uploader.destroy(background.filename)
+            }
             return res.json(responseJson(false, err.errors))
         }
     }

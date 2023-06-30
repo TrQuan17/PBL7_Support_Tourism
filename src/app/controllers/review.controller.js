@@ -1,10 +1,11 @@
+const cloudinary = require('cloudinary').v2
+
 const Review = require('../models/review.model')
 const Tourism = require('../models/tourism.model')
 const Resort = require('../models/resort.model')
 const Account = require('../models/account.model')
 
 const { responseJson } = require('../../config/response')
-const { uploadMultiImagesCloud } = require('../../utils/uploadImages.util')
 
 class ReviewController {
     async getByTourismId(req, res, next) {
@@ -33,11 +34,45 @@ class ReviewController {
             }
 
             const reviews = await Review.find({ resort: req.params.resortId })
-                .populate({ auth: 'account', select: 'fullname avatar createdAt' })
+                .populate({ path: 'account', select: 'fullname avatar createdAt' })
 
             return res.json(responseJson(true, reviews))
         }
         catch (err) {
+            console.log(err)
+            return res.json(responseJson(false, err.errors))
+        }
+    }
+
+    async checkAcountReview(req, res, next) {
+        try { 
+            if(req.params.tourismId) {
+                const reviewWithTourism = await Review.findOne({
+                    account: res.data.account._id,
+                    tourism: req.params.tourismId
+                })
+    
+                if (reviewWithTourism) {
+                    const err = { review: { message: 'Review with tourism already exist!' } }
+                    return res.json(responseJson(false, err))
+                }
+            }
+
+            if(req.params.resortId) {
+                const reviewWithResort = await Review.findOne({
+                    account: res.data.account._id,
+                    resort: req.params.resortId
+                })
+    
+                if (reviewWithResort) {
+                    const err = { review: { message: 'Review with resort already exist!' } }
+                    return res.json(responseJson(false, err))
+                }
+            }
+
+            return res.json(responseJson(true))
+        }
+        catch(err) {
             return res.json(responseJson(false, err.errors))
         }
     }
@@ -63,11 +98,10 @@ class ReviewController {
                 return res.json(responseJson(false, err))
             }
 
-            var imagesUpload = req.files
-
-            if (imagesUpload) {
-                const urlImages = imagesUpload.map(value => value.path)
-                req.body.images = uploadMultiImagesCloud(urlImages);
+            var images = req.files
+            if (images) {
+                const urlArr = images.map(value => value.path)
+                newReview.images = urlArr
             }
 
             await newReview.save()
@@ -85,6 +119,11 @@ class ReviewController {
             return res.json(responseJson(true, newReview))
         }
         catch (err) {
+            if (images) {
+                images.forEach(element => {
+                    cloudinary.uploader.destroy(element.filename)
+                });
+            }
             return res.json(responseJson(false, err.errors))
         }
     }
@@ -110,6 +149,12 @@ class ReviewController {
                 return res.json(responseJson(false, err))
             }
 
+            var images = req.files
+            if (images) {
+                const urlArr = images.map(value => value.path)
+                newReview.images = urlArr
+            }
+
             const totalVoteBefore = resort.rate * resort.votesNum
 
             await newReview.save()
@@ -125,6 +170,11 @@ class ReviewController {
             return res.json(responseJson(true, newReview))
         }
         catch (err) {
+            if (images) {
+                images.forEach(element => {
+                    cloudinary.uploader.destroy(element.filename)
+                });
+            }
             console.log(err)
             return res.json(responseJson(false, err.errors))
         }

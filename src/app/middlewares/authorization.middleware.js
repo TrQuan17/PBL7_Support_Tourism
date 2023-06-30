@@ -9,6 +9,8 @@ const verifyAccount = async (req, res, next) => {
         const payload = jwt.verify(token, process.env.SECRET_KEY)
 
         const account = await Account.findOne({ _id: payload.account_id })
+            .select('-password')
+            
         if (!account) {
             const err = { verify: { message: 'Account does not verify!' } }
             return res.json(responseJson(false, err))
@@ -33,10 +35,19 @@ const verifyAdminRole = async (req, res, next) => {
     return res.json(responseJson(false, err))
 }
 
-const verifyManagerRole = async (req, res, next) => {
+const verifyTourismManagerRole = async (req, res, next) => {
     const account = res.data.account
 
-    if(account.role === 'manager' || account.role === 'admin') return next()
+    if(['admin', 'tourism_manager'].includes(account.role)) return next()
+
+    const err = { permission: { message: 'Denied access!' } }
+    return res.json(responseJson(false, err))
+}
+
+const verifyResortManagerRole = async (req, res, next) => {
+    const account = res.data.account
+
+    if(['admin','tourism_manager','resort_manager'].includes(account.role)) return next()
 
     const err = { permission: { message: 'Denied access!' } }
     return res.json(responseJson(false, err))
@@ -45,5 +56,6 @@ const verifyManagerRole = async (req, res, next) => {
 module.exports = {
     verifyAccount,
     verifyAdminRole,
-    verifyManagerRole
+    verifyTourismManagerRole,
+    verifyResortManagerRole
 }

@@ -18,9 +18,9 @@ const ServiceSchema = new Schema({
     about: {
         type: String
     },
-    images: [{
+    image: {
         type: String
-    }],
+    },
     price: {
         type: Number,
         min: [10000, 'Price no less than 10000']

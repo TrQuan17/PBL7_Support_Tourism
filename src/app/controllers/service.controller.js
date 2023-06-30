@@ -1,3 +1,5 @@
+const cloudinary = require('cloudinary').v2
+
 const Service = require('../models/service.model')
 const Resort = require('../models/resort.model')
 
@@ -46,10 +48,16 @@ class ServiceController {
                 return res.json(responseJson(false, err))
             }
 
+            var imageUpload = req.file
+            newService.image = imageUpload ? imageUpload.path : ''
+
             await newService.save()
             return res.json(responseJson(true, newService))
         }
         catch(err) {
+            if (imageUpload) {
+                cloudinary.uploader.destroy(imageUpload.filename)
+            }
             return res.json(responseJson(false, err.errors))
         }
     }
@@ -73,11 +81,17 @@ class ServiceController {
                 return res.json(responseJson(false, err))
             }
 
+            var imageUpload = req.file
+            req.body.image = imageUpload ? imageUpload.path : req.body.image
+
             await Service.updateOne({ _id: req.body._id }, req.body)
 
             return res.json(responseJson(true, req.body))
         }
         catch(err) {
+            if (imageUpload) {
+                cloudinary.uploader.destroy(imageUpload.filename)
+            }
             return res.json(responseJson(false, err.errors))
         }
     }

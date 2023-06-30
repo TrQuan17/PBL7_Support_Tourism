@@ -1,3 +1,4 @@
+const cloudinary = require('cloudinary').v2
 const { responseJson } = require('../../config/response')
 const Trip = require('../models/trip.model')
 
@@ -47,11 +48,17 @@ class TripController {
 
         newTrip.account = res.data.account._id
 
+        var background = req.file
+        newTrip.background = background ? background.path : ''
+
         await newTrip.save()
 
         return res.json(responseJson(true, newTrip))
     }
     catch (err) {
+        if (background) {
+            cloudinary.uploader.destroy(background.filename)
+        }
         return res.json(responseJson(false, err.errors))
     }
 }

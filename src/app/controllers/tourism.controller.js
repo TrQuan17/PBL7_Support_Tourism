@@ -1,3 +1,5 @@
+const cloudinary = require('cloudinary').v2
+
 const { responseJson } = require('../../config/response')
 const Tourism = require('../models/tourism.model')
 const Category = require('../models/category.model')
@@ -83,13 +85,23 @@ class TourismController {
                 const err = { category: { message: 'Category does not exist!' } }
                 return res.json(responseJson(false, err))
             }
+
+            var images = req.files
+            if (images) {
+                const urlArr = images.map(value => value.path)
+                newPost.images = urlArr
+            }
             
             await newTourism.save()
 
             return res.json(responseJson(true, newTourism))
         }
         catch (err) {
-            console.log(err)
+            if (images) {
+                images.forEach(element => {
+                    cloudinary.uploader.destroy(element.filename)
+                });
+            }
             return res.json(responseJson(false, err.errors))
         }
     }
@@ -115,11 +127,32 @@ class TourismController {
                 }
             }
 
+            req.body.images = req.body.images ? req.body.images : []
+
+            var images = req.files
+            if (images) {
+                const urlArr = images.map(value => value.path)
+                
+                if(typeof req.body.images === 'object') {
+                    req.body.images.push(...urlArr)
+                }
+
+                if(typeof req.body.images === 'string') {
+                    req.body.images = [req.body.images, ...urlArr]
+                }
+            }
+
             await Tourism.updateOne({ _id: req.body._id }, req.body)
 
             return res.json(responseJson(true, req.body))
         }
         catch (err) {
+            if (images) {
+                images.forEach(element => {
+                    cloudinary.uploader.destroy(element.filename)
+                });
+            }
+            console.log(err)
             return res.json(responseJson(false, err.errors))
         }
     }

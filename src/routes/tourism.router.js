@@ -5,14 +5,15 @@ const tourismController = require('../app/controllers/tourism.controller')
 const resortController = require('../app/controllers/resort.controller')
 const reviewController = require('../app/controllers/review.controller')
 
-const { verifyAccount, verifyManagerRole } = require('../app/middlewares/authorization.middleware')
+const { verifyAccount, verifyTourismManagerRole } = require('../app/middlewares/authorization.middleware')
+const uploadCloud = require('../app/middlewares/upload.middleware')
 
 router.get('/:tourismId/resorts', resortController.getResortsByTourismId)
 router.get('/:tourismId/reviews', reviewController.getByTourismId)
 router.get('/:tourismId', tourismController.getById)
 router.get('/', tourismController.getAll)
-router.post('/', verifyAccount, verifyManagerRole, tourismController.create)
-router.put('/', verifyAccount, verifyManagerRole, tourismController.update)
-router.delete('/', verifyAccount, verifyManagerRole, tourismController.delete)
+router.post('/', verifyAccount, verifyTourismManagerRole, uploadCloud.array('imagesUpload'), tourismController.create)
+router.put('/', verifyAccount, verifyTourismManagerRole, uploadCloud.array('imagesUpload'), tourismController.update)
+router.delete('/', verifyAccount, verifyTourismManagerRole, tourismController.delete)
 
 module.exports = router

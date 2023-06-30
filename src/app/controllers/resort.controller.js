@@ -1,3 +1,5 @@
+const cloudinary = require('cloudinary').v2
+
 const Resort = require('../models/resort.model')
 const Tourism = require('../models/tourism.model')
 
@@ -83,11 +85,22 @@ class ResortController {
                 return res.json(responseJson(false, err))
             }
 
+            var images = req.files
+            if (images) {
+                const urlArr = images.map(value => value.path)
+                newPost.images = urlArr
+            }
+
             await newResort.save()
 
             return res.json(responseJson(true, newResort))
         }
         catch (err) {
+            if (images) {
+                images.forEach(element => {
+                    cloudinary.uploader.destroy(element.filename)
+                });
+            }
             return res.json(responseJson(false, err.errors))
         }
     }
@@ -105,11 +118,31 @@ class ResortController {
                 return res.json(responseJson(false, err))
             }
 
+            req.body.images = req.body.images ? req.body.images : []
+
+            var images = req.files
+            if (images) {
+                const urlArr = images.map(value => value.path)
+                
+                if(typeof req.body.images === 'object') {
+                    req.body.images.push(...urlArr)
+                }
+
+                if(typeof req.body.images === 'string') {
+                    req.body.images = [req.body.images, ...urlArr]
+                }
+            }
+
             await Resort.updateOne({ _id: req.body._id }, req.body)
 
             return res.json(responseJson(true, req.body))
         }
         catch (err) {
+            if (images) {
+                images.forEach(element => {
+                    cloudinary.uploader.destroy(element.filename)
+                });
+            }
             return res.json(responseJson(false, err.errors))
         }
     }

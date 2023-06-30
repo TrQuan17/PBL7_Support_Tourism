@@ -1,21 +1,23 @@
+require('dotenv').config()
+
+const cloudinary = require('cloudinary').v2
+const { CloudinaryStorage } = require('multer-storage-cloudinary')
 const multer = require('multer')
 
-const storage = multer.diskStorage({
-    destination: 'uploads/'
-});
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_KEY,
+    api_secret: process.env.CLOUDINARY_SECRET
+})
 
-const upload = multer({
-    storage: storage,
-    limits: {
-        fileSize: 1024 * 1024 // Giới hạn kích thước file: 1MB
-    },
-    fileFilter: (req, file, cb) => {
-        if (file.mimetype.startsWith('image/')) {
-            cb(null, true);
-        } else {
-            cb(new Error('Not file images!'), false);
-        }
+const storage = new CloudinaryStorage({
+    cloudinary,
+    allowedFormats: ['jpg','jpeg','png'],
+    params: {
+        folder: process.env.FOLDERSAVECLOUD
     }
-});
+})
 
-module.exports = { upload }
+const uploadCloud = multer({ storage })
+
+module.exports = uploadCloud

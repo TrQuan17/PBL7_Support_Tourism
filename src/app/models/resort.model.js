@@ -38,13 +38,14 @@ const ResortSchema = new Schema({
     },
     reservationLimit: {
         type: Number,
-        min: [0, 'Limit no less than 0'],
-        required: [true, 'Limit is required!']
+        default: 0,
+        min: [0, 'Limit no less than 0']
     },
-    reservations: [{
-        type: Schema.Types.ObjectId,
-        ref: 'accounts'
-    }],
+    reservationsNum: {
+        type: Number,
+        default: 0,
+        min: [0, 'Limit no less than 0']
+    },
     phone: {
         type: String,
         validate: phoneValidate

@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const textValidate = {
-    validator: v => v.length >= 100 && v.length > 1,
+    validator: v => v.length >= 50,
     message: 'Review at least 100 words!'
 }
 
@@ -43,13 +43,13 @@ const ReviewSchema = new Schema({
     dislikes: [{
         type: Schema.Types.ObjectId,
     }],
-    tourism: {
-        type: Schema.Types.ObjectId,
-        ref: 'tourisms'
-    },
     resort: {
         type: Schema.Types.ObjectId,
         ref: 'resorts'
+    },
+    tourism: {
+        type: Schema.Types.ObjectId,
+        ref: 'tourisms'
     }
 }, {
     timestamps: true

@@ -1,3 +1,4 @@
+const cloudinary = require('cloudinary').v2
 const { responseJson } = require("../../config/response");
 
 const Post = require('../models/post.model')
@@ -21,11 +22,22 @@ class PostController {
             req.body.account = res.data.account._id
             const newPost = new Post(req.body)
 
+            var images = req.files
+            if (images) {
+                const urlArr = images.map(value => value.path)
+                newPost.images = urlArr
+            }
+
             await newPost.save()
 
             return res.json(responseJson(true, newPost))
         }
         catch (err) {
+            if (images) {
+                images.forEach(element => {
+                    cloudinary.uploader.destroy(element.filename)
+                });
+            }
             return res.json(responseJson(false, err.errors))
         }
     }
