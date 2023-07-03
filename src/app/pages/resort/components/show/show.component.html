@@ -12,6 +12,19 @@
                         {{idx + 1}}. {{ resort.name }}
                     </a></h5>
             </mat-card-title>
+            <span class="location">
+                <mat-icon svgIcon="icon-location"></mat-icon>
+                {{ resort.address }}
+            </span>
+            <span class="rate">
+                <app-star-rating [showVote]="resort.rate"></app-star-rating>
+                <span>{{ resort.votesNum }} đánh giá</span>
+            </span>
         </mat-card-header>
+
+        <div class="price">
+            <span>Giá chỉ từ</span>
+            <h4>{{resort.price | number:'4.1-5'}} VND</h4>
+        </div>
     </mat-card>
 </div>

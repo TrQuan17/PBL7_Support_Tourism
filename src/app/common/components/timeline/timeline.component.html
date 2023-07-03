@@ -43,6 +43,12 @@
 
 <mat-divider *ngIf="authResponse"></mat-divider>
 
+<div class="sort">
+    <button mat-flat-button class="sort-btn" (click)="sortAsc = !sortAsc">
+        {{sortAsc ? 'Bài viết cũ nhất' : 'Bài viết mới nhất'}}
+    </button>
+</div>
+
 <div class="post" *ngFor="let post of postsList">
     <div class="header">
         <img class="avatar" [src]="post?.account.avatar" alt="Avatar" srcset="">

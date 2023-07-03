@@ -12,11 +12,6 @@
                 <span>Yêu thích</span>
             </button>
 
-            <button mat-button class="tool-btn">
-                <mat-icon svgIcon="icon-shopping-cart"></mat-icon>
-                <span>Giỏ hàng</span>
-            </button>
-
             <button *ngIf="!isCurrentAccount(); else currentAccount" mat-button class="tool-btn" routerLink="/login">
                 <span>Đăng nhập</span>
             </button>

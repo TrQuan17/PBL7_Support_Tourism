@@ -39,7 +39,7 @@ export class SidebarComponent {
         let role: string[] = [];
 
         switch(router) {
-            case 'account':
+            case 'admin':
                 role = ['admin']
                 break;
             case 'tourism':

@@ -8,8 +8,9 @@
 
 .categories {
     display: flex;
-    justify-content: space-around;
-    gap: 15px;
+    // justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
 .category {
@@ -18,7 +19,8 @@
     --mat-mdc-button-persistent-ripple-color: var(--primary-color);
 
     padding: 10px;
-    min-width: calc((100% - 85px) / 7);
+    max-width: calc(100% / 7);
+    min-width: 140px;
     height: 60px;
     border-width: 2px;
     border-radius: 10px;
@@ -39,21 +41,28 @@
     min-width: 70vw;
     display: flex;
     flex-direction: row;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
     .content {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: space-around;
     }
 
-    .item-card {
+    .content .rate {
         display: flex;
         flex-direction: row;
+        gap: 20px;
     }
     
     .images-content {
         width: 340px;
         height: 210px;
+    }
+
+    mat-icon {
+        height: 18px;
+        width: 18px;
     }
 }
 

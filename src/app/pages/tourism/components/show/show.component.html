@@ -26,6 +26,15 @@
                         </a></h5>
                 </mat-card-title>
                 <mat-card-subtitle>{{ tourism.title }}</mat-card-subtitle>
+                <span >
+                    <mat-icon svgIcon="icon-location"></mat-icon>
+                    {{ tourism.address }}
+                </span>
+                <span class="rate">
+                    <app-star-rating [showVote]="tourism.rate"></app-star-rating>
+                    <span>{{ tourism.votesNum }} đánh giá</span>
+                </span>
+
             </mat-card-header>
         </mat-card>
     </ng-container>

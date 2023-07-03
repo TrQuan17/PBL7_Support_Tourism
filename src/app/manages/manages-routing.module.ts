@@ -9,6 +9,7 @@ import { ManageServiceComponent } from './components/manage-service/manage-servi
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 import { ManageAccountComponent } from './components/manage-account/manage-account.component';
 import { UpdatePasswordComponent } from './components/update-password/update-password.component';
+import { ManageCategoryComponent } from './components/manage-category/manage-category.component';
 
 const routes: Routes = [
     {
@@ -31,6 +32,11 @@ const routes: Routes = [
             {
                 path: 'manage/account',
                 component: ManageAccountComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'manage/category',
+                component: ManageCategoryComponent,
                 canActivate: [AuthGuard]
             },
             {

@@ -21,6 +21,7 @@ export class TimelineComponent implements OnChanges {
     public showWritePost = false;
     public imagesFile: File[] = [];
     public imagesPreview: string[] = [];
+    public sortAsc = false;
 
     constructor(
         private fb: FormBuilder

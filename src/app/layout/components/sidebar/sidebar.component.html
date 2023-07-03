@@ -24,9 +24,14 @@
         </button>
     </div>
 
-    <button mat-flat-button routerLink="/manage/account" *ngIf="isRole('account')">
+    <button mat-flat-button routerLink="/manage/account" *ngIf="isRole('admin')">
         <mat-icon svgIcon="icon-account-manage"></mat-icon>
         <span>Quản lý người dùng</span>
+    </button>
+
+    <button mat-flat-button routerLink="/manage/category" *ngIf="isRole('admin')">
+        <mat-icon svgIcon="icon-category"></mat-icon>
+        <span>Quản lý danh mục</span>
     </button>
 
     <button mat-flat-button routerLink="/manage/tourism" *ngIf="isRole('tourism')">

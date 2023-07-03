@@ -7,7 +7,6 @@ import { Directive, HostListener } from '@angular/core';
 export class ScrollToTopDirective {
     @HostListener('click')
     onClick() {
-        console.log('heloo');
         window.scrollTo(0, 0);
     }
 }

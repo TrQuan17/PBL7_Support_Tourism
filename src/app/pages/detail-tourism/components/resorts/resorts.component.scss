@@ -3,7 +3,7 @@
 }
 
 .resorts .item-card {
-    width: 250px;
+    width: 300px;
 
     img {
         width: 100%;
@@ -16,5 +16,10 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+    }
+
+    mat-card-actions {
+        display: flex;
+        gap: 10px;
     }
 }

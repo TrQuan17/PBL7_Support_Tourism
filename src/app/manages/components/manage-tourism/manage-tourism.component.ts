@@ -12,7 +12,6 @@ SNACK_BAR_CONFIG.duration = 2000;
 SNACK_BAR_CONFIG.verticalPosition = 'bottom';
 SNACK_BAR_CONFIG.horizontalPosition = 'center';
 
-
 @Component({
     selector: 'app-manage-tourism',
     templateUrl: './manage-tourism.component.html',

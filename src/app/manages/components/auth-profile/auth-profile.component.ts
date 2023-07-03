@@ -59,7 +59,7 @@ export class AuthProfileComponent implements OnInit {
                 let message = 'Đăng bài viết không thành công!';
 
                 if (res.status === 'SUCCESS') {
-                    message = 'Đăng bài thành công!';
+                    message = 'Đăng bài viết thành công!';
                     snackBarPanel = SnackBarPanelClass.successClass;
                 }
 

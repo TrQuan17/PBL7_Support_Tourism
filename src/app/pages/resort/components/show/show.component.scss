@@ -16,21 +16,46 @@
     min-width: 70vw;
     display: flex;
     flex-direction: row;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 6px;
 
     .content {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
     }
-
-    .item-card {
-        display: flex;
-        flex-direction: row;
-    }
     
     .images-content {
         width: 340px;
         height: 210px;
+    }
+
+    .location {
+        height: 40%;
+    }
+    
+    .rate {
+        display: flex;
+        gap: 10px;
+    }
+
+    .price {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end;
+    }
+
+    mat-icon {
+        height: 18px;
+        width: 18px;
+    }
+
+    mat-card-header {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 50%;
     }
 }
 

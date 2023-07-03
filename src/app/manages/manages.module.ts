@@ -16,6 +16,8 @@ import { UpdateProfileComponent } from './components/update-profile/update-profi
 import { ManageAccountComponent } from './components/manage-account/manage-account.component';
 import { UpdatePasswordComponent } from './components/update-password/update-password.component';
 import { ManageRoomDialogComponent } from './components/manage-room-dialog/manage-room-dialog.component';
+import { ManageCategoryComponent } from './components/manage-category/manage-category.component';
+import { ManageCategoryDialogComponent } from './components/manage-category-dialog/manage-category-dialog.component';
 
 @NgModule({
     declarations: [
@@ -30,7 +32,9 @@ import { ManageRoomDialogComponent } from './components/manage-room-dialog/manag
         UpdateProfileComponent,
         ManageAccountComponent,
         UpdatePasswordComponent,
-        ManageRoomDialogComponent
+        ManageRoomDialogComponent,
+        ManageCategoryComponent,
+        ManageCategoryDialogComponent
     ],
     imports: [
         CommonModule,

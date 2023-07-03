@@ -129,14 +129,19 @@ export class ManageResortDialogComponent implements OnInit {
     public saveResort(): void {
         const formData = new FormData();
 
-        const fields = ['_id', 'name', 'address', 'about', 'phone','price', 'tourism', 'isEdit'];
+        if(this.dialogData) {
+            formData.append('_id', this.resortForm.get('_id')?.value);
+        }
+
+        const fields = ['name', 'address', 'about', 'phone','price', 'tourism', 'isEdit'];
         fields.forEach(element => {
             formData.append(element, this.resortForm.get(element)?.value)
         });
-
-        (this.resortForm.get('images')?.value as string[]).forEach((element: string) => {
-            formData.append('images', element);
-        })
+	if(this.dialogData) {
+            (this.resortForm.get('images')?.value as string[]).forEach((element: string) => {
+                formData.append('images', element);
+            })
+	}
 
         this.imagesFile.forEach(element => {
             formData.append('imagesUpload', element);
