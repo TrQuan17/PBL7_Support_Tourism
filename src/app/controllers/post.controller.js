@@ -9,6 +9,7 @@ class PostController {
         try {
             const posts = await Post.find({ account: req.params.accountId })
                 .populate({ path: 'account', select: 'avatar fullname' })
+                .sort({'createdAt': 'desc'})
 
             return res.json(responseJson(true, posts))
         }

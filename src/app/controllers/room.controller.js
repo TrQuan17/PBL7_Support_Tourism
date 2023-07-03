@@ -1,3 +1,5 @@
+const cloudinary = require('cloudinary').v2
+
 const { responseJson } = require('../../config/response')
 const Room = require('../models/room.model')
 const Resort = require('../models/resort.model')

@@ -1,10 +1,14 @@
+const cloudinary = require('cloudinary').v2
+
 const Category = require('../models/category.model')
 const { responseJson } = require('../../config/response')
 
 class CategoryController {
     async getAll(req, res, next) {
         try {
-            var categories = await Category.find({})
+            var categories = await Category.find({
+                name: { $regex: req.query.q, $options: 'i' }
+            })
             return res.json(responseJson(true, categories))
         }
         catch (err) {
@@ -15,11 +19,18 @@ class CategoryController {
     async create(req, res, next) {
         try {
             var newCategory = new Category(req.body)
+
+            var image = req.file
+            newCategory.background = image ? image.path : ''
+
             await newCategory.save()
 
             return res.json(responseJson(true, newCategory))
         }
         catch (err) {
+            if (image) {
+                cloudinary.uploader.destroy(image.filename)
+            }
             return res.json(responseJson(false, err.errors))
         }
     }
@@ -37,11 +48,19 @@ class CategoryController {
                 return res.json(response(false, err))
             }
 
+            var image = req.file
+            if(image) {
+                req.body.background = image.path
+            }
+
             await Category.updateOne({ _id: req.body._id }, req.body)
 
             return res.json(responseJson(true, req.body))
         }
         catch (err) {
+            if (image) {
+                cloudinary.uploader.destroy(image.filename)
+            }
             return res.json(responseJson(false, err.errors))
         }
     }
