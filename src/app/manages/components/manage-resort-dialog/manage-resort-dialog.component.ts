@@ -93,7 +93,7 @@ export class ManageResortDialogComponent implements OnInit {
 
     public deleteImage(image: string): void {
         let imageArr: string[] = this.resortForm.get('images')?.value;
-        imageArr = imageArr.filter((item:string) => item !== image);
+        imageArr = imageArr.filter((item: string) => item !== image);
 
         this.resortForm.get('images')?.setValue(imageArr);
     }
@@ -114,7 +114,7 @@ export class ManageResortDialogComponent implements OnInit {
                 let message = 'Xóa phòng không thành công';
                 let snackBarPanel = SnackBarPanelClass.errorClass;
 
-                if(res.status === 'SUCCESS') {
+                if (res.status === 'SUCCESS') {
                     message = 'Xóa phòng thành công';
                     snackBarPanel = SnackBarPanelClass.successClass;
                     this.getRoomsByResort(this.dialogData as ResortModel);
@@ -129,19 +129,18 @@ export class ManageResortDialogComponent implements OnInit {
     public saveResort(): void {
         const formData = new FormData();
 
-        if(this.dialogData) {
+        if (this.dialogData) {
             formData.append('_id', this.resortForm.get('_id')?.value);
-        }
 
-        const fields = ['name', 'address', 'about', 'phone','price', 'tourism', 'isEdit'];
-        fields.forEach(element => {
-            formData.append(element, this.resortForm.get(element)?.value)
-        });
-	if(this.dialogData) {
             (this.resortForm.get('images')?.value as string[]).forEach((element: string) => {
                 formData.append('images', element);
             })
-	}
+        }
+
+        const fields = ['name', 'address', 'about', 'phone', 'price', 'tourism', 'isEdit'];
+        fields.forEach(element => {
+            formData.append(element, this.resortForm.get(element)?.value)
+        });
 
         this.imagesFile.forEach(element => {
             formData.append('imagesUpload', element);

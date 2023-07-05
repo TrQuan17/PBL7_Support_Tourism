@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, finalize } from 'rxjs';
-import { CategoryResponse } from '../models';
+import { CategoryModel, CategoryResponse } from '../models';
 import { ApiPath } from 'src/app/core/config';
 import { LoadingSpinnerDialogService } from 'src/app/layout/services';
 
@@ -41,7 +41,7 @@ export class CategoryService {
         );
     }
 
-    public deleteCategory(category: FormData): Observable<CategoryResponse> {
+    public deleteCategory(category: CategoryModel): Observable<CategoryResponse> {
         this.loadingDialog.showSpinner(true);
 
         const httpOptions = {

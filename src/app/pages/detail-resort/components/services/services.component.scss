@@ -21,17 +21,16 @@
         border-bottom-left-radius: 4px;
         height: 140px;
     }
+
     .text {
         display: flex;
         flex-direction: column;
         justify-content: center;
     }
 
-    .text {
-        .price {
-            font-weight: 500;
-            font-size: 18px;
-        }
+    .text .price {
+        font-weight: 500;
+        font-size: 18px;
     }
 
 }

@@ -85,6 +85,25 @@ export class ManageTourismComponent implements OnInit {
         )
     }
 
+    public deleteTourism(tourism: TourismModel) {
+        this.tourismService.deleteTourism(tourism).subscribe(
+            (res: TourismResponse) => {
+                let snackBarPanel = SnackBarPanelClass.errorClass;
+                let message = 'Xóa dữ liệu không thành công';
+
+                if(res.status === 'SUCCESS') {
+                    snackBarPanel = SnackBarPanelClass.successClass;
+                    message = 'Xóa dữ liệu thành công';
+
+                    this.getTourisms();
+                }
+
+                SNACK_BAR_CONFIG.panelClass = snackBarPanel;
+                this.snackbar.open(message, undefined, SNACK_BAR_CONFIG);
+            }
+        )
+    }
+
     public saveTourism(form: FormData): void {
         switch (form.get('isEdit')) {
             case 'create':
@@ -100,6 +119,8 @@ export class ManageTourismComponent implements OnInit {
         const dialogRef = this.dialog.open(ManageTourismDialogComponent, {
             height: '90vh',
             width: '70vw',
+            disableClose: true,
+            autoFocus: false,
             data: tourism
         })
 
@@ -110,7 +131,7 @@ export class ManageTourismComponent implements OnInit {
         })
     }
 
-    public deleteTourism(tourism: TourismModel): void {
+    public confirmDeleteTourism(tourism: TourismModel): void {
         const dialogData: ConfirmDialogConfig = {
             type: 'delete-dialog',
             header: 'Xác nhận xóa điểm du lịch',
@@ -125,11 +146,7 @@ export class ManageTourismComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(confirm => {
             if (confirm) {
-                const snackBarPanel = SnackBarPanelClass.successClass;
-                const message = 'Xóa dữ liệu thành công';
-
-                SNACK_BAR_CONFIG.panelClass = snackBarPanel;
-                this.snackbar.open(message, undefined, SNACK_BAR_CONFIG);
+                this.deleteTourism(tourism);
             }
         })
     }

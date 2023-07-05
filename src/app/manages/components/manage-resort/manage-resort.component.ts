@@ -84,6 +84,22 @@ export class ManageResortComponent implements OnInit {
         )
     }
 
+    public deleteResort(resort: ResortModel) {
+        this.resortService.deleteResort(resort).subscribe(
+            (res: ResortResponse) => {
+                let snackBarPanel = SnackBarPanelClass.errorClass;
+                let message = 'Xóa dữ liệu không thành công';
+                if(res.status === 'SUCCESS') {
+                    snackBarPanel = SnackBarPanelClass.successClass;
+                    message = 'Xóa dữ liệu thành công';
+                    this.getResorts();
+                }
+                SNACK_BAR_CONFIG.panelClass = snackBarPanel;
+                this.snackbar.open(message, undefined, SNACK_BAR_CONFIG);
+            }
+        )
+    }
+
     public saveResort(form: FormData): void {
         switch (form.get('isEdit')) {
             case 'create':
@@ -109,7 +125,7 @@ export class ManageResortComponent implements OnInit {
         })
     }
 
-    public deleteResort(resort: ResortModel): void {
+    public confirmDeleteResort(resort: ResortModel): void {
         const dialogData: ConfirmDialogConfig = {
             type: 'delete-dialog',
             header: 'Xác nhận xóa khu nghỉ dưỡng',
@@ -124,11 +140,7 @@ export class ManageResortComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(confirm => {
             if (confirm) {
-                const snackBarPanel = SnackBarPanelClass.successClass;
-                const message = 'Xóa dữ liệu thành công';
-
-                SNACK_BAR_CONFIG.panelClass = snackBarPanel;
-                this.snackbar.open(message, undefined, SNACK_BAR_CONFIG);
+                this.deleteResort(resort);
             }
         })
     }

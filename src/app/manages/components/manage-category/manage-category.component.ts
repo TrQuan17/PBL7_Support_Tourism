@@ -85,8 +85,8 @@ export class ManageCategoryComponent implements OnInit {
         )
     }
 
-    public deleteCategory(form: FormData): void {
-        this.categoryService.deleteCategory(form).subscribe(
+    public deleteCategory(category: CategoryModel): void {
+        this.categoryService.deleteCategory(category).subscribe(
             (res: CategoryResponse) => {
                 let snackBarPanel = SnackBarPanelClass.errorClass;
                 let message = 'Xóa dữ liệu không thành công';
@@ -141,12 +141,9 @@ export class ManageCategoryComponent implements OnInit {
             data: dialogData
         })
 
-        const formData = new FormData();
-        formData.append('_id', category._id as string);
-
         dialogRef.afterClosed().subscribe(confirm => {
             if (confirm) {
-                this.deleteCategory(formData);
+                this.deleteCategory(category);
             }
         })
     }

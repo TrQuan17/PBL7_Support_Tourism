@@ -63,7 +63,11 @@ export class ManageServiceDialogComponent implements OnInit {
     public saveService(): void {
         const formData = new FormData();
 
-        const fields = ['_id', 'name', 'about', 'image', 'price', 'resort', 'isEdit']
+        if(this.dialogData) {
+            formData.append('_id', this.serviceForm.get('_id')?.value);
+        }
+
+        const fields = ['name', 'about', 'image', 'price', 'resort', 'isEdit']
         fields.forEach(element => {
             formData.append(element, this.serviceForm.get(element)?.value);
         })

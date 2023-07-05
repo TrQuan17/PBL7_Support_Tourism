@@ -73,14 +73,18 @@ export class ManageTourismDialogComponent implements OnInit{
     public saveTourism(): void {
         const formData = new FormData();
 
-        const fields = ['_id', 'name', 'address', 'title', 'about', 'category','isEdit'];
+        if(this.dialogData) {
+            formData.append('_id', this.tourismForm.get('_id')?.value);
+
+            (this.tourismForm.get('images')?.value as string[]).forEach((element: string) => {
+                formData.append('images', element);
+            })
+        }
+
+        const fields = ['name', 'address', 'title', 'about', 'category','isEdit'];
         fields.forEach(element => {
             formData.append(element, this.tourismForm.get(element)?.value)
         });
-
-        (this.tourismForm.get('images')?.value as string[]).forEach((element: string) => {
-            formData.append('images', element);
-        })
 
         this.imagesFile.forEach(element => {
             formData.append('imagesUpload', element);
