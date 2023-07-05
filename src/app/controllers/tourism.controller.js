@@ -2,6 +2,7 @@ const cloudinary = require('cloudinary').v2
 
 const { responseJson } = require('../../config/response')
 const Tourism = require('../models/tourism.model')
+const Resort = require('../models/resort.model')
 const Category = require('../models/category.model')
 
 class TourismController {
@@ -89,7 +90,7 @@ class TourismController {
             var images = req.files
             if (images) {
                 const urlArr = images.map(value => value.path)
-                newPost.images = urlArr
+                newTourism.images = urlArr
             }
             
             await newTourism.save()
@@ -102,6 +103,7 @@ class TourismController {
                     cloudinary.uploader.destroy(element.filename)
                 });
             }
+            console.log(err)
             return res.json(responseJson(false, err.errors))
         }
     }
@@ -164,13 +166,19 @@ class TourismController {
                 return res.json(responseJson(false, err))
             }
 
-            var tourism = await Tourism.findOneAndDelete({ _id: req.body._id })
+            const resorts = await Resort.find({ tourism: req.body._id })
+            if(resorts) {
+                const err = { resort: { message: 'Tourism containing resort!' } }
+                return res.json(responseJson(false, err))
+            }
+
+            const tourism = await Tourism.findOneAndDelete({ _id: req.body._id })
             if (!tourism) { 
                 const err = { 'Tourism': { message: 'Tourism does not exist!' } }
                 return res.json(responseJson(false, err))
             }
 
-            return res.json(responseJson(true, tourism))
+            return res.json(responseJson(true))
         }
         catch (err) {
             return res.json(responseJson(false, err.errors))

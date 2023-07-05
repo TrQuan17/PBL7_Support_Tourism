@@ -1,6 +1,8 @@
 const cloudinary = require('cloudinary').v2
 
 const Resort = require('../models/resort.model')
+const Service = require('../models/service.model')
+const Room = require('../models/room.model')
 const Tourism = require('../models/tourism.model')
 
 const { responseJson } = require('../../config/response')
@@ -88,7 +90,7 @@ class ResortController {
             var images = req.files
             if (images) {
                 const urlArr = images.map(value => value.path)
-                newPost.images = urlArr
+                newResort.images = urlArr
             }
 
             await newResort.save()
@@ -160,7 +162,10 @@ class ResortController {
                 return res.json(responseJson(false, err))
             }
 
-            return res.json(responseJson(true, resort))
+            await Service.deleteMany({resort: req.body._id})
+            await Room.deleteMany({resort: req.body._id})
+
+            return res.json(responseJson(true))
         }
         catch (err) {
             return res.json(responseJson(false, err.errors))

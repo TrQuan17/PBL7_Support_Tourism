@@ -2,7 +2,6 @@ const cloudinary = require('cloudinary').v2
 const { responseJson } = require("../../config/response");
 
 const Post = require('../models/post.model')
-const Account = require('../models/account.model')
 
 class PostController {
     async getByAccountId(req, res, next) {

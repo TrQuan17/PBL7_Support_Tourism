@@ -187,32 +187,37 @@ class AccountController {
 
     async changePass(req, res, next) {
         try {
-            const account = res.data.account
+            if(!req.body.newpass || !req.body.password) {
+                const err = { pass: { message: 'Newpass or password does not exist' } }
+                return res.json(responseJson(false, err))
+            }
 
-            var password = req.body.password
-            var isValidPass = await bcrypt.compare(password ? password : '', account.password)
+            const oldPass = await Account.findOne({ _id: res.data.account._id })
+                .select('password')
+
+            const isValidPass = await bcrypt.compare(req.body.password, oldPass.password)
 
             if (!isValidPass) {
                 const err = { password: { message: 'Password is not correct!' } }
                 return res.json(responseJson(false, err))
             }
 
-            var newpass = req.body.newpass
-            newpass = newpass ? newpass : req.body.password
+            const newpass = req.body.newpass
 
             if (!PASSWORD_REGEX.test(newpass)) {
-                const err = { 'newpass': { message: 'Invalid password!' } }
+                const err = { newpass: { message: 'Invalid password!' } }
                 return res.json(responseJson(false, err))
             }
 
             const salt = await bcrypt.genSalt(10)
             const hashPass = await bcrypt.hash(newpass, salt)
 
-            await Account.updateOne({ _id: account._id }, { password: hashPass })
+            await Account.updateOne({ _id: res.data.account._id }, { password: hashPass })
 
             return res.json(responseJson(true))
         }
         catch (err) {
+	    console.log(err)
             return res.json(responseJson(false, err.errors))
         }
     }

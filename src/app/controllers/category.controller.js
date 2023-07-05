@@ -1,6 +1,7 @@
 const cloudinary = require('cloudinary').v2
 
 const Category = require('../models/category.model')
+const Tourism = require('../models/tourism.model')
 const { responseJson } = require('../../config/response')
 
 class CategoryController {
@@ -72,7 +73,13 @@ class CategoryController {
                 return res.json(responseJson(false, err))
             }
 
-            var category = await Category.findOneAndDelete({ _id: req.body._id })
+            const tourisms = await Tourism.find({ category: req.body._id })
+            if(tourisms) {
+                const err = { tourism: { message: 'Category containing tourism!' } }
+                return res.json(responseJson(false, err))
+            }
+
+            const category = await Category.findOneAndDelete({ _id: req.body._id })
             if (!category) {
                 const err = { 'category': { message: 'Category does not exist!' } }
                 return res.json(responseJson(false, err))
