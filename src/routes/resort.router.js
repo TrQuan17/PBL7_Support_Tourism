@@ -10,6 +10,7 @@ const { verifyAccount, verifyResortManagerRole } = require('../app/middlewares/a
 const uploadCloud = require('../app/middlewares/upload.middleware')
 
 router.get('/:resortId/reviews', reviewController.getByResortId)
+router.get('/:resortId/rate/num', reviewController.getRateNumByResortId)
 router.get('/:resortId/services', serviceController.getByResortId)
 router.get('/:resortId/rooms', roomController.getByResortId)
 router.get('/:resortId', resortController.getById)

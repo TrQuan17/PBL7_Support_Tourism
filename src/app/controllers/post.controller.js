@@ -6,9 +6,14 @@ const Post = require('../models/post.model')
 class PostController {
     async getByAccountId(req, res, next) {
         try {
+            const pageNumber = req.query.page ? req.query.page : 1
+            const offset = (pageNumber - 1) * process.env.PAGE_SIZE
+
             const posts = await Post.find({ account: req.params.accountId })
                 .populate({ path: 'account', select: 'avatar fullname' })
-                .sort({'createdAt': 'desc'})
+                .sort({'createdAt': req.query.sort })
+                .skip(offset)
+                .limit(process.env.PAGE_SIZE)
 
             return res.json(responseJson(true, posts))
         }

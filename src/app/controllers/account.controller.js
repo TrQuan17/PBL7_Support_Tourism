@@ -78,8 +78,17 @@ class AccountController {
 
     async getAll(req, res, next) {
         try {
-            const accounts = await Account.find({ role: { $ne: 'admin' } })
+            const pageNumber = req.query.page ? req.query.page : 1
+            const offset = (pageNumber - 1) * process.env.PAGE_SIZE
+
+            const accounts = await Account.find({ 
+                role: { $ne: 'admin' },
+                username: { $regex: req.query.q, $options: 'i' }
+            })
                 .select('fullname username avatar role')
+                .skip(offset)
+                .limit(process.env.PAGE_SIZE)
+
             return res.json(responseJson(true, accounts))
         }
         catch (err) {

@@ -7,9 +7,16 @@ const { responseJson } = require('../../config/response')
 class CategoryController {
     async getAll(req, res, next) {
         try {
-            var categories = await Category.find({
+            const pageNumber = req.query.page ? req.query.page : 1
+            const pageSize = req.query.size ? req.query.size : 0
+            const offset = (pageNumber - 1) * pageSize
+
+            const categories = await Category.find({
                 name: { $regex: req.query.q, $options: 'i' }
             })
+                .skip(offset)
+                .limit(pageSize)
+
             return res.json(responseJson(true, categories))
         }
         catch (err) {
@@ -19,7 +26,7 @@ class CategoryController {
 
     async create(req, res, next) {
         try {
-            var newCategory = new Category(req.body)
+            const newCategory = new Category(req.body)
 
             var image = req.file
             newCategory.background = image ? image.path : ''
@@ -43,14 +50,14 @@ class CategoryController {
                 return res.json(responseJson(false, err))
             }
 
-            var category = await Category.findOne({ _id: req.body._id }, req.body)
+            const category = await Category.findOne({ _id: req.body._id }, req.body)
             if (!category) {
                 const err = { 'category': { message: 'Category does not exist!' } }
                 return res.json(response(false, err))
             }
 
             var image = req.file
-            if(image) {
+            if (image) {
                 req.body.background = image.path
             }
 
@@ -74,7 +81,7 @@ class CategoryController {
             }
 
             const tourisms = await Tourism.find({ category: req.body._id })
-            if(tourisms) {
+            if (tourisms) {
                 const err = { tourism: { message: 'Category containing tourism!' } }
                 return res.json(responseJson(false, err))
             }

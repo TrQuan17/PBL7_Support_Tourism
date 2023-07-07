@@ -29,6 +29,11 @@ class RoomController {
             newRoom.image = image ? image.path : ''
 
             await newRoom.save()
+
+            if(resort.price === 0 || resort.price > newRoom.price) {
+                await Resort.updateOne({ _id: req.body.resort }, { price: newRoom.price })
+            }
+
             return res.json(responseJson(true, newRoom))
         }
         catch (err) {

@@ -30,8 +30,7 @@ const ResortSchema = new Schema({
     },
     price: {
         type: Number,
-        min: [100000, 'Price no less than 100000'],
-        required: [true, 'Price is required!']
+        default: 0
     },
     address: {
         type: String

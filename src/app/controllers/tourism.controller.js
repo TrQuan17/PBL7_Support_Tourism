@@ -8,9 +8,14 @@ const Category = require('../models/category.model')
 class TourismController {
     async getAll(req, res, next) {
         try {
+            const pageNumber = req.query.page ? req.query.page : 1
+            const offset = (pageNumber - 1) * process.env.PAGE_SIZE
+
             const tourisms = await Tourism.find({
                 name: { $regex: req.query.q, $options: 'i' }
             })
+            .skip(offset)
+            .limit(process.env.PAGE_SIZE)
 
             return res.json(responseJson(true, tourisms))
         }
@@ -26,10 +31,15 @@ class TourismController {
                 return res.json(responseJson(false, err))
             }
 
+            const pageNumber = req.query.page ? req.query.page : 1
+            const offset = (pageNumber - 1) * process.env.PAGE_SIZE
+
             const tourisms = await Tourism.find({ 
                 category: req.params.categoryId ,
                 name: { $regex: req.query.q, $options: 'i' }
             })
+            .skip(offset)
+            .limit(process.env.PAGE_SIZE)
 
             return res.json(responseJson(true, tourisms))
         }
@@ -42,10 +52,16 @@ class TourismController {
         try {
             const accountId = res.data.account._id
 
+            const pageNumber = req.query.page ? req.query.page : 1
+            const offset = (pageNumber - 1) * process.env.PAGE_SIZE
+
             const tourisms = await Tourism.find({ 
                 account: accountId,
                 name: { $regex: req.query.q, $options: 'i' }
-            })
+            })   
+            .populate({ path: 'category', select: 'name' })
+            .skip(offset)
+            .limit(process.env.PAGE_SIZE)
             
             return res.json(responseJson(true, tourisms))
         }
@@ -81,7 +97,7 @@ class TourismController {
 
             newTourism.account = res.data.account._id
 
-            var category = await Category.findOne({ _id: req.body.category })
+            const category = await Category.findOne({ _id: req.body.category })
             if(!category) { 
                 const err = { category: { message: 'Category does not exist!' } }
                 return res.json(responseJson(false, err))

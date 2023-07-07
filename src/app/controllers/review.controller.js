@@ -15,13 +15,49 @@ class ReviewController {
                 return res.json(responseJson(false, err))
             }
 
+            const pageNumber = req.query.page ? req.query.page : 1
+            const offset = (pageNumber - 1) * process.env.PAGE_SIZE
+
             const reviews = await Review.find({ tourism: req.params.tourismId })
                 .populate({ path: 'account', select: 'fullname avatar createdAt' })
+                .skip(offset)
+                .limit(process.env.PAGE_SIZE)
 
             return res.json(responseJson(true, reviews))
         }
         catch (err) {
             console.log(err)
+            return res.json(responseJson(false, err.errors))
+        }
+    }
+
+    async getRateNumByTourismId(req, res, next) {
+        try {
+            if (!req.params.tourismId) {
+                const err = { tourismId: { message: 'TourismId does not exist!' } }
+                return res.json(responseJson(false, err))
+            }
+
+            const reviews = await Review.find({ tourism: req.params.tourismId })
+                .select('vote')
+
+            const excellent = reviews.filter(review => review.vote === 5).length
+            const veryGood = reviews.filter(review => review.vote === 4).length
+            const average = reviews.filter(review => review.vote === 3).length
+            const unsatisfactory = reviews.filter(review => review.vote === 2).length
+            const terrible = reviews.filter(review => review.vote === 1).length
+
+            const data = {
+                excellent,
+                veryGood,
+                average,
+                unsatisfactory,
+                terrible
+            }
+
+            return res.json(responseJson(true, data))
+        }
+        catch (err) {
             return res.json(responseJson(false, err.errors))
         }
     }
@@ -33,8 +69,13 @@ class ReviewController {
                 return res.json(responseJson(false, err))
             }
 
+            const pageNumber = req.query.page ? req.query.page : 1
+            const offset = (pageNumber - 1) * process.env.PAGE_SIZE
+
             const reviews = await Review.find({ resort: req.params.resortId })
                 .populate({ path: 'account', select: 'fullname avatar createdAt' })
+                .skip(offset)
+                .limit(process.env.PAGE_SIZE)
 
             return res.json(responseJson(true, reviews))
         }
@@ -44,26 +85,57 @@ class ReviewController {
         }
     }
 
+    async getRateNumByResortId(req, res, next) {
+        try {
+            if (!req.params.resortId) {
+                const err = { resortId: { message: 'ResortId does not exist!' } }
+                return res.json(responseJson(false, err))
+            }
+
+            const reviews = await Review.find({ resort: req.params.resortId })
+                .select('vote')
+
+            const excellent = reviews.filter(review => review.vote === 5).length
+            const veryGood = reviews.filter(review => review.vote === 4).length
+            const average = reviews.filter(review => review.vote === 3).length
+            const unsatisfactory = reviews.filter(review => review.vote === 2).length
+            const terrible = reviews.filter(review => review.vote === 1).length
+
+            const data = {
+                excellent,
+                veryGood,
+                average,
+                unsatisfactory,
+                terrible
+            }
+
+            return res.json(responseJson(true, data))
+        }
+        catch (err) {
+            return res.json(responseJson(false, err.errors))
+        }
+    }
+
     async checkAcountReview(req, res, next) {
-        try { 
-            if(req.params.tourismId) {
+        try {
+            if (req.params.tourismId) {
                 const reviewWithTourism = await Review.findOne({
                     account: res.data.account._id,
                     tourism: req.params.tourismId
                 })
-    
+
                 if (reviewWithTourism) {
                     const err = { review: { message: 'Review with tourism already exist!' } }
                     return res.json(responseJson(false, err))
                 }
             }
 
-            if(req.params.resortId) {
+            if (req.params.resortId) {
                 const reviewWithResort = await Review.findOne({
                     account: res.data.account._id,
                     resort: req.params.resortId
                 })
-    
+
                 if (reviewWithResort) {
                     const err = { review: { message: 'Review with resort already exist!' } }
                     return res.json(responseJson(false, err))
@@ -72,7 +144,7 @@ class ReviewController {
 
             return res.json(responseJson(true))
         }
-        catch(err) {
+        catch (err) {
             return res.json(responseJson(false, err.errors))
         }
     }
