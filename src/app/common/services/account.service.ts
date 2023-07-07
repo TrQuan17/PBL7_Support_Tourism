@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, finalize } from 'rxjs';
 import { ApiPath } from 'src/app/core/config';
@@ -22,10 +22,14 @@ export class AccountService {
         private http: HttpClient
     ) { }
 
-    public getAllAccount(): Observable<AccountResponse> {
+    public getAllAccount(q?: string, page?: number): Observable<AccountResponse> {
         this.loadingDialog.showSpinner(true);
 
-        return this.http.get<AccountResponse>(this.apiAccountUrl).pipe(
+        const httpParams = new HttpParams()
+            .set('q', q ? q : '')
+            .set('page', page ? page : 1)
+
+        return this.http.get<AccountResponse>(this.apiAccountUrl, { params: httpParams }).pipe(
             finalize(() => this.loadingDialog.showSpinner(false))
         );
     }

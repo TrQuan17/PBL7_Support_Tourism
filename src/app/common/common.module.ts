@@ -14,6 +14,7 @@ import { CUSTOM_DATE_FORMATS } from './models';
 import { ScrollToTopDirective } from 'src/directive/scroll.directive';
 import { ReviewsComponent } from './components/reviews/reviews.component';
 import { WriteReviewDialogComponent } from './components/write-review-dialog/write-review-dialog.component';
+import { PagingComponent } from './components/paging/paging.component';
 
 const CommonComponents = [
     SearchComponent,
@@ -22,7 +23,8 @@ const CommonComponents = [
     ConfirmDialogComponent,
     TimelineComponent,
     ReviewsComponent,
-    WriteReviewDialogComponent
+    WriteReviewDialogComponent,
+    PagingComponent
 ]
 
 const CommonDirective = [

@@ -8,7 +8,8 @@
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-                <textarea matInput formControlName="content" rows="3" placeholder="Bạn đang nghĩ gì ..."></textarea>
+                <textarea matInput formControlName="content" rows="3" placeholder="Bạn đang nghĩ gì ...">
+                </textarea>
             </mat-form-field>
         </div>
 
@@ -44,17 +45,20 @@
 <mat-divider *ngIf="authResponse"></mat-divider>
 
 <div class="sort">
-    <button mat-flat-button class="sort-btn" (click)="sortAsc = !sortAsc">
-        {{sortAsc ? 'Bài viết cũ nhất' : 'Bài viết mới nhất'}}
+    <button mat-flat-button class="sort-btn" (click)="sortPost()">
+        <mat-icon 
+            [svgIcon]="sortAsc ? 'icon-sort-up' : 'icon-sort-down'">
+        </mat-icon>
+        <span>{{sortAsc ? 'Bài viết cũ nhất' : 'Bài viết mới nhất'}}</span>
     </button>
 </div>
 
 <div class="post" *ngFor="let post of postsList">
     <div class="header">
-        <img class="avatar" [src]="post?.account.avatar" alt="Avatar" srcset="">
+        <img class="avatar" [src]="post?.account.avatar">
         <div>
             <h6> {{ post?.account.fullname }} </h6>
-            <span>{{ post?.createdAt | date: 'dd/MM/yyyy' }}</span>
+            <span>Đăng vào {{ post?.createdAt | date: 'dd/MM/yyyy' }}</span>
         </div>
     </div>
     <div class="text">
@@ -66,4 +70,11 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="show-more">
+    <button mat-flat-button (click)="morePost()">
+        <mat-icon svgIcon="icon-show-more"></mat-icon>
+        <span>Xem tiếp</span>
+    </button>
 </div>

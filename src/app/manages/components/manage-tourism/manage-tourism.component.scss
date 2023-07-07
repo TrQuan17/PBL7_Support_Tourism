@@ -25,6 +25,10 @@
         font-weight: 550;
     }
 
+    .mat-column-name .sub {
+        font-size: 14px;
+    }
+
     .mat-column-action .action {
         display: flex;
         flex-direction: row;
@@ -56,7 +60,17 @@
 
 .search {
     width: 100%;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
+
+    mat-icon {
+        height: 16px;
+        width: 16px;
+        cursor: pointer;
+    }
+}
+
+.app-paging {
+    margin-top: 16px;
 }
 
 ::ng-deep .search mat-form-field {

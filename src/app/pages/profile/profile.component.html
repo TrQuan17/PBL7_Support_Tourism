@@ -38,7 +38,9 @@
         <div class="timeline">
             <app-timeline 
                 [guestResponse]="accountResponse"
-                [postResponse]="postResponse">
+                [postResponse]="postResponse"
+                (sortPostEmitter)="sortPost($event)"
+                (moreEmitter)="morePost()">
             </app-timeline>
         </div>
     </div>

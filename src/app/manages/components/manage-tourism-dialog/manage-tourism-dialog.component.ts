@@ -42,7 +42,7 @@ export class ManageTourismDialogComponent implements OnInit{
     }
 
     public getCategories(): void {
-        this.categoryService.getCategories().subscribe(
+        this.categoryService.getCategoriesAndSearch().subscribe(
             (res: CategoryResponse) => {
                 if(res.status === 'SUCCESS') {
                     this.categoriesList = res.data as CategoryModel[];

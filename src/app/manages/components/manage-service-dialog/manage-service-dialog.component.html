@@ -1,7 +1,13 @@
 <div class="wrapper">
     <div class="header">
-        <h4 *ngIf="dialogData">Cập nhật dịch vụ khu nghỉ dưỡng</h4>
-        <h4 *ngIf="!dialogData">Thêm dịch vụ khu nghỉ dưỡng</h4>
+        <h4 *ngIf="dialogData">
+            <mat-icon svgIcon="icon-edit"></mat-icon>
+            <span>Cập nhật dịch vụ khu nghỉ dưỡng</span>
+        </h4>
+        <h4 *ngIf="!dialogData">
+            <mat-icon svgIcon="icon-add"></mat-icon>
+            <span>Thêm dịch vụ khu nghỉ dưỡng</span>
+        </h4>
         <mat-icon svgIcon="icon-close" matDialogClose></mat-icon>
     </div>
 

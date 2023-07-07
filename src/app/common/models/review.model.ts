@@ -17,7 +17,7 @@ export interface ReviewModel {
     resort?: ResortModel | string
 }
 
-export interface RatesNumModel {
+export interface RateNumModel {
     excellent: number,
     veryGood: number,
     average: number,
@@ -26,3 +26,4 @@ export interface RatesNumModel {
 }
 
 export type ReviewResponse = HttpResponse<ReviewModel>
+export type RateNumResponse = HttpResponse<RateNumModel>

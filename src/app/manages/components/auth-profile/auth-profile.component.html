@@ -16,6 +16,8 @@
         <app-timeline 
             [authResponse]="accountResponse"
             [postResponse]="postResponse"
-            (postEmitter)="writePost($event)"></app-timeline>
+            (postEmitter)="writePost($event)"
+            (sortPostEmitter)="sortPost($event)"
+            (moreEmitter)="morePost()"></app-timeline>
     </div>
 </div>

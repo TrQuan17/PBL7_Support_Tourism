@@ -14,6 +14,8 @@ export class TimelineComponent implements OnChanges {
     @Input() guestResponse?: AccountResponse;
     @Input() postResponse?: PostResponse;
     @Output() postEmitter = new EventEmitter<FormData>;
+    @Output() sortPostEmitter = new EventEmitter<string>;
+    @Output() moreEmitter = new EventEmitter<void>;
 
     public postForm!: FormGroup;
     public account?: AccountModel;
@@ -47,10 +49,8 @@ export class TimelineComponent implements OnChanges {
         if (changes?.['postResponse']?.currentValue) {
             this.postResponse = clone(changes?.['postResponse'].currentValue);
             if (this.postResponse?.status === 'SUCCESS') {
-                this.postsList = (this.postResponse.data as PostModel[]).map(value => {
-                    value.account = value.account as AccountModel;
-                    return value;
-                })
+                console.log(this.postsList);
+                this.postsList.push(...this.postResponse.data as PostModel[]);
             }
         }
     }
@@ -75,6 +75,14 @@ export class TimelineComponent implements OnChanges {
         })
     }
 
+    sortPost(): void {
+        this.sortAsc = !this.sortAsc;
+        this.postsList = [];
+        
+        const sort = this.sortAsc ? 'asc' : 'desc';
+        this.sortPostEmitter.emit(sort);
+    }
+
     public cancelPost(): void {
         this.showWritePost = false;
         this.imagesPreview = [];
@@ -97,5 +105,9 @@ export class TimelineComponent implements OnChanges {
         })
 
         this.postEmitter.emit(formData);
+    }
+
+    public morePost(): void {
+        this.moreEmitter.emit();
     }
 }

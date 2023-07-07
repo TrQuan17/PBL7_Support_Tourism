@@ -20,6 +20,8 @@ SNACK_BAR_CONFIG.horizontalPosition = 'center';
 export class ManageResortComponent implements OnInit {
     public displayedColumns: string[] = ['images', 'name', 'action'];
     public dataSource = new MatTableDataSource<ResortModel>;
+    public keyWord = '';
+    public currentPage = 1;
 
     constructor(
         public dialog: MatDialog,
@@ -32,7 +34,7 @@ export class ManageResortComponent implements OnInit {
     }
 
     public getResorts(): void {
-        this.resortService.getResortByAccount().subscribe(
+        this.resortService.getResortByAccount(this.keyWord, this.currentPage).subscribe(
             (res: ResortResponse) => {
                 if (res.status === 'SUCCESS') {
                     this.dataSource = new MatTableDataSource(res.data as ResortModel[]);
@@ -41,9 +43,10 @@ export class ManageResortComponent implements OnInit {
         )
     }
 
-    public applyFilter(event: Event) {
-        const filterValue = (event.target as HTMLInputElement).value;
-        this.dataSource.filter = filterValue.trim().toLowerCase();
+    public searchResort(q: string) {
+        this.keyWord = q;
+        this.currentPage = 1;
+        this.getResorts();
     }
 
     public createResort(form: FormData): void {
@@ -144,4 +147,9 @@ export class ManageResortComponent implements OnInit {
             }
         })
     }
+
+    public goPage(page: number): void {
+        this.currentPage = page;
+        this.getResorts();
+    } 
 }

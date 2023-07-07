@@ -1,6 +1,12 @@
 <div class="header">
-    <h4 *ngIf="dialogData">Cập nhật khu nghỉ dưỡng</h4>
-    <h4 *ngIf="!dialogData">Thêm khu nghỉ dưỡng</h4>
+    <h4 *ngIf="dialogData">
+        <mat-icon svgIcon="icon-edit"></mat-icon>
+        <span>Cập nhật khu nghỉ dưỡng</span>
+    </h4>
+    <h4 *ngIf="!dialogData">
+        <mat-icon svgIcon="icon-add"></mat-icon>
+        <span>Thêm khu nghỉ dưỡng</span>
+    </h4>
     <mat-icon svgIcon="icon-close" matDialogClose></mat-icon>
 </div>
 
@@ -26,13 +32,6 @@
             <mat-form-field appearance="outline">
                 <textarea formControlName="about" matInput rows="4"></textarea>
                 <mat-hint>{{ resortForm.get('about')?.value?.length }}/1000 ký tự tối đa</mat-hint>
-            </mat-form-field>
-        </div>
-
-        <div class="price">
-            <h5>Giá phòng tối thiểu</h5>
-            <mat-form-field appearance="outline">
-                <input matInput formControlName="price" type="number">
             </mat-form-field>
         </div>
 

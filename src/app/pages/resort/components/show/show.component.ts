@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
@@ -18,7 +19,7 @@ export class ShowComponent implements OnChanges {
     @Input() resortResponse!: ResortResponse;
     @Input() searchResort = '';
 
-    public resortsList: ResortModel[] = [];
+    public resortsList: any[] = [];
 
     constructor(
         public snackbar: MatSnackBar,

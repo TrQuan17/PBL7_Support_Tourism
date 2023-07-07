@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, finalize } from 'rxjs';
 import { CategoryModel, CategoryResponse } from '../models';
@@ -16,11 +16,15 @@ export class CategoryService {
         private http: HttpClient
     ) { }
 
-    public getCategories(q?: string): Observable<CategoryResponse> {
+    public getCategoriesAndSearch(q?: string, page?: number, size?: number): Observable<CategoryResponse> {
         this.loadingDialog.showSpinner(true);
 
-        const url = `${this.apiCategoryUrl}?q=${q ? q : ''}`;
-        return this.http.get<CategoryResponse>(url).pipe(
+        const httpParams = new HttpParams()
+            .set('q', q ? q : '')
+            .set('page', page ? page : 1)
+            .set('size', size ? size : 0)
+
+        return this.http.get<CategoryResponse>(this.apiCategoryUrl, { params: httpParams }).pipe(
             finalize(() => this.loadingDialog.showSpinner(false))
         );
     }

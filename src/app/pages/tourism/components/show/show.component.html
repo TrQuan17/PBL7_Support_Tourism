@@ -1,17 +1,19 @@
 <div class="wrapper">
     <div class="categories">
-        <button mat-stroked-button class="category" (click)="getCategory()">
+        <button mat-flat-button (click)="getCategory()"
+            class="category {{ categorySelect === 'All' ? 'select' : 'unselect' }}">
             <h6> Tất cả </h6>
         </button>
-        <button mat-stroked-button class="category" *ngFor="let category of categoriesList"
+        <button mat-flat-button *ngFor="let category of categoriesList"
+            class="category {{ categorySelect === category.name ? 'select' : 'unselect' }}"
             (click)="getCategory(category)">
             <h6>{{ category.name }}</h6>
         </button>
     </div>
 
-    <h2>Địa điểm du lịch</h2>
+    <h2 class="title">Địa điểm du lịch</h2>
 
-    <ng-container class="list">
+    <div class="list">
         <h4 *ngIf="categorySelect !== 'All'">Chủ đề {{categorySelect}}</h4>
         <h4 *ngIf="searchTourism">Kết quả tìm kiếm với từ khóa [ {{searchTourism}} ]</h4>
         <mat-card class="item-card" *ngFor="let tourism of tourismsList; let idx = index">
@@ -37,5 +39,5 @@
 
             </mat-card-header>
         </mat-card>
-    </ng-container>
+    </div>
 </div>

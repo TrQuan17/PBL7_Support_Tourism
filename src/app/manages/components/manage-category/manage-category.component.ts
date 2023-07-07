@@ -21,6 +21,9 @@ export class ManageCategoryComponent implements OnInit {
     public displayedColumns: string[] = ['images', 'name', 'action'];
     public dataSource = new MatTableDataSource<CategoryModel>;
     public categoriesList: CategoryModel[] = [];
+    public currentPage = 1;
+    public pageSize = 5;
+    public keyWord = '';
 
     constructor(
         public dialog: MatDialog,
@@ -33,7 +36,7 @@ export class ManageCategoryComponent implements OnInit {
     }
 
     public getCategories(): void {
-        this.categoryService.getCategories().subscribe(
+        this.categoryService.getCategoriesAndSearch(this.keyWord, this.currentPage, this.pageSize).subscribe(
             (res: CategoryResponse) => {
                 if (res.status === 'SUCCESS') {
                     this.dataSource = new MatTableDataSource(res.data as CategoryModel[]);
@@ -42,9 +45,10 @@ export class ManageCategoryComponent implements OnInit {
         )
     }
 
-    public applyFilter(event: Event) {
-        const filterValue = (event.target as HTMLInputElement).value;
-        this.dataSource.filter = filterValue.trim().toLowerCase();
+    public searchCategory(q: string) {
+        this.keyWord = q;
+        this.currentPage = 1;
+        this.getCategories();
     }
 
     public createCategory(form: FormData): void {
@@ -146,5 +150,10 @@ export class ManageCategoryComponent implements OnInit {
                 this.deleteCategory(category);
             }
         })
+    }
+
+    public goPage(page: number): void {
+        this.currentPage = page;
+        this.getCategories();
     }
 }

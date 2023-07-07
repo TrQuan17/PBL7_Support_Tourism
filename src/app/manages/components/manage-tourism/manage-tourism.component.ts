@@ -21,6 +21,8 @@ export class ManageTourismComponent implements OnInit {
     public displayedColumns: string[] = ['images', 'name', 'action'];
     public dataSource = new MatTableDataSource<TourismModel>;
     public tourismsList: TourismModel[] = [];
+    public keyWord = '';
+    public currentPage = 1;
 
     constructor(
         public dialog: MatDialog,
@@ -33,7 +35,7 @@ export class ManageTourismComponent implements OnInit {
     }
 
     public getTourisms(): void {
-        this.tourismService.getTourismByAccount().subscribe(
+        this.tourismService.getTourismByAccount(this.keyWord, this.currentPage).subscribe(
             (res: TourismResponse) => {
                 if (res.status === 'SUCCESS') {
                     this.dataSource = new MatTableDataSource(res.data as TourismModel[]);
@@ -42,9 +44,10 @@ export class ManageTourismComponent implements OnInit {
         )
     }
 
-    public applyFilter(event: Event) {
-        const filterValue = (event.target as HTMLInputElement).value;
-        this.dataSource.filter = filterValue.trim().toLowerCase();
+    public searchTourism(q: string) {
+        this.keyWord = q;
+        this.currentPage = 1;
+        this.getTourisms();
     }
 
     public createTourism(form: FormData): void {
@@ -149,5 +152,10 @@ export class ManageTourismComponent implements OnInit {
                 this.deleteTourism(tourism);
             }
         })
+    }
+
+    public goPage(page: number): void {
+        this.currentPage = page;
+        this.getTourisms();
     }
 }

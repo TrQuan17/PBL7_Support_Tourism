@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { ResortResponse, ReviewModel, ReviewResponse, ServiceResponse, SnackBarPanelClass } from 'src/app/common/models';
+import { RateNumResponse, ResortResponse, ReviewModel, ReviewResponse, ServiceResponse, SnackBarPanelClass } from 'src/app/common/models';
 import { RoomResponse } from 'src/app/common/models/room.model';
 import { ResortService, ReviewService, ServiceService } from 'src/app/common/services';
 import { RoomService } from 'src/app/common/services/room.service';
@@ -21,8 +21,10 @@ export class DetailResortComponent implements OnInit {
     public servicesResort!: ServiceResponse;
     public roomsResort!: RoomResponse;
     public reviewsResort!: ReviewResponse;
-    public checkAccountReview!: ReviewResponse;
+    public rateNumResponse!: RateNumResponse;
+    public isReview = false;
     public resortId = '';
+    public currentReviewPage = 1;
 
     constructor(
         public snackbar: MatSnackBar,
@@ -40,7 +42,8 @@ export class DetailResortComponent implements OnInit {
         this.getServicesResort();
         this.getRoomsResort();
         this.getReviewsResort();
-        this.checkReview();
+        this.getRateNumResort();
+        this.checkAccountReview();
     }
 
     public getResortDetail(): void {
@@ -67,18 +70,26 @@ export class DetailResortComponent implements OnInit {
         )
     }
 
+    public getRateNumResort(): void {
+        this.reviewService.getRateNumByResort(this.resortId).subscribe(
+            (res: RateNumResponse) => {
+                this.rateNumResponse = res;
+            }
+        )
+    }
+
     public getReviewsResort(): void {
-        this.reviewService.getReviewsByResort(this.resortId).subscribe(
+        this.reviewService.getReviewsByResort(this.resortId, this.currentReviewPage).subscribe(
             (res: ReviewResponse) => {
                 this.reviewsResort = res;
             }
         )
     }
 
-    public checkReview(): void {
+    public checkAccountReview(): void {
         this.reviewService.checkAccountReviewResort(this.resortId).subscribe(
             (res: ReviewResponse) => {
-                this.checkAccountReview = res;
+                this.isReview = res.status === 'FAILED';
             }
         )
     }
@@ -110,5 +121,10 @@ export class DetailResortComponent implements OnInit {
                 this.snackbar.open(message, undefined, SNACK_BAR_CONFIG);
             }
         )
+    }
+
+    public goPageReview(page: number): void {
+        this.currentReviewPage = page;
+        this.getReviewsResort();
     }
 }

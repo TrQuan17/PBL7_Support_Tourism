@@ -19,6 +19,13 @@
     font-weight: 550;
     padding: 10px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+    mat-icon {
+        height: 19px;
+        width: 19px;
+        color: inherit;
+        margin-right: 4px;
+    }
 }
 
 .content {

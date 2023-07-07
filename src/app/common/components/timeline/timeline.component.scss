@@ -97,31 +97,18 @@ button {
     }
 }
 
-::ng-deep .text mat-form-field {
-    .mat-mdc-form-field-infix {
-        min-height: 0;
-    }
-
-    .mat-mdc-form-field-subscript-wrapper {
-        height: 8px;
-    }
-
-    .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
-        padding-top: 8px;
-        padding-bottom: 8px;
-    }
-}
-
 .sort {
     display: flex;
     justify-content: flex-end;
     padding: 12px 0;
-    
+
     .sort-btn {
         --mdc-filled-button-container-color: white;
         --mdc-filled-button-label-text-color: var(--primary-color);
         padding: 0 10px;
         border: 2px solid var(--primary-color);
+        display: flex;
+        align-items: center;
     }
 }
 
@@ -139,6 +126,10 @@ button {
     padding-bottom: 8px;
     border-bottom: 1px solid var(--primary-color-rgba);
 
+    h6 {
+        margin-bottom: 2px;
+    }
+
     span {
         font-size: 14px;
     }
@@ -147,4 +138,38 @@ button {
 .post .text {
     margin-top: 16px;
     padding-left: 62px;
+}
+
+.show-more {
+    display: flex;
+    justify-content: center;
+
+    button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        --mdc-filled-button-container-color: var(--primary-color);
+        --mdc-filled-button-label-text-color: white;
+    }
+
+    button mat-icon {
+        color: inherit;
+        padding-bottom: 3px;
+        margin-bottom: 5px;
+    }
+}
+
+::ng-deep .text mat-form-field {
+    .mat-mdc-form-field-infix {
+        min-height: 0;
+    }
+
+    .mat-mdc-form-field-subscript-wrapper {
+        height: 8px;
+    }
+
+    .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
 }

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiPath } from 'src/app/core/config';
 import { ResortModel, ResortResponse } from '../models';
@@ -18,11 +18,14 @@ export class ResortService {
         private loadingDialog: LoadingSpinnerDialogService
     ) { }
 
-    public getResortsAndSearch(q?: string): Observable<ResortResponse> {
+    public getResortsAndSearch(q?: string, page?: number): Observable<ResortResponse> {
         this.loadingDialog.showSpinner(true);
 
-        const url = `${this.apiResortUrl}?q=${q ? q : ''}`
-        return this.http.get<ResortResponse>(url).pipe(
+        const httpParams = new HttpParams()
+            .set('q', q ? q : '')
+            .set('page', page ? page : '')
+
+        return this.http.get<ResortResponse>(this.apiResortUrl, { params: httpParams }).pipe(
             finalize(() => this.loadingDialog.showSpinner(false))
         );
     }
@@ -36,11 +39,14 @@ export class ResortService {
         return this.http.get<ResortResponse>(url);
     }
 
-    public getResortByAccount(q?: string): Observable<ResortResponse> {
+    public getResortByAccount(q?: string, page?: number): Observable<ResortResponse> {
         this.loadingDialog.showSpinner(true);
 
-        const url = `${this.apiResortByAccountUrl}?q=${q ? q : ''}`
-        return this.http.get<ResortResponse>(url).pipe(
+        const httpParams = new HttpParams()
+            .set('q', q ? q : '')
+            .set('page', page ? page : '')
+
+        return this.http.get<ResortResponse>(this.apiResortByAccountUrl, { params: httpParams }).pipe(
             finalize(() => this.loadingDialog.showSpinner(false))
         );
     }

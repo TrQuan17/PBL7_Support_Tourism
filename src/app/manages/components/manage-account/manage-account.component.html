@@ -3,7 +3,8 @@
 <div class="search">
     <mat-form-field appearance="outline" class="text">
         <mat-label>Tìm kiếm</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Nhập ..." #input>
+        <input matInput placeholder="Nhập ..." #input>
+        <mat-icon matSuffix svgIcon="icon-search" (click)="searchAccount(input.value)"></mat-icon>
     </mat-form-field>
 </div>
 
@@ -53,3 +54,11 @@
         </table>
     </ng-container>
 </form>
+
+<div class="app-paging">
+    <app-paging 
+        [currentPage]="currentPage"
+        [disableNext]="dataSource.data.length < 5"
+        (pageEmitter)="goPage($event)">
+    </app-paging>
+</div>

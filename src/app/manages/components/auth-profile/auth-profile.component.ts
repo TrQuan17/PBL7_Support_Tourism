@@ -18,6 +18,8 @@ export class AuthProfileComponent implements OnInit {
     public accountResponse!: AccountResponse;
     public postResponse!: PostResponse;
     public account?: AccountModel;
+    public sort = 'desc';
+    public currentPage = 1;
 
     constructor(
         public snackbar: MatSnackBar,
@@ -43,7 +45,7 @@ export class AuthProfileComponent implements OnInit {
     }
 
     public getPostByAccount(accountId: string): void {
-        this.postService.getPostsByAccount(accountId).subscribe(
+        this.postService.getPostsByAccount(accountId, this.currentPage, this.sort).subscribe(
             (res: PostResponse) => {
                 if(res.status === 'SUCCESS') {
                     this.postResponse = res;
@@ -67,5 +69,16 @@ export class AuthProfileComponent implements OnInit {
                 this.snackbar.open(message, undefined, SNACK_BAR_CONFIG);
             }
         )
+    }
+
+    public sortPost(sort: string): void {
+        this.sort = sort;
+        this.currentPage = 1;
+        this.getAuthAccount();
+    }
+
+    public morePost(): void {
+        this.currentPage = this.currentPage + 1;
+        this.getAuthAccount();
     }
 }

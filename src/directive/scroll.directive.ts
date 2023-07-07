@@ -2,7 +2,7 @@
 import { Directive, HostListener } from '@angular/core';
 
 @Directive({
-    selector: '[routerLink]'
+    selector: '[routerLink], [scrollTop]'
 })
 export class ScrollToTopDirective {
     @HostListener('click')

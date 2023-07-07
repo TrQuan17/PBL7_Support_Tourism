@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import {  FavouriteModel, FavouriteResponse, ResortResponse, ReviewModel, ReviewResponse, SnackBarPanelClass, TourismResponse } from 'src/app/common/models';
+import {  FavouriteModel, FavouriteResponse, RateNumResponse, ResortResponse, ReviewModel, ReviewResponse, SnackBarPanelClass, TourismResponse } from 'src/app/common/models';
 import { FavouriteService, ResortService, ReviewService, TourismService } from 'src/app/common/services';
 
 const SNACK_BAR_CONFIG = new MatSnackBarConfig();
@@ -16,9 +16,12 @@ SNACK_BAR_CONFIG.horizontalPosition = 'center';
 })
 export class DetailTourismComponent implements OnInit {
     public tourismId = '';
-    public tourism!: TourismResponse;
+    public tourismResponse!: TourismResponse;
     public resortsTourism!: ResortResponse;
     public reviewsTourism!: ReviewResponse;
+    public rateNumResponse!: RateNumResponse;
+    public isReview = false;
+    public currentReviewPage = 1;
 
     constructor(
         public snackbar: MatSnackBar,
@@ -34,19 +37,29 @@ export class DetailTourismComponent implements OnInit {
     public ngOnInit(): void {
         this.getTourismDetail();
         this.getReviewsTourism();
+        this.getRateNumTourism();
         this.getResortsTourism();
+        this.checkAccountReview();
     }
 
     public getTourismDetail(): void {
         this.tourismService.getTourismById(this.tourismId).subscribe(
             (res: TourismResponse) => {
-                this.tourism = res;
+                this.tourismResponse = res;
+            }
+        )
+    }
+
+    public getRateNumTourism(): void {
+        this.reviewService.getRateNumByTourism(this.tourismId).subscribe(
+            (res: RateNumResponse) => {
+                this.rateNumResponse = res;
             }
         )
     }
 
     public getReviewsTourism(): void {
-        this.reviewService.getReviewsByTourism(this.tourismId).subscribe(
+        this.reviewService.getReviewsByTourism(this.tourismId, this.currentReviewPage).subscribe(
             (res: ReviewResponse) => {
                 this.reviewsTourism = res;
             }
@@ -57,6 +70,14 @@ export class DetailTourismComponent implements OnInit {
         this.resortService.getResortsByTourism(this.tourismId).subscribe(
             (res: ResortResponse) => {
                 this.resortsTourism = res;
+            }
+        )
+    }
+
+    public checkAccountReview(): void {
+        this.reviewService.checkAccountReviewTourism(this.tourismId).subscribe(
+            (res: ReviewResponse) => {
+                this.isReview = res.status === 'FAILED';
             }
         )
     }
@@ -105,5 +126,10 @@ export class DetailTourismComponent implements OnInit {
                 this.snackbar.open(message, undefined, SNACK_BAR_CONFIG);
             }
         )
+    }
+
+    public goPageReview(page: number): void {
+        this.currentReviewPage = page;
+        this.getReviewsTourism();
     }
 }

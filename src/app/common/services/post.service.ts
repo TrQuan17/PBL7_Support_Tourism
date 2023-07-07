@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiPath } from 'src/app/core/config';
 import { PostResponse } from '../models';
@@ -17,19 +17,23 @@ export class PostService {
         private http: HttpClient
     ) { }
 
-    public createPost(post: FormData): Observable<PostResponse> {
+    public getPostsByAccount(accountId: string, page?: number, sort?: string): Observable<PostResponse> {
         this.loadingDialog.showSpinner(true);
 
-        return this.http.post<PostResponse>(this.apiPostUrl, post).pipe(
+        const url = `${this.apIAccountUrl}/${accountId}/timeline`;
+        const httpParams = new HttpParams()
+            .set('page', page ? page : 1)
+            .set('sort', sort ? sort : 'desc')
+
+        return this.http.get<PostResponse>(url, { params: httpParams }).pipe(
             finalize(() => this.loadingDialog.showSpinner(false))
         );
     }
 
-    public getPostsByAccount(accountId: string): Observable<PostResponse> {
+    public createPost(post: FormData): Observable<PostResponse> {
         this.loadingDialog.showSpinner(true);
 
-        const url = `${this.apIAccountUrl}/${accountId}/timeline`;
-        return this.http.get<PostResponse>(url).pipe(
+        return this.http.post<PostResponse>(this.apiPostUrl, post).pipe(
             finalize(() => this.loadingDialog.showSpinner(false))
         );
     }

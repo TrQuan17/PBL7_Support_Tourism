@@ -19,10 +19,14 @@
             </div>
         </div>
         <div class="action">
-            <div>
+            <div *ngIf="resort.price !== 0; else noPrice">
                 <h4>{{ resort.price | number:'4.1-5' }} VND</h4>
                 <span>Giá phòng mỗi đêm</span>
             </div>
+
+            <ng-template #noPrice>
+                <h4>Giá phòng chưa cập nhật</h4>
+            </ng-template>
         </div>
     </div>
 

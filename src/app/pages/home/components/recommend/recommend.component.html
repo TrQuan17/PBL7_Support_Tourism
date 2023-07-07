@@ -10,9 +10,10 @@
             <div class="content">
                 <mat-card-header>
                     <mat-card-title>
-                        <h5 class="item-name"><a [routerLink]="'/tourism/' + tourism._id">
+                        <span class="item-name">
+                            <a [routerLink]="'/tourism/' + tourism._id">
                                 {{idx + 1}}. {{ tourism.name }}
-                            </a></h5>
+                            </a></span>
                     </mat-card-title>
                 </mat-card-header>
                 <mat-card-subtitle>
@@ -21,12 +22,6 @@
                 </mat-card-subtitle>
             </div>
         </mat-card>
-
-        <div class="show-more">
-            <button mat-icon-button>
-                <mat-icon svgIcon="icon-show-more-right"></mat-icon>
-            </button>
-        </div>
     </div>
 
     <mat-divider></mat-divider>
@@ -42,9 +37,10 @@
             <div class="content">
                 <mat-card-header>
                     <mat-card-title>
-                        <h5 class="item-name"><a [routerLink]="'/resort/' + resort._id">
+                        <span class="item-name">
+                            <a [routerLink]="'/resort/' + resort._id">
                                 {{idx + 1}}. {{ resort.name }}
-                            </a></h5>
+                            </a></span>
                     </mat-card-title>
                 </mat-card-header>
                 <mat-card-subtitle>

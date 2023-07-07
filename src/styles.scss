@@ -53,8 +53,7 @@ body {
     --input-bg: #F2F2F2;
     --error-color: #eb7575;
 
-    --border-radius: 3px;
-    --btn-radius: 3px;
+    --border-radius-primary: 6px;
     --text-size: 16px;
     --padding-wrapper: 20px 110px;
 }
@@ -154,4 +153,10 @@ img:before {
     background-size: cover;
     background-repeat: no-repeat;
     border-radius: inherit;
+}
+
+// Mat tooltip
+.mdc-tooltip__surface {
+    --mdc-plain-tooltip-container-color: var(--primary-color);
+    --mdc-plain-tooltip-supporting-text-size: 14px;
 }

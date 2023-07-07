@@ -25,7 +25,9 @@ export class ManageAccountComponent implements OnInit {
     public accountsList: AccountModel[] = [];
     public roleEnum = Role;
     public roleForm!: FormGroup;
-    public roleList: RoleKey[] = ['admin', 'tourism_manager', 'resort_manager', 'user'];
+    public roleList: RoleKey[] = ['tourism_manager', 'resort_manager', 'user'];
+    public keyWord = '';
+    public currentPage = 1;
 
     constructor(
         public dialog: MatDialog,
@@ -45,13 +47,14 @@ export class ManageAccountComponent implements OnInit {
         })
     }
 
-    public applyFilter(event: Event) {
-        const filterValue = (event.target as HTMLInputElement).value;
-        this.dataSource.filter = filterValue.trim().toLowerCase();
+    public searchAccount(q: string) {
+        this.keyWord = q;
+        this.currentPage = 1;
+        this.getAccounts();
     }
 
     public getAccounts(): void {
-        this.accountService.getAllAccount().subscribe(
+        this.accountService.getAllAccount(this.keyWord, this.currentPage).subscribe(
             (res: AccountResponse) => {
                 if (res.status === 'SUCCESS') {
                     this.accountsList = res.data as AccountModel[];
@@ -123,5 +126,10 @@ export class ManageAccountComponent implements OnInit {
                 )
             }
         })
+    }
+
+    public goPage(page: number): void {
+        this.currentPage = page;
+        this.getAccounts();
     }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryModel, CategoryResponse, TourismResponse } from 'src/app/common/models';
+import { CategoryModel, CategoryResponse, TourismModel, TourismResponse } from 'src/app/common/models';
 import { CategoryService, TourismService } from 'src/app/common/services';
 
 
@@ -11,6 +11,8 @@ import { CategoryService, TourismService } from 'src/app/common/services';
 export class TourismComponent implements OnInit {
     public tourismResponse!: TourismResponse;
     public categoryResponse!: CategoryResponse;
+    public category?: CategoryModel;
+    public currentPage = 1;
     public keyWord = '';
 
     constructor(
@@ -29,7 +31,7 @@ export class TourismComponent implements OnInit {
     }
 
     public getTourisms(): void {
-        this.tourismService.getTourismsAndSearch(this.keyWord).subscribe(
+        this.tourismService.getTourismsAndSearch(this.keyWord, this.currentPage).subscribe(
             (res: TourismResponse) => {
                 this.tourismResponse = res;
             }
@@ -37,24 +39,50 @@ export class TourismComponent implements OnInit {
     }
 
     public getCategories(): void {
-        this.categoryService.getCategories().subscribe(
+        this.categoryService.getCategoriesAndSearch().subscribe(
             (res: CategoryResponse) => {
                 this.categoryResponse = res;
             }
         )
     }
 
-    public getTourismByCategory(category?: CategoryModel): void {
-        if(category) {
+    public selectedCategory(category?: CategoryModel): void {
+        this.currentPage = 1;
+        this.category = category;
+
+        if(this.category) {
+            this.getTourismByCategory(this.category);
+        }
+        else {
+            this.getTourisms();
+        }
+    }
+
+    public getTourismByCategory(category: CategoryModel): void {
             const categoryId = category._id as string;
-            this.tourismService.getTourismsByCategory(categoryId, this.keyWord).subscribe(
+            
+            this.tourismService.getTourismsByCategory(categoryId, this.keyWord, this.currentPage).subscribe(
                 (res: TourismResponse) => {
                     this.tourismResponse = res;
                 }
             )
-        } else {
+    }
+
+    public goPage(page: number): void {
+        this.currentPage = page;
+
+        if(this.category) {
+            this.getTourismByCategory(this.category);
+        }
+        else {
             this.getTourisms();
         }
+    }
 
+    public isDisableNext() {
+        if(this.tourismResponse?.status === 'SUCCESS') {
+            return (this.tourismResponse.data as TourismModel[]).length < 5;
+        }
+        return true;
     }
 }

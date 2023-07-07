@@ -1,0 +1,37 @@
+.wrapper {
+    padding: var(--padding-wrapper);
+    background-color: var(--theme-bg);
+    display: flex;
+    justify-content: flex-end;
+    border-radius: 8px;
+}
+
+.paging {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    background-color: white;
+    padding: 6px;
+    border-radius: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.previous,
+.next {
+    border-radius: 40px;
+}
+
+
+.next {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 12px;
+}
+
+.mat-mdc-unelevated-button[disabled][disabled] {
+    --mdc-filled-button-disabled-container-color: white;
+    --mdc-filled-button-disabled-label-text-color: rgba(46, 62, 82, 0.6);
+
+    mat-icon {
+        color: inherit;
+    }
+}

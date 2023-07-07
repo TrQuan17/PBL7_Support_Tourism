@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { AccountModel, RatesNumModel, ResortModel, ResortResponse, ReviewModel, ReviewResponse, TourismModel, TourismResponse } from '../../models';
+import { RateNumModel, RateNumResponse, ResortModel, ResortResponse, ReviewModel, ReviewResponse, TourismModel, TourismResponse } from '../../models';
 import { Utils } from '../../utils/utils';
 import { MatDialog } from '@angular/material/dialog';
 import { clone } from 'lodash';
@@ -14,17 +14,20 @@ import { WriteReviewDialogComponent } from '../write-review-dialog/write-review-
 })
 export class ReviewsComponent implements OnChanges {
     @Input() reviewResponse!: ReviewResponse;
+    @Input() rateNumResponse!: RateNumResponse;
     @Input() tourismResponse?: TourismResponse;
     @Input() resortResponse?: ResortResponse;
-    @Input() checkAccountReview!: ReviewResponse;
+    @Input() isReview = false;
+    @Input() currentPage = 1;
+    @Output() pageEmitter = new EventEmitter<number>;
     @Output() reviewEmitter = new EventEmitter<FormData>;
+
 
     public tourism?: TourismModel;
     public resort?: ResortModel;
     public reviewsList: any[] = [];
     public utils = Utils;
-    public ratesNum: RatesNumModel;
-    public isReview = false; 
+    public ratesNum: RateNumModel;
 
     constructor(public dialog: MatDialog) {
         this.ratesNum = {
@@ -41,13 +44,13 @@ export class ReviewsComponent implements OnChanges {
             this.reviewResponse = clone(changes?.['reviewResponse'].currentValue);
             if (this.reviewResponse.status === 'SUCCESS') {
                 this.reviewsList = this.reviewResponse.data as ReviewModel[];
+            }
+        }
 
-                this.reviewsList = (this.reviewResponse.data as ReviewModel[]).map(review => {
-                    review.account = review.account as AccountModel;
-                    return review;
-                })
-
-                this.getNumRateByStar();
+        if (changes?.['rateNumResponse']?.currentValue) {
+            this.rateNumResponse = clone(changes?.['rateNumResponse'].currentValue);
+            if (this.rateNumResponse.status === 'SUCCESS') {
+                this.ratesNum = this.rateNumResponse.data as RateNumModel;
             }
         }
 
@@ -66,28 +69,17 @@ export class ReviewsComponent implements OnChanges {
                 this.resort = this.resortResponse.data as ResortModel;
             }
         }
-
-        if (changes?.['checkAccountReview']?.currentValue) {
-            this.checkAccountReview = clone(changes?.['checkAccountReview'].currentValue);
-
-            if (this.checkAccountReview.status === 'SUCCESS') {
-                this.isReview = false;
-            } 
-            else {
-                this.isReview = true;
-            }
-        }
     }
 
-    public getNumRateByStar(): void {
-        this.ratesNum = {
-            excellent: this.reviewsList.filter(review => review.vote === 5).length,
-            veryGood: this.reviewsList.filter(review => review.vote === 4).length,
-            average: this.reviewsList.filter(review => review.vote === 3).length,
-            unsatisfactory: this.reviewsList.filter(review => review.vote === 2).length,
-            terrible: this.reviewsList.filter(review => review.vote === 1).length
-        }
-    }
+    // public getNumRateByStar(): void {
+    //     this.ratesNum = {
+    //         excellent: this.reviewsList.filter(review => review.vote === 5).length,
+    //         veryGood: this.reviewsList.filter(review => review.vote === 4).length,
+    //         average: this.reviewsList.filter(review => review.vote === 3).length,
+    //         unsatisfactory: this.reviewsList.filter(review => review.vote === 2).length,
+    //         terrible: this.reviewsList.filter(review => review.vote === 1).length
+    //     }
+    // }
 
     public openWriteReview(): void {
         if (!Utils.isCurrentAccount()) {
@@ -121,5 +113,9 @@ export class ReviewsComponent implements OnChanges {
                 this.reviewEmitter.emit(data);
             }
         })
+    }
+
+    public goPageReview(page: number): void {
+        this.pageEmitter.emit(page);
     }
 }

@@ -53,7 +53,6 @@ export class ManageResortDialogComponent implements OnInit {
             images: new FormControl(data?.images),
             about: new FormControl(data?.about, { validators: Validators.required }),
             phone: new FormControl(data?.phone, { validators: Validators.required }),
-            price: new FormControl(data?.price, { validators: Validators.required }),
             tourism: new FormControl((data?.tourism as TourismModel)?._id, { validators: Validators.required }),
             isEdit: new FormControl(data ? 'update' : 'create')
         })
@@ -137,7 +136,7 @@ export class ManageResortDialogComponent implements OnInit {
             })
         }
 
-        const fields = ['name', 'address', 'about', 'phone', 'price', 'tourism', 'isEdit'];
+        const fields = ['name', 'address', 'about', 'phone', 'tourism', 'isEdit'];
         fields.forEach(element => {
             formData.append(element, this.resortForm.get(element)?.value)
         });

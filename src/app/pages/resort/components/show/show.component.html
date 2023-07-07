@@ -1,30 +1,36 @@
 <div class="wrapper">
-    <h2>Khu nghỉ dưỡng</h2>
-    <h4 *ngIf="searchResort">Kết quả tìm kiếm với từ khóa [ {{searchResort}} ]</h4>
-    <mat-card class="item-card" *ngFor="let resort of resortsList; let idx = index">
-        <img class="images-content" [src]="resort.images[0]" alt="Photo of a Touirsm">
-        <button mat-icon-button class="action-icon-btn" (click)="copyLink()">
-            <mat-icon svgIcon="icon-share"></mat-icon>
-        </button>
-        <mat-card-header>
-            <mat-card-title>
-                <h5><a routerLink="{{resort._id}}">
-                        {{idx + 1}}. {{ resort.name }}
-                    </a></h5>
-            </mat-card-title>
-            <span class="location">
-                <mat-icon svgIcon="icon-location"></mat-icon>
-                {{ resort.address }}
-            </span>
-            <span class="rate">
-                <app-star-rating [showVote]="resort.rate"></app-star-rating>
-                <span>{{ resort.votesNum }} đánh giá</span>
-            </span>
-        </mat-card-header>
+    <h2 class="title">Khu nghỉ dưỡng</h2>
 
-        <div class="price">
-            <span>Giá chỉ từ</span>
-            <h4>{{resort.price | number:'4.1-5'}} VND</h4>
-        </div>
-    </mat-card>
+    <h4 *ngIf="searchResort">Kết quả tìm kiếm với từ khóa [ {{searchResort}} ]</h4>
+
+    <div class="list">
+        <mat-card class="item-card" *ngFor="let resort of resortsList; let idx = index">
+            <img class="images-content" [src]="resort.images[0]">
+            <button mat-icon-button class="action-icon-btn" (click)="copyLink()">
+                <mat-icon svgIcon="icon-share"></mat-icon>
+            </button>
+            <mat-card-header>
+                <mat-card-title>
+                    <h5 [routerLink]="resort._id">{{ resort.name }}</h5>
+                    <span [routerLink]="'/tourism/' + resort.tourism._id">
+                        Thuộc {{ resort.tourism.name }}</span>
+                </mat-card-title>
+                <div class="location">
+                    <mat-icon svgIcon="icon-location"></mat-icon>
+                    <span>{{ resort.address }}</span>
+                </div>
+                <span class="rate">
+                    <app-star-rating [showVote]="resort.rate"></app-star-rating>
+                    <span>{{ resort.votesNum }} đánh giá</span>
+                </span>
+            </mat-card-header>
+            <div class="price">
+                <div>
+                    <span>Giá chỉ từ</span>
+                    <h5>{{resort.price | number:'4.1-5'}} VND</h5>
+                </div>
+                <button mat-flat-button [routerLink]="resort._id">Xem chi tiết</button>
+            </div>
+        </mat-card>
+    </div>
 </div>

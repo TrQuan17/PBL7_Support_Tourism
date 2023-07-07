@@ -1,5 +1,5 @@
 <div class="wrapper">
-    <div class="contribute">
+    <div class="contribute" [matTooltip]="isReview ? 'Bạn đã đánh giá địa điểm này' : ''" matTooltipPosition="right">
         <h4>Đóng góp</h4>
         <button mat-flat-button class="write-review" (click)="openWriteReview()" [disabled]="isReview">
             <mat-icon svgIcon="icon-write"></mat-icon>
@@ -134,7 +134,7 @@
 
         <mat-divider vertical></mat-divider>
 
-        <div class="user-reviews">
+        <div class="reviews">
             <div class="review" *ngFor="let review of reviewsList">
                 <div class="account" routerLink="/profile/{{review.account._id}}">
                     <div class="avatar">
@@ -146,18 +146,24 @@
                     </div>
                 </div>
                 <app-star-rating [showVote]="review.vote"></app-star-rating>
-                <h6>{{ review.title }}</h6>
+                <h6 class="title-review">{{ review.title }}</h6>
                 <span>{{ review.text }}</span>
-
                 <div class="images">
                     <img *ngFor="let img of review.images" [src]="img" alt="">
                 </div>
-
                 <span class="time">
-                    <mat-divider></mat-divider>
+                    <mat-icon svgIcon="icon-time-go"></mat-icon>
                     Đi vào tháng {{review.time | date: 'MM/yyyy'}}
+                    <mat-divider></mat-divider>
                 </span>
             </div>
+
+            <app-paging 
+                [currentPage]="currentPage" 
+                [disableNext]="reviewsList.length < 5" 
+                [noScroll]="true"
+                (pageEmitter)="goPageReview($event)">
+            </app-paging>
         </div>
     </div>
 </div>

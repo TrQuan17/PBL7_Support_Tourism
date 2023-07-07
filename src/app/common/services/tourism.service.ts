@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, finalize } from 'rxjs';
 import { ApiPath } from 'src/app/core/config';
@@ -18,30 +18,40 @@ export class TourismService {
         private loadingDialog: LoadingSpinnerDialogService
     ) { }
 
-    public getTourismsAndSearch(q?: string): Observable<TourismResponse> {
+    public getTourismsAndSearch(q?: string, page?: number): Observable<TourismResponse> {
         this.loadingDialog.showSpinner(true);
 
-        const url = `${this.apiTourismUrl}?q=${q ? q : ''}`;
-        return this.http.get<TourismResponse>(url).pipe(
+        const httpParams = new HttpParams()
+            .set('q', q ? q : '')
+            .set('page', page ? page : 1)
+
+        return this.http.get<TourismResponse>(this.apiTourismUrl, {params: httpParams}).pipe(
             finalize(() => this.loadingDialog.showSpinner(false))
         );
     }
 
-    public getTourismByAccount(q?: string): Observable<TourismResponse> {
+    public getTourismByAccount(q?: string, page?: number): Observable<TourismResponse> {
         this.loadingDialog.showSpinner(true);
 
-        const url = `${this.apiTourismByAccountUrl}?q=${ q ? q : '' }`
-        return this.http.get<TourismResponse>(url).pipe(
+        const httpParams = new HttpParams()
+            .set('q', q ? q : '')
+            .set('page', page ? page : 1)
+
+        return this.http.get<TourismResponse>(this.apiTourismByAccountUrl, { params: httpParams }).pipe(
             finalize(() => this.loadingDialog.showSpinner(false))
         );
     }
 
-    public getTourismsByCategory(categoryId: string, q?: string): Observable<TourismResponse> {
+    public getTourismsByCategory(categoryId: string, q?: string, page?: number): Observable<TourismResponse> {
         this.loadingDialog.showSpinner(true);
 
-        const url = `${this.apiCategoryUrl}/${categoryId}/tourisms?q=${q ? q : ''}`;
+        const httpParams = new HttpParams()
+            .set('q', q ? q : '')
+            .set('page', page ? page : 1)
 
-        return this.http.get<TourismResponse>(url).pipe(
+        const url = `${this.apiCategoryUrl}/${categoryId}/tourisms`;
+
+        return this.http.get<TourismResponse>(url, {params: httpParams}).pipe(
             finalize(() => this.loadingDialog.showSpinner(false)));
     }
 
