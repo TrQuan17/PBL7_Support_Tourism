@@ -251,6 +251,60 @@ class ReviewController {
             return res.json(responseJson(false, err.errors))
         }
     }
+
+    async updateRateTourism(req, res, next) {
+        try {
+            const tourism = await Tourism.findOne({ _id: req.params.tourismId })
+            if(!tourism) {
+                const err = { tourism: { message: 'Tourism does not exist!' } }
+                return res.json(responseJson(false, err))
+            }
+
+            const reviews = await Review.find({ tourism: req.params.tourismId })
+                .select('vote')
+
+            const total = reviews.reduce((total, value) => total + value.vote, 0)
+            
+            const avg = total / reviews.length
+
+            await Tourism.updateOne({ _id: req.params.tourismId }, {
+                votesNum: reviews.length,
+                rate: avg
+            })
+
+            return res.json(responseJson(true))
+        }
+        catch(err) {
+            return res.json(responseJson(false, err.errors))
+        }
+    }
+
+    async updateRateResort(req, res, next) {
+        try {
+            const resort = await Resort.findOne({ _id: req.params.resortId })
+            if(!resort) {
+                const err = { resort: { message: 'Resort does not exist!' } }
+                return res.json(responseJson(false, err))
+            }
+
+            const reviews = await Review.find({ resort: req.params.resortId })
+                .select('vote')
+
+            const total = reviews.reduce((total, value) => total + value.vote, 0)
+            
+            const avg = total / reviews.length
+
+            await Resort.updateOne({ _id: req.params.resortId }, {
+                votesNum: reviews.length,
+                rate: avg
+            })
+
+            return res.json(responseJson(true))
+        }
+        catch(err) {
+            return res.json(responseJson(false, err.errors))
+        }
+    }
 }
 
 module.exports = new ReviewController
