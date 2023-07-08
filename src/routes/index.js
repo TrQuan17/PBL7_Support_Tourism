@@ -8,6 +8,7 @@ const reviewRouter = require('./review.router')
 const favouriteRouter = require('./favourite.router')
 const tripRouter = require('./trip.router')
 const postRouter = require('./post.router')
+const reviewStatisticsRouter = require('./reviewStatistics.router')
 
 function routes(app) {
     app.use('/account', accountRouter)
@@ -20,6 +21,7 @@ function routes(app) {
     app.use('/favourite', favouriteRouter)
     app.use('/trip', tripRouter)
     app.use('/post', postRouter)
+    app.use('/statistics', reviewStatisticsRouter)
 }
 
 module.exports = routes

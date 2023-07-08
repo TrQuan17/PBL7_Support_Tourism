@@ -24,7 +24,6 @@ router.get('/me', verifyAccount, accountController.myAccount)
 
 router.get('/tourisms', verifyAccount, verifyTourismManagerRole, tourismController.getByAccountId)
 router.get('/resorts', verifyAccount, verifyResortManagerRole, resortController.getByAccountId)
-router.get('/services', verifyAccount, verifyResortManagerRole, serviceController.getByAccountId)
 
 router.get('/:accountId/timeline', verifyAccount, postController.getByAccountId)
 router.get('/:accountId', accountController.getById)

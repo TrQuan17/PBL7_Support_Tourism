@@ -22,20 +22,6 @@ class ServiceController {
         }
     }
 
-    async getByAccountId(req, res, next) {
-        try {
-            const accountId = res.data.account._id
-
-            const services = await Service.find({ account: accountId })
-                .populate({ path: 'resort', select: 'name' })
-
-            return res.json(responseJson(true, services))
-        }
-        catch(err) {
-            return res.json(responseJson(false, err.errors))
-        }
-    }
-
     async create(req, res, next) {
         try {
             const newService = new Service(req.body)

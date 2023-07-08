@@ -50,6 +50,9 @@ const ReviewSchema = new Schema({
     tourism: {
         type: Schema.Types.ObjectId,
         ref: 'tourisms'
+    },
+    reliability: {
+        type: Number
     }
 }, {
     timestamps: true
