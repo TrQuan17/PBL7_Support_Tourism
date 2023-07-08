@@ -71,16 +71,6 @@ export class ReviewsComponent implements OnChanges {
         }
     }
 
-    // public getNumRateByStar(): void {
-    //     this.ratesNum = {
-    //         excellent: this.reviewsList.filter(review => review.vote === 5).length,
-    //         veryGood: this.reviewsList.filter(review => review.vote === 4).length,
-    //         average: this.reviewsList.filter(review => review.vote === 3).length,
-    //         unsatisfactory: this.reviewsList.filter(review => review.vote === 2).length,
-    //         terrible: this.reviewsList.filter(review => review.vote === 1).length
-    //     }
-    // }
-
     public openWriteReview(): void {
         if (!Utils.isCurrentAccount()) {
             this.dialog.open(RequiresLoginDialogComponent, {

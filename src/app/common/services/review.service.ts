@@ -54,6 +54,16 @@ export class ReviewService {
         return this.http.get<ReviewResponse>(url);
     }
 
+    public updateRateTourism(tourismId: string): Observable<ReviewResponse> {
+        const url = `${this.apiReviewUrl}/tourism/${tourismId}/update`;
+        return this.http.get<ReviewResponse>(url);
+    }
+
+    public updateRateResort(resortId: string): Observable<ReviewResponse> {
+        const url = `${this.apiReviewUrl}/resort/${resortId}/update`;
+        return this.http.get<ReviewResponse>(url);
+    }
+
     public createWithTourism(review: FormData): Observable<ReviewResponse> {
         return this.http.post<ReviewResponse>(this.apiWriteReviewTourismUrl, review);
     }

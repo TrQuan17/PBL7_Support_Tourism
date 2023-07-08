@@ -45,12 +45,18 @@ export class DetailComponent implements OnChanges {
     public getStatusRoom(resort: ResortModel) {
         let bookNum =  resort.reservationsNum;
         bookNum = bookNum ? bookNum : 0;
+        
+        const limit = resort.reservationLimit;
 
-        const percent = resort.reservationLimit ? bookNum / resort.reservationLimit : 0;
-
-        if(percent <= 0.5) this.statusRoom = {class: 'empty', status: 'Trống trải'};
-        else if(percent < 1) this.statusRoom = { class: 'hot', status: 'Đông đúc' };
-        else this.statusRoom = { class: 'full', status: 'Hết phòng' };
+        if(!limit) {
+            this.statusRoom = { class: 'full', status: 'Hết phòng' };
+        }
+        else {
+            const percent = bookNum / limit;
+            if(percent <= 0.5) this.statusRoom = {class: 'empty', status: 'Trống trải'};
+            else if(percent < 1) this.statusRoom = { class: 'hot', status: 'Đông đúc' };
+            else this.statusRoom = { class: 'full', status: 'Hết phòng' };
+        }
     }
 
     public copyLink(): void {

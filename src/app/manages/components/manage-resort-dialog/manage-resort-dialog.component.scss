@@ -1,3 +1,7 @@
+button {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
 .fill-btn {
     box-sizing: border-box;
     border-radius: 50vh;
@@ -13,7 +17,7 @@
 }
 
 .header {
-    padding: 20px 20px 0 20px;
+    padding: 20px 20px 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -23,6 +27,10 @@
         display: flex;
         align-items: center;
         gap: 8px;
+    }
+
+    mat-icon {
+        cursor: pointer;
     }
 }
 
@@ -108,7 +116,8 @@
 
 .right {
     padding-top: 20px;
-    flex: 0 0 calc(100% / 2 - 10px);
+    padding-right: 20px;
+    flex: 0 0 calc(100% / 2 - 12px);
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -131,7 +140,6 @@
         justify-content: center;
         align-items: center;
         border: none;
-        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
         mat-icon {
             margin: 0;
@@ -149,15 +157,6 @@
     padding-bottom: 30px;
 }
 
-.right .upload-image {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 20px;
-    padding-bottom: 20px;
-}
-
 .right .images-preview {
     display: flex;
     flex-direction: row;
@@ -166,7 +165,7 @@
     width: 100%;
 
     .item {
-        flex: 0 0 calc(100% / 3 - 6px);
+        flex: 0 0 calc(100% / 2 - 6px);
         max-height: 150px;
     }
 
@@ -174,22 +173,14 @@
         border-radius: 6px;
         width: 100%;
     }
-}
 
-.upload-image .upload-file-btn {
-    width: 100px;
-    height: 40px;
-    border-radius: 20px;
-    border: 2px solid var(--primary-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-    background-color: white;
-
-    mat-icon {
-        height: 18px;
-        width: 18px;
+    .upload-file-btn {
+        border-radius: 6px;
+        width: 100%;
+        height: 150px;
+        --mdc-filled-button-container-color: white;
+        --mdc-filled-button-label-text-color: var(--primary-color);
+        border: 2px solid var(--primary-color);
     }
 }
 

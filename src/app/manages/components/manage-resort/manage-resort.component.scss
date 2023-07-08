@@ -39,12 +39,18 @@
             cursor: pointer;
         }
 
-        .edit mat-icon {
+        .edit mat-icon,
+        .more mat-icon {
             color: var(--primary-color);
         }
 
         .delete mat-icon {
             color: var(--error-color);
+        }
+
+        .more mat-icon {
+            margin-top: 6px;
+            height: 26px;
         }
     }
 

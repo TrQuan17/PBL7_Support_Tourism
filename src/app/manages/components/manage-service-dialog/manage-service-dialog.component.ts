@@ -2,8 +2,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ResortModel, ResortResponse, ServiceModel } from 'src/app/common/models';
-import { ResortService } from 'src/app/common/services';
+import { ServiceModel } from 'src/app/common/models';
 
 @Component({
     selector: 'app-manage-service-dialog',
@@ -11,21 +10,19 @@ import { ResortService } from 'src/app/common/services';
     styleUrls: ['./manage-service-dialog.component.scss']
 })
 export class ManageServiceDialogComponent implements OnInit {
-    public resortsList: ResortModel[] = [];
     public serviceForm!: FormGroup;
     public imageFile?: File;
     public imagePreview = '';
 
     constructor(
         private fb: FormBuilder,
-        private resortService: ResortService,
         public dialogRef: MatDialogRef<ManageServiceDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public dialogData?: ServiceModel
+        @Inject(MAT_DIALOG_DATA) public dialogData?: any
     ) { }
 
     ngOnInit(): void {
-        this.initForm(this.dialogData);
-        this.getResorts();
+        this.initForm(this.dialogData.service);
+        this.imagePreview = this.dialogData?.service?.image;
     }
 
     public initForm(data?: ServiceModel): void {
@@ -34,20 +31,10 @@ export class ManageServiceDialogComponent implements OnInit {
             name: new FormControl(data?.name, { validators: Validators.required }),
             image: new FormControl(data?.image),
             about: new FormControl(data?.about, { validators: Validators.required }),
-            price: new FormControl(data?.price, { validators: Validators.required }),
-            resort: new FormControl((data?.resort as ResortModel)?._id, { validators: Validators.required }),
+            price: new FormControl(data?.price, { validators: [Validators.required, Validators.min(0)] }),
+            resort: new FormControl(this.dialogData.resort),
             isEdit: new FormControl(data ? 'update' : 'create')
         })
-    }
-
-    public getResorts(): void {
-        this.resortService.getResortByAccount().subscribe(
-            (res: ResortResponse) => {
-                if (res.status === 'SUCCESS') {
-                    this.resortsList = res.data as ResortModel[];
-                }
-            }
-        )
     }
 
     public onFileChange(event: any): void {
@@ -63,11 +50,11 @@ export class ManageServiceDialogComponent implements OnInit {
     public saveService(): void {
         const formData = new FormData();
 
-        if(this.dialogData) {
+        if(this.dialogData?.service) {
             formData.append('_id', this.serviceForm.get('_id')?.value);
         }
 
-        const fields = ['name', 'about', 'image', 'price', 'resort', 'isEdit']
+        const fields = ['name', 'about', 'price', 'resort', 'isEdit']
         fields.forEach(element => {
             formData.append(element, this.serviceForm.get(element)?.value);
         })

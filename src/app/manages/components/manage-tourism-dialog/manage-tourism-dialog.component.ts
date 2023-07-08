@@ -36,7 +36,7 @@ export class ManageTourismDialogComponent implements OnInit{
             images: new FormControl(data?.images),
             title: new FormControl(data?.title, { validators: Validators.required }),
             about: new FormControl(data?.about, { validators: Validators.required }),
-            category: new FormControl(data?.category, { validators: Validators.required }),
+            category: new FormControl((data?.category as CategoryModel)._id, { validators: Validators.required }),
             isEdit: new FormControl(data ? 'update': 'create')
         })
     }

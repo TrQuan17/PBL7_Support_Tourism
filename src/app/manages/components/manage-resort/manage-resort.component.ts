@@ -6,6 +6,7 @@ import { ConfirmDialogConfig, ResortModel, ResortResponse, SnackBarPanelClass } 
 import { ResortService } from 'src/app/common/services';
 import { ManageResortDialogComponent } from '../manage-resort-dialog/manage-resort-dialog.component';
 import { ConfirmDialogComponent } from 'src/app/common/components/confirm-dialog/confirm-dialog.component';
+import { ManageActionResortDialogComponent } from '../manage-action-resort-dialog/manage-action-resort-dialog.component';
 
 const SNACK_BAR_CONFIG = new MatSnackBarConfig();
 SNACK_BAR_CONFIG.duration = 2000;
@@ -117,7 +118,8 @@ export class ManageResortComponent implements OnInit {
     public openManageResortDialog(resort?: ResortModel) {
         const dialogRef = this.dialog.open(ManageResortDialogComponent, {
             height: '90vh',
-            width: '60vw',
+            width: '70vw',
+            autoFocus: false,
             data: resort
         })
 
@@ -125,6 +127,15 @@ export class ManageResortComponent implements OnInit {
             if (data) {
                 this.saveResort(data);
             }
+        })
+    }
+
+    public openActionResortDialog(resort: ResortModel) {
+        this.dialog.open(ManageActionResortDialogComponent, {
+            height: '90vh',
+            width: '70vw',
+            autoFocus: false,
+            data: resort
         })
     }
 
@@ -138,6 +149,7 @@ export class ManageResortComponent implements OnInit {
 
         const dialogRef = this.dialog.open(ConfirmDialogComponent, {
             width: '30vw',
+            autoFocus: false,
             data: dialogData
         })
 

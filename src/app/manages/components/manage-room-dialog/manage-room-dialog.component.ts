@@ -2,15 +2,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { ResortModel, SnackBarPanelClass } from 'src/app/common/models';
-import { RoomResponse } from 'src/app/common/models/room.model';
-import { RoomService } from 'src/app/common/services/room.service';
-
-const SNACK_BAR_CONFIG = new MatSnackBarConfig();
-SNACK_BAR_CONFIG.duration = 2000;
-SNACK_BAR_CONFIG.verticalPosition = 'bottom';
-SNACK_BAR_CONFIG.horizontalPosition = 'center';
+import { RoomModel } from 'src/app/common/models/room.model';
 
 @Component({
     selector: 'app-manage-room-dialog',
@@ -24,22 +16,24 @@ export class ManageRoomDialogComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private roomService: RoomService,
-        public snackbar: MatSnackBar,
         public dialogRef: MatDialogRef<ManageRoomDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public dialogData?: ResortModel
+        @Inject(MAT_DIALOG_DATA) public dialogData?: any
     ) { }
 
     ngOnInit(): void {
-        this.initForm(this.dialogData);
+        this.initForm(this.dialogData?.room);
+        this.imagePreview = this.dialogData?.room?.image;
     }
 
-    public initForm(data?: ResortModel): void {
+    public initForm(data?: RoomModel): void {
         this.roomForm = this.fb.group({
-            name: new FormControl(null, Validators.required),
-            price: new FormControl(0, { validators: [Validators.required, Validators.min(0)] }),
-            limit: new FormControl(0, { validators:  [Validators.required, Validators.min(0)] }),
-            resort: new FormControl(data?._id)
+            _id: new FormControl(data?._id),
+            name: new FormControl(data?.name, Validators.required),
+            image: new FormControl(data?.image),
+            price: new FormControl(data?.price, { validators: [Validators.required, Validators.min(0)] }),
+            limit: new FormControl(data?.limit, { validators:  [Validators.required, Validators.min(0)] }),
+            resort: new FormControl(this.dialogData.resort),
+            isEdit: new FormControl(data ? 'update' : 'create')
         })
     }
 
@@ -56,27 +50,17 @@ export class ManageRoomDialogComponent implements OnInit {
     public saveRoom(): void {
         const formData = new FormData();
 
-        const fields = ['name', 'price', 'limit', 'resort'];
+        if(this.dialogData?.room) {
+            formData.append('_id', this.roomForm.get('_id')?.value);
+        }
+
+        const fields = ['name', 'price', 'limit', 'resort', 'isEdit'];
         fields.forEach(element => {
             formData.append(element, this.roomForm.get(element)?.value);
         })
 
-        formData.append('image', this.imageFile as File);
+        formData.append('imageUpload', this.imageFile as File);
 
-        this.roomService.createRoom(formData).subscribe(
-            (res: RoomResponse) => {
-                let message = 'Tạo phòng không thành công';
-                let snackBarPanel = SnackBarPanelClass.errorClass;
-
-                if(res.status === 'SUCCESS') {
-                    message = 'Tạo phòng thành công';
-                    snackBarPanel = SnackBarPanelClass.successClass;
-                    this.dialogRef.close(true);
-                }
-
-                SNACK_BAR_CONFIG.panelClass = snackBarPanel;
-                this.snackbar.open(message, undefined, SNACK_BAR_CONFIG);
-            }
-        )
+        this.dialogRef.close(formData);
     }
 }

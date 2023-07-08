@@ -26,23 +26,25 @@
     <mat-divider vertical></mat-divider>
 
     <form [formGroup]="categoryForm" class="text">
-        <div class="item name">
+        <div class="name">
             <h5>Nhập tên danh mục du lịch</h5>
             <mat-form-field appearance="outline">
                 <input matInput formControlName="name" type="text">
             </mat-form-field>
         </div>
 
-        <div class="item about">
+        <div class="about">
             <h5>Nhập mô tả danh mục</h5>
             <mat-form-field appearance="outline">
                 <textarea formControlName="about" matInput rows="4"></textarea>
             </mat-form-field>
         </div>
 
-        <button mat-flat-button class="fill-btn" (click)="saveCategory()" matDialogClose>
-            <mat-icon svgIcon="icon-save"></mat-icon>
-            Lưu
-        </button>
+        <div class="action">
+            <button mat-flat-button class="fill-btn" (click)="saveCategory()" matDialogClose>
+                <mat-icon svgIcon="icon-save"></mat-icon>
+                <span>Lưu</span>
+            </button>
+        </div>
     </form>
 </div>

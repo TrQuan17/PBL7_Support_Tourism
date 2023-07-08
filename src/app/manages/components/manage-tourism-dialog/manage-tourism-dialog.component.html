@@ -12,7 +12,6 @@
 
 <div class="wrapper">
     <form [formGroup]="tourismForm" class="tourism-form">
-        <mat-divider></mat-divider>
         <div class="name">
             <h5>Tên điểm du lịch</h5>
             <mat-form-field appearance="outline">
@@ -55,6 +54,8 @@
         </div>
     </form>
 
+    <mat-divider vertical></mat-divider>
+
     <div class="right">
         <div class="images" *ngIf="dialogData">
             <h5>Hình ảnh điểm du lịch</h5>
@@ -70,16 +71,13 @@
             </div>
         </div>
 
-        <div class="upload-image">
-            <h5>Thêm một số bức ảnh</h5>
-            <button class="upload-file-btn" (click)="fileInput.click()">
-                <mat-icon class="custom" svgIcon="icon-upload-file"></mat-icon>
-                <span>Ảnh ... </span>
+        <h5>Thêm một số bức ảnh</h5>
+        <div class="images-preview">
+            <button mat-flat-button class="item upload-file-btn" (click)="fileInput.click()">
+                <mat-icon svgIcon="icon-upload-file"></mat-icon>
+                <span>Thêm ảnh</span>
             </button>
             <input #fileInput type="file" (change)="onFileChange($event)" multiple hidden>
-        </div>
-
-        <div class="images-preview">
             <div class="item" *ngFor="let item of imagesPreview">
                 <img [src]="item">
             </div>

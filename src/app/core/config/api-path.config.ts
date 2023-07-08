@@ -12,6 +12,9 @@ export const ApiPathConfig = {
         review: 'review',
         write_review_tourism: 'review/write/tourism',
         write_review_resort: 'review/write/resort',
+        review_statistics: 'statistics',
+        tourism_review_top: 'statistics/tourisms/recommend',
+        resort_review_top: 'statistics/resorts/recommend'
     },
     common: {
         category: 'category'

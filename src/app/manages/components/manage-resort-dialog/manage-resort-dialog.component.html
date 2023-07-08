@@ -12,7 +12,6 @@
 
 <div class="wrapper">
     <form [formGroup]="resortForm" class="resort-form">
-        <mat-divider></mat-divider>
         <div class="name">
             <h5>Tên khu nghỉ dưỡng</h5>
             <mat-form-field appearance="outline">
@@ -35,26 +34,6 @@
             </mat-form-field>
         </div>
 
-        <button mat-flat-button *ngIf="dialogData" class="fill-btn" (click)="openRoomDialog(dialogData)">
-            <mat-icon svgIcon="icon-add"></mat-icon>
-            <span>Thêm loại phòng</span>
-        </button>
-
-        <div class="rooms">
-            <div class="item" *ngFor="let item of roomsList">
-                <div class="delete">
-                    <button mat-flat-button (click)="deleteRoom(item)">
-                        <mat-icon svgIcon="icon-close"></mat-icon>
-                    </button>
-                </div>
-                <img [src]="item.image">
-                <div class="text">
-                    <h6>{{ item.name }}</h6>
-                    <span>{{ item.price | number:'4.1-5'}} VND</span>
-                </div>
-            </div>
-        </div>
-
         <div class="phone">
             <h5>Số điện thoại tư vấn</h5>
             <mat-form-field appearance="outline">
@@ -74,6 +53,8 @@
         </div>
     </form>
 
+    <mat-divider vertical></mat-divider>
+
     <div class="right">
         <div class="images" *ngIf="dialogData">
             <h5>Hình ảnh khu nghỉ dưỡng</h5>
@@ -89,16 +70,14 @@
             </div>
         </div>
 
-        <div class="upload-image">
-            <h5>Thêm một số bức ảnh</h5>
-            <button class="upload-file-btn" (click)="fileInput.click()">
-                <mat-icon class="custom" svgIcon="icon-upload-file"></mat-icon>
-                <span>Ảnh ... </span>
+
+        <h5>Thêm một số bức ảnh</h5>
+        <div class="images-preview">
+            <button mat-flat-button class="item upload-file-btn" (click)="fileInput.click()">
+                <mat-icon svgIcon="icon-upload-file"></mat-icon>
+                <span>Thêm ảnh</span>
             </button>
             <input #fileInput type="file" (change)="onFileChange($event)" multiple hidden>
-        </div>
-
-        <div class="images-preview">
             <div class="item" *ngFor="let item of imagesPreview">
                 <img [src]="item">
             </div>

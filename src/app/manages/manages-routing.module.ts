@@ -5,7 +5,6 @@ import { ManagesComponent } from './manages.component';
 import { AuthGuard } from '../core/gaurds/auth.guard';
 import { ManageTourismComponent } from './components/manage-tourism/manage-tourism.component';
 import { ManageResortComponent } from './components/manage-resort/manage-resort.component';
-import { ManageServiceComponent } from './components/manage-service/manage-service.component';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 import { ManageAccountComponent } from './components/manage-account/manage-account.component';
 import { UpdatePasswordComponent } from './components/update-password/update-password.component';
@@ -47,11 +46,6 @@ const routes: Routes = [
             {
                 path: 'manage/resort',
                 component: ManageResortComponent,
-                canActivate: [AuthGuard]
-            },
-            {
-                path: 'manage/service',
-                component: ManageServiceComponent,
                 canActivate: [AuthGuard]
             },
             {

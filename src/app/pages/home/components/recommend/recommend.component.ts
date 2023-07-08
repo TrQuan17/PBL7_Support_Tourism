@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { clone } from 'lodash';
-import { ResortModel, ResortResponse, TourismModel, TourismResponse } from 'src/app/common/models';
+import { ReviewStatisticsModel, ReviewStatisticsResponse } from 'src/app/common/models/reviewStatistics.model';
 
 @Component({
     selector: 'app-recommend',
@@ -8,21 +9,21 @@ import { ResortModel, ResortResponse, TourismModel, TourismResponse } from 'src/
     styleUrls: ['./recommend.component.scss']
 })
 export class RecommendComponent implements OnChanges {
-    @Input() tourismsRecommendRes!: TourismResponse;
-    @Input() resortRecommendRes!: ResortResponse;
+    @Input() tourismsRecommendRes!: ReviewStatisticsResponse;
+    @Input() resortRecommendRes!: ReviewStatisticsResponse;
 
-    public tourismsList: TourismModel[] = [];
-    public resortsList: ResortModel[] = [];
+    public tourismsList: any[] = [];
+    public resortsList: any[] = [];
 
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes?.['tourismsRecommendRes']?.currentValue) {
             this.tourismsRecommendRes = clone(changes?.['tourismsRecommendRes'].currentValue);
-            this.tourismsList = this.tourismsRecommendRes?.data as TourismModel[];
+            this.tourismsList = this.tourismsRecommendRes?.data as ReviewStatisticsModel[];
         }
 
         if (changes?.['resortRecommendRes']?.currentValue) {
             this.resortRecommendRes = clone(changes?.['resortRecommendRes'].currentValue);
-            this.resortsList = this.resortRecommendRes?.data as ResortModel[];
+            this.resortsList = this.resortRecommendRes?.data as ReviewStatisticsModel[];
         }
     }
 }

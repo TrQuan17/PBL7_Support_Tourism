@@ -30,6 +30,14 @@ export class RoomService {
         );
     } 
 
+    public updateRoom(room: FormData): Observable<RoomResponse> {
+        this.loadingDialog.showSpinner(true);
+
+        return this.http.put<RoomResponse>(this.apiRoomUrl, room).pipe(
+            finalize(() => this.loadingDialog.showSpinner(false))
+        );
+    }
+
     public deleteRoom(room: RoomModel): Observable<RoomResponse> {
         this.loadingDialog.showSpinner(true);
 

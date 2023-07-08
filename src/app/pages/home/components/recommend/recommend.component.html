@@ -6,19 +6,21 @@
     <mat-divider></mat-divider>
     <div class="list">
         <mat-card class="item-card" *ngFor="let tourism of tourismsList; let idx = index">
-            <img class="images-content" [src]="tourism.images[0]">
+            <img class="images-content" [src]="tourism.typeRef.images[0]">
             <div class="content">
                 <mat-card-header>
                     <mat-card-title>
                         <span class="item-name">
-                            <a [routerLink]="'/tourism/' + tourism._id">
-                                {{idx + 1}}. {{ tourism.name }}
-                            </a></span>
+                            <a [routerLink]="'/tourism/' + tourism.typeRef._id">
+                                {{idx + 1}}. {{ tourism.typeRef.name }}
+                            </a>
+                        </span>
+                        <span class="percent">Tích cực {{ tourism.positivePercent*100 | number: '1.0-0' }} %</span>
                     </mat-card-title>
                 </mat-card-header>
                 <mat-card-subtitle>
-                    <app-star-rating [showVote]="tourism.rate"></app-star-rating>
-                    <span>{{tourism.votesNum}} đánh giá</span>
+                    <app-star-rating [showVote]="tourism.typeRef.rate"></app-star-rating>
+                    <span>{{tourism.typeRef.votesNum}} đánh giá</span>
                 </mat-card-subtitle>
             </div>
         </mat-card>
@@ -33,19 +35,21 @@
     <mat-divider></mat-divider>
     <div class="list">
         <mat-card class="item-card" *ngFor="let resort of resortsList; let idx = index">
-            <img class="images-content" [src]="resort.images[0]">
+            <img class="images-content" [src]="resort.typeRef.images[0]">
             <div class="content">
                 <mat-card-header>
                     <mat-card-title>
                         <span class="item-name">
-                            <a [routerLink]="'/resort/' + resort._id">
-                                {{idx + 1}}. {{ resort.name }}
-                            </a></span>
+                            <a [routerLink]="'/resort/' + resort.typeRef._id">
+                                {{idx + 1}}. {{ resort.typeRef.name }}
+                            </a>
+                        </span>
+                        <span class="percent">Tích cực {{ resort.positivePercent*100 | number: '1.0-0' }} %</span>    
                     </mat-card-title>
                 </mat-card-header>
                 <mat-card-subtitle>
-                    <app-star-rating [showVote]="resort.rate"></app-star-rating>
-                    <span>{{resort.votesNum}} đánh giá</span>
+                    <app-star-rating [showVote]="resort.typeRef.rate"></app-star-rating>
+                    <span>{{resort.typeRef.votesNum}} đánh giá</span>
                 </mat-card-subtitle>
             </div>
         </mat-card>

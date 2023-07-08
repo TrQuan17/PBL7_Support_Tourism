@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RateNumResponse, ResortResponse, ReviewModel, ReviewResponse, ServiceResponse, SnackBarPanelClass } from 'src/app/common/models';
 import { RoomResponse } from 'src/app/common/models/room.model';
 import { ResortService, ReviewService, ServiceService } from 'src/app/common/services';
+import { ReviewStatisticsService } from 'src/app/common/services/review-statistics.service';
 import { RoomService } from 'src/app/common/services/room.service';
 
 const SNACK_BAR_CONFIG = new MatSnackBarConfig();
@@ -32,7 +33,8 @@ export class DetailResortComponent implements OnInit {
         private resortService: ResortService,
         private serviceService: ServiceService,
         private roomService: RoomService,
-        private reviewService: ReviewService
+        private reviewService: ReviewService,
+        private reviewStatisticsService: ReviewStatisticsService
     ) {
         this.resortId = this.router.snapshot.paramMap.get('resortId') as string;
     }
@@ -94,6 +96,14 @@ export class DetailResortComponent implements OnInit {
         )
     }
 
+    public setAvgReviewPercent(resortId: string): void {
+        this.reviewStatisticsService.setAvgPositivePercentResort(resortId).subscribe()
+    }
+
+    public updateRate(resortId: string): void {
+        this.reviewService.updateRateResort(resortId).subscribe();
+    }
+
     public reviewClassify(review: ReviewModel) {
         const data = {
             id: review._id,
@@ -115,6 +125,8 @@ export class DetailResortComponent implements OnInit {
 
                     this.reviewClassify(res.data as ReviewModel);
                     this.getReviewsResort();
+                    this.setAvgReviewPercent(this.resortId);
+                    this.updateRate(this.resortId);
                 }
 
                 SNACK_BAR_CONFIG.panelClass = snackBarPanel;

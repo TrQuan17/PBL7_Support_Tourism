@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ResortResponse, TourismResponse } from 'src/app/common/models';
+import { ReviewStatisticsResponse } from 'src/app/common/models/reviewStatistics.model';
 import { ResortService, TourismService } from 'src/app/common/services';
-import { LoadingSpinnerDialogService } from 'src/app/layout/services';
+import { ReviewStatisticsService } from 'src/app/common/services/review-statistics.service';
 
 @Component({
     selector: 'app-home',
@@ -10,8 +11,8 @@ import { LoadingSpinnerDialogService } from 'src/app/layout/services';
     styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-    public tourismsRecommend!: TourismResponse;
-    public resortsRecommend!: ResortResponse;
+    public tourismsRecommend!: ReviewStatisticsResponse;
+    public resortsRecommend!: ReviewStatisticsResponse;
     public tourismSearch?: TourismResponse;
     public resortSearch?: ResortResponse;
     public isResetSearch = false;
@@ -19,7 +20,7 @@ export class HomeComponent {
     public keyWord = '';
 
     constructor(
-        private loadingDialog: LoadingSpinnerDialogService,
+        private reviewStatisticsService: ReviewStatisticsService,
         private tourismService: TourismService,
         private resortService: ResortService
     ) {
@@ -28,16 +29,16 @@ export class HomeComponent {
     }
 
     public getTourismsRecommend(): void {
-        this.tourismService.getTourismsAndSearch().subscribe(
-            (res: TourismResponse) => {
+        this.reviewStatisticsService.getTourismReviewTop().subscribe(
+            (res: ReviewStatisticsResponse) => {
                 this.tourismsRecommend = res;
             }
         )
     }
 
     public getResortsRecommend(): void {
-        this.resortService.getResortsAndSearch().subscribe(
-            (res: ResortResponse) => {
+        this.reviewStatisticsService.getResortReviewTop().subscribe(
+            (res: ReviewStatisticsResponse) => {
                 this.resortsRecommend = res;
             }
         )

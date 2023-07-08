@@ -35,9 +35,17 @@
                 <div class="edit">
                     <mat-icon svgIcon="icon-edit" (click)="openManageResortDialog(element)"></mat-icon>
                 </div>
+
                 <mat-divider vertical></mat-divider>
+
                 <div class="delete">
                     <mat-icon svgIcon="icon-delete" (click)="confirmDeleteResort(element)"></mat-icon>
+                </div>
+
+                <mat-divider vertical></mat-divider>
+
+                <div class="more">
+                    <mat-icon svgIcon="icon-next" (click)="openActionResortDialog(element)"></mat-icon>
                 </div>
             </div>
         </td>

@@ -10,7 +10,6 @@ import { ManageTourismComponent } from './components/manage-tourism/manage-touri
 import { ManageTourismDialogComponent } from './components/manage-tourism-dialog/manage-tourism-dialog.component';
 import { ManageResortComponent } from './components/manage-resort/manage-resort.component';
 import { ManageResortDialogComponent } from './components/manage-resort-dialog/manage-resort-dialog.component';
-import { ManageServiceComponent } from './components/manage-service/manage-service.component';
 import { ManageServiceDialogComponent } from './components/manage-service-dialog/manage-service-dialog.component';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 import { ManageAccountComponent } from './components/manage-account/manage-account.component';
@@ -18,6 +17,7 @@ import { UpdatePasswordComponent } from './components/update-password/update-pas
 import { ManageRoomDialogComponent } from './components/manage-room-dialog/manage-room-dialog.component';
 import { ManageCategoryComponent } from './components/manage-category/manage-category.component';
 import { ManageCategoryDialogComponent } from './components/manage-category-dialog/manage-category-dialog.component';
+import { ManageActionResortDialogComponent } from './components/manage-action-resort-dialog/manage-action-resort-dialog.component';
 
 @NgModule({
     declarations: [
@@ -27,14 +27,14 @@ import { ManageCategoryDialogComponent } from './components/manage-category-dial
         ManageTourismDialogComponent,
         ManageResortComponent,
         ManageResortDialogComponent,
-        ManageServiceComponent,
         ManageServiceDialogComponent,
         UpdateProfileComponent,
         ManageAccountComponent,
         UpdatePasswordComponent,
         ManageRoomDialogComponent,
         ManageCategoryComponent,
-        ManageCategoryDialogComponent
+        ManageCategoryDialogComponent,
+        ManageActionResortDialogComponent
     ],
     imports: [
         CommonModule,

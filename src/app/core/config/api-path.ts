@@ -31,5 +31,8 @@ export class ApiPath {
     public static WRITE_REVIEW_TOURISM = env.API.concat(ApiPathConfig.pages.write_review_tourism);
     public static WRITE_REVIEW_RESORT = env.API.concat(ApiPathConfig.pages.write_review_resort);
     public static REVIEW_CLASSIFY = env.TEXT_CLASSIFY_FASTAPI.concat(ApiPathConfig.model.text_classify);
+    public static REVIEW_STATISTICS = env.API.concat(ApiPathConfig.pages.review_statistics);
+    public static TOURISM_REVIEW_TOP = env.API.concat(ApiPathConfig.pages.tourism_review_top);
+    public static RESORT_REVIEW_TOP = env.API.concat(ApiPathConfig.pages.resort_review_top);
 
 }
