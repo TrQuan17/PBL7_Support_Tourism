@@ -162,16 +162,13 @@ class Review(BaseModel):
     id: str
     text: str
 
-def update(id, emotion, reliability): 
+def update(id, reliability): 
     collection_name = dbname["reviews"]
 
     myquery = { "_id": bson.ObjectId(id) }
     newvalues = { "$set": {
-         "emotion": str(emotion),
          "reliability": str(reliability)
     } }
-
-    print('id', id)
 
     collection_name.update_one(myquery, newvalues)
 
@@ -188,10 +185,9 @@ def classifyReview(review: Review):
 
         predictions = RNN_model.predict(input_svd_fitted)
 
-        emotion = np.argmax(predictions)
-        reliability = max(predictions[0])
+        reliability = predictions[0][1]
 
-        update(review.id, emotion, reliability)
+        update(review.id, reliability)
     except:
         print('Error predictions')
     
