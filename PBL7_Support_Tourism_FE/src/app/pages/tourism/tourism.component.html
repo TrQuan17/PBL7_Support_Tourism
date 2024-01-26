@@ -1,0 +1,15 @@
+<app-header (searchEmitter)="searchTourism($event)"></app-header>
+<app-show 
+    [searchTourism]="keyWord"
+    [tourismResponse]="tourismResponse" 
+    [categoryResponse]="categoryResponse"
+    (categoryEmitter)="selectedCategory($event)">
+</app-show>
+
+<app-paging 
+    [currentPage]="currentPage"
+    [disableNext]="isDisableNext()"
+    (pageEmitter)="goPage($event)">
+</app-paging>
+
+<app-footer></app-footer>

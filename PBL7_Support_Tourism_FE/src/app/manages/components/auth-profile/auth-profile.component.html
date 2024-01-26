@@ -1,0 +1,23 @@
+<div class="wrapper">
+    <div class="info-image">
+        <img class="background-info" [src]="account?.background" alt="" srcset="">
+        <div class="user">
+            <img class="avatar" [src]="account?.avatar" alt="">
+            <h4>
+                {{ account?.fullname }} <br>
+                <span>@{{account?.username}}</span>
+            </h4>
+        </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="timeline">
+        <app-timeline 
+            [authResponse]="accountResponse"
+            [postResponse]="postResponse"
+            (postEmitter)="writePost($event)"
+            (sortPostEmitter)="sortPost($event)"
+            (moreEmitter)="morePost()"></app-timeline>
+    </div>
+</div>

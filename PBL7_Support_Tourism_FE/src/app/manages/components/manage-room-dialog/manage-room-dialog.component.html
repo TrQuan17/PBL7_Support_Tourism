@@ -1,0 +1,59 @@
+<div class="wrapper">
+    <div class="header">
+        <h4 *ngIf="dialogData?.room">
+            <mat-icon svgIcon="icon-edit"></mat-icon>
+            <span>Cập nhật thông tin phòng</span>
+        </h4>
+        <h4 *ngIf="!dialogData?.room">
+            <mat-icon svgIcon="icon-add"></mat-icon>
+            <span>Thêm thông tin  phòng</span>
+        </h4>
+        <mat-icon svgIcon="icon-close" matDialogClose></mat-icon>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <form [formGroup]="roomForm" class="room-form">
+        <div class="top">
+            <div class="images">
+                <div class="image-preview">
+                    <img [src]="imagePreview" *ngIf="imagePreview">
+                </div>
+        
+                <button class="upload-file-btn" (click)="fileInput.click()">
+                    <mat-icon class="custom" svgIcon="icon-upload-file"></mat-icon>
+                    <span>Thêm ảnh</span>
+                </button>
+                <input #fileInput type="file" (change)="onFileChange($event)" hidden>            
+            </div>
+
+            <div class="right">
+                <div class="item name">
+                    <h5>Nhập loại phòng</h5>
+                    <mat-form-field appearance="outline">
+                        <input matInput formControlName="name" type="text" placeholder="Phòng đơn, phòng đôi, ...">
+                    </mat-form-field>
+                </div>
+        
+                <div class="item price">
+                    <h5>Nhập giá phòng</h5>
+                    <mat-form-field appearance="outline">
+                        <input matInput formControlName="price" type="number">
+                    </mat-form-field>
+                </div>
+        
+                <div class="item limit">
+                    <h5>Nhập số phòng tối đa</h5>
+                    <mat-form-field appearance="outline">
+                        <input matInput formControlName="limit" type="number">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+        <button mat-flat-button class="save-btn" (click)="saveRoom()" matDialogClose>
+            <mat-icon svgIcon="icon-save"></mat-icon>
+            Lưu
+        </button>
+    </form>
+</div>

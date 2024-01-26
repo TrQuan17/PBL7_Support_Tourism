@@ -1,0 +1,107 @@
+.wrapper {
+    padding: var(--padding-wrapper);
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    background-color: var(--theme-bg);
+}
+
+.title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    .select {
+        --mdc-filled-button-container-color: var(--primary-color);
+        --mdc-filled-button-label-text-color: white;
+    }
+}
+
+.category {
+    --mdc-filled-button-container-color: white;
+    --mdc-filled-button-label-text-color: var(--primary-color);
+
+    padding: 10px;
+    max-width: calc(100% / 7);
+    min-width: 140px;
+    height: 60px;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+    &:hover {
+        --mdc-filled-button-container-color: var(--primary-color-rgba);
+        --mdc-filled-button-label-text-color: white;
+    }
+
+    &:focus {
+        --mdc-filled-button-container-color: var(--primary-color);
+        --mdc-filled-button-label-text-color: white;
+    }
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.item-card {
+    min-width: 70vw;
+    display: flex;
+    flex-direction: row;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: var(--border-radius);
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .content .rate {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+    }
+    
+    .images-content {
+        border-top-left-radius: inherit;
+        border-bottom-left-radius: inherit;
+        width: 340px;
+        height: 210px;
+    }
+
+    mat-icon {
+        height: 18px;
+        width: 18px;
+    }
+}
+
+.action-icon-btn {
+    position: relative;
+    left: -46px;
+    top: 10px;
+    height: 36px;
+    width: 36px;
+    padding: 9px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+    mat-icon {
+        height: 18px;
+        width: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}

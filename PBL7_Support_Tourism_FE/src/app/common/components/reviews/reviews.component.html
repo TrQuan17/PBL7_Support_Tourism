@@ -1,0 +1,169 @@
+<div class="wrapper">
+    <div class="contribute" [matTooltip]="isReview ? 'Bạn đã đánh giá địa điểm này' : ''" matTooltipPosition="right">
+        <h4>Đóng góp</h4>
+        <button mat-flat-button class="write-review" (click)="openWriteReview()" [disabled]="isReview">
+            <mat-icon svgIcon="icon-write"></mat-icon>
+            <span>Đánh giá</span>
+        </button>
+    </div>
+
+    <h4>Đánh giá của du khách</h4>
+
+    <div class="show-reviews">
+        <div class="rating" *ngIf="tourism">
+            <div class="header">
+                <div class="show-rate">
+                    <h4>{{ tourism.rate | number:'1.0-1' }}</h4>
+                    <app-star-rating [showVote]="tourism.rate"></app-star-rating>
+                </div>
+                <span>{{ tourism.votesNum }} đánh giá</span>
+            </div>
+
+
+            <div class="rating-statistics">
+                <div class="text">
+                    <span>Xuất sắc</span>
+                    <span>{{ ratesNum.excellent }}</span>
+                </div>
+                <mat-progress-bar class="rates-num" mode="determinate"
+                    [value]="tourism.votesNum ? ratesNum.excellent / tourism.votesNum * 100 : 0">
+                </mat-progress-bar>
+            </div>
+
+            <div class="rating-statistics">
+                <div class="text">
+                    <span>Rất tốt</span>
+                    <span>{{ ratesNum.veryGood }}</span>
+                </div>
+                <mat-progress-bar class="rates-num" mode="determinate"
+                    [value]=" tourism.votesNum ? ratesNum.veryGood / tourism.votesNum * 100 : 0">
+                </mat-progress-bar>
+            </div>
+
+            <div class="rating-statistics">
+                <div class="text">
+                    <span>Bình thường</span>
+                    <span>{{ ratesNum.average }}</span>
+                </div>
+                <mat-progress-bar class="rates-num" mode="determinate"
+                    [value]=" tourism.votesNum ? ratesNum.average / tourism.votesNum * 100 : 0">
+                </mat-progress-bar>
+            </div>
+
+            <div class="rating-statistics">
+                <div class="text">
+                    <span>Khá tệ</span>
+                    <span>{{ ratesNum.unsatisfactory }}</span>
+                </div>
+                <mat-progress-bar class="rates-num" mode="determinate"
+                    [value]=" tourism.votesNum ? ratesNum.unsatisfactory / tourism.votesNum * 100 : 0">
+                </mat-progress-bar>
+            </div>
+
+            <div class="rating-statistics">
+                <div class="text">
+                    <span>Tệ</span>
+                    <span>{{ ratesNum.terrible }}</span>
+                </div>
+                <mat-progress-bar class="rates-num" mode="determinate"
+                    [value]=" tourism.votesNum ? ratesNum.terrible / tourism.votesNum * 100 : 0">
+                </mat-progress-bar>
+            </div>
+        </div>
+
+        <div class="rating" *ngIf="resort">
+            <div class="header">
+                <div class="show-rate">
+                    <h4>{{ resort.rate | number:'1.0-1' }}</h4>
+                    <app-star-rating [showVote]="resort.rate"></app-star-rating>
+                </div>
+                <span>{{ resort.votesNum }} đánh giá</span>
+            </div>
+
+
+            <div class="rating-statistics">
+                <div class="text">
+                    <span>Xuất sắc</span>
+                    <span>{{ ratesNum.excellent }}</span>
+                </div>
+                <mat-progress-bar class="rates-num" mode="determinate"
+                    [value]="resort.votesNum ? ratesNum.excellent / resort.votesNum * 100 : 0">
+                </mat-progress-bar>
+            </div>
+
+            <div class="rating-statistics">
+                <div class="text">
+                    <span>Rất tốt</span>
+                    <span>{{ ratesNum.veryGood }}</span>
+                </div>
+                <mat-progress-bar class="rates-num" mode="determinate"
+                    [value]=" resort.votesNum ? ratesNum.veryGood / resort.votesNum * 100 : 0">
+                </mat-progress-bar>
+            </div>
+
+            <div class="rating-statistics">
+                <div class="text">
+                    <span>Bình thường</span>
+                    <span>{{ ratesNum.average }}</span>
+                </div>
+                <mat-progress-bar class="rates-num" mode="determinate"
+                    [value]=" resort.votesNum ? ratesNum.average / resort.votesNum * 100 : 0">
+                </mat-progress-bar>
+            </div>
+
+            <div class="rating-statistics">
+                <div class="text">
+                    <span>Khá tệ</span>
+                    <span>{{ ratesNum.unsatisfactory }}</span>
+                </div>
+                <mat-progress-bar class="rates-num" mode="determinate"
+                    [value]=" resort.votesNum ? ratesNum.unsatisfactory / resort.votesNum * 100 : 0">
+                </mat-progress-bar>
+            </div>
+
+            <div class="rating-statistics">
+                <div class="text">
+                    <span>Tệ</span>
+                    <span>{{ ratesNum.terrible }}</span>
+                </div>
+                <mat-progress-bar class="rates-num" mode="determinate"
+                    [value]=" resort.votesNum ? ratesNum.terrible / resort.votesNum * 100 : 0">
+                </mat-progress-bar>
+            </div>
+        </div>
+
+        <mat-divider vertical></mat-divider>
+
+        <div class="reviews">
+            <div class="review" *ngFor="let review of reviewsList">
+                <div class="account" routerLink="/profile/{{review.account._id}}">
+                    <div class="avatar">
+                        <img [src]="review.account.avatar" alt="">
+                    </div>
+                    <div class="content">
+                        <h6>{{ review.account.fullname }}</h6>
+                        <span>Tham gia từ {{ review.account.createdAt | date: 'MM/yyyy'}}</span>
+                    </div>
+                </div>
+                <app-star-rating [showVote]="review.vote"></app-star-rating>
+                <h6 class="title-review">{{ review.title }}</h6>
+                <span>{{ review.text }}</span>
+                <div class="images">
+                    <img *ngFor="let img of review.images" [src]="img" alt="">
+                </div>
+                <span class="time">
+                    <mat-icon svgIcon="icon-time-go"></mat-icon>
+                    Đi vào tháng {{review.time | date: 'MM/yyyy'}}
+                    <mat-divider></mat-divider>
+                </span>
+            </div>
+
+            <app-paging 
+                [currentPage]="currentPage" 
+                [disableNext]="reviewsList.length < 5" 
+                [noScroll]="true"
+                (pageEmitter)="goPageReview($event)">
+            </app-paging>
+        </div>
+    </div>
+</div>

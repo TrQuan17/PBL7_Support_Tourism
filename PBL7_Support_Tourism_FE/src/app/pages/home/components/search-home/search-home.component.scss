@@ -1,0 +1,76 @@
+.wrapper {
+    height: 400px;
+    background-image: url('../../../../../assets/images/background-search-home.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.wrapper h1 {
+    color: white;
+    font-family: 'Pacifico', cursive;
+    font-size: 70px;
+}
+
+.search-box {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+
+    width: 60vw;
+    padding: 16px;
+    background-color: rgba($color: #ffffff, $alpha: 0.2);
+    border-radius: 40px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.search-box input,
+.search-box mat-select,
+.search-box button {
+    height: 50px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+}
+
+.search-box input {
+    padding-left: 20px;
+    background-color: white;
+    width: 65%;
+    border: none;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.search-box mat-select {
+    width: 35%;
+    padding: 0 20px;
+    background-color: white;
+    justify-content: center;
+}
+
+.search-box button {
+    width: 80px;
+    justify-content: center;
+
+    --mdc-filled-button-container-color:  var(--primary-color);
+    --mdc-filled-button-label-text-color: white;
+
+    mat-icon {
+        margin: 0;
+        padding: 0;
+        height: 20px;
+        width: 20px;
+        color: white;
+    }
+}

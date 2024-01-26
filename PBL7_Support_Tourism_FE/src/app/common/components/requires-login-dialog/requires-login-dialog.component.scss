@@ -1,0 +1,27 @@
+.wrapper {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+
+    mat-icon {
+        float: right;
+        margin-left: calc(100% - 20px);
+    }
+
+    img {
+        height: 220px;
+        width: 220px;
+    }
+
+    button {
+        width: 80%;
+        height: 40px;
+        border-radius: 20px;
+        color: white;
+        font-weight: 500;
+        background-color: var(--primary-color);
+        border: none;
+    }
+}

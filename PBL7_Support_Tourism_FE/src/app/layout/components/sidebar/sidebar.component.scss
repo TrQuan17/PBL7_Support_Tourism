@@ -1,0 +1,70 @@
+.wrapper {
+    padding: 20px;
+    width: 20vw;
+    border-radius: 12px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+.avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 10px;
+
+    img {
+        height: 120px;
+        width: 120px;
+        border-radius: 50%;
+        border: 2px solid var(--primary-color);
+    }
+
+    mat-divider {
+        width: 90%;
+    }
+}
+
+.wrapper .mat-mdc-unelevated-button:not(:disabled) {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+    font-weight: 550;
+    color: var(--primary-color);
+
+    &:focus {
+        background-color: var(--primary-color);
+        color: white;
+
+        mat-icon {
+            color: inherit;
+        }
+    }
+}
+
+.dropdown-content {
+    padding-left: 10px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+}
+
+.dropdown-content.open {
+    max-height: 200px;
+}
+
+.dropdown-content button {
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translateY(-20px);
+}
+
+.dropdown-content.open button {
+    opacity: 1;
+    transform: translateY(0);
+}

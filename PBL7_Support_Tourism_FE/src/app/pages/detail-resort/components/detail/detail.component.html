@@ -1,0 +1,68 @@
+<div class="wrapper" *ngIf="resort">
+    <div class="header">
+        <div>
+            <h1>
+                <span>{{ resort.name }}</span>
+                 <button mat-icon-button class="icon-btn" (click)="copyLink()">
+                    <mat-icon svgIcon="icon-share"></mat-icon>
+                </button>
+            </h1>
+
+            <h6 class="location">
+                <mat-icon svgIcon="icon-location"></mat-icon>
+                <span>{{ resort.address }}</span>
+            </h6>
+
+            <div class="sub-header">
+                <app-star-rating [showVote]="resort.rate"></app-star-rating>
+                <span>{{ resort.votesNum }} đánh giá</span>
+            </div>
+        </div>
+        <div class="action">
+            <div *ngIf="resort.price !== 0; else noPrice">
+                <h4>{{ resort.price | number:'4.1-5' }} VND</h4>
+                <span>Giá phòng mỗi đêm</span>
+            </div>
+
+            <ng-template #noPrice>
+                <h4>Giá phòng chưa cập nhật</h4>
+            </ng-template>
+        </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="content">
+        <div class="text">
+            <div class="contact">
+                <h4>Phòng và liên hệ</h4>
+                <span>
+                    <mat-icon svgIcon="icon-phone"></mat-icon>
+                    {{ resort.phone }}
+                </span>
+
+                <span>
+                    <mat-icon svgIcon="icon-rooms-num"></mat-icon>
+                    <span>Số lượng phòng </span>
+                    <h6>{{ resort.reservationLimit }}</h6>
+                </span>
+                <span>
+                    <mat-icon svgIcon="icon-made-reservation"></mat-icon>
+                    Tình trạng phòng
+                    <span [class]="statusRoom?.class"> {{ statusRoom?.status }} </span>
+                </span>
+            </div>
+            <div class="about">
+                <h4>Giới thiệu</h4>
+                <div class="text-about">{{ resort.about }}</div>
+            </div>
+        </div>
+
+        <div class="images">
+            <img class="show" [src]="selectedImg ? selectedImg : resort.images[0]">
+            <div class="list">
+                <img [src]="item" *ngFor="let item of resort.images" (click)="selectedImg = item">
+            </div>
+        </div>
+    </div>
+</div>

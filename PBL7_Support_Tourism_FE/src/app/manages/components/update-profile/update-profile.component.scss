@@ -1,0 +1,83 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.outline-btn {
+    --mdc-filled-button-container-color: white;
+    --mdc-filled-button-label-text-color: var(--primary-color);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.fill-btn {
+    --mdc-filled-button-container-color: var(--primary-color);
+    --mdc-filled-button-label-text-color: white;
+}
+
+.info-image {
+    height: 360px;
+
+    .background-info {
+        width: 100%;
+        height: 240px;
+        border-radius: 12px;
+    }
+
+    .user {
+        display: flex;
+        flex-direction: row;
+        gap: 54px;
+    }
+
+    .user div {
+        flex-grow: 1;
+    }
+
+    .user h4 {
+        padding-top: 14px;
+    }
+
+    .user .avatar {
+        position: relative;
+        left: 30px;
+        top: -60px;
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        border: 2px solid var(--primary-color);
+    }
+
+    .user .outline-btn {
+        position: relative;
+        right: 12px;
+        top: -48px;
+        border-radius: 8px;
+    }
+}
+
+.account-form {
+    padding-top: 20px;
+    padding-left: 20px;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.account-form .fullname {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    
+    mat-form-field {
+        flex-grow: 1;
+    }
+}
+
+.account-form .action {
+    font-weight: 500;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}

@@ -1,0 +1,69 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.delete-dialog {
+    --color-confirm: var(--error-color);
+}
+
+.update-dialog {
+    --color-confirm: var(--primary-color);
+}
+
+.title {
+    width: 100%;
+    background-color: var(--color-confirm);
+    color: white;
+    font-size: 18px;
+    font-weight: 550;
+    padding: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+    mat-icon {
+        height: 19px;
+        width: 19px;
+        color: inherit;
+        margin-right: 4px;
+    }
+}
+
+.content {
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+}
+
+.content img {
+    width: 120px;
+    height: 90%;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border-radius: 4px;
+}
+
+.content .message {
+    white-space: pre-line;
+}
+
+.action {
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.action .cancel {
+    font-weight: 500;
+    --mdc-filled-button-container-color: white;
+    --mdc-filled-button-label-text-color: var(--primary-color);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.action .confirm {
+    font-weight: 500;
+    --mdc-filled-button-container-color: var(--color-confirm);
+    --mdc-filled-button-label-text-color: white;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px
+}

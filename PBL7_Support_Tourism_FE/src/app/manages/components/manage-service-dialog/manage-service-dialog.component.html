@@ -1,0 +1,59 @@
+<div class="wrapper">
+    <div class="header">
+        <h4 *ngIf="dialogData.service">
+            <mat-icon svgIcon="icon-edit"></mat-icon>
+            <span>Cập nhật dịch vụ khu nghỉ dưỡng</span>
+        </h4>
+        <h4 *ngIf="!dialogData.service">
+            <mat-icon svgIcon="icon-add"></mat-icon>
+            <span>Thêm dịch vụ khu nghỉ dưỡng</span>
+        </h4>
+        <mat-icon svgIcon="icon-close" matDialogClose></mat-icon>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <form [formGroup]="serviceForm" class="tourism-form">
+        <div class="top">
+            <div class="images">
+                <div class="image-preview">
+                    <img [src]="imagePreview" *ngIf="imagePreview">
+                </div>
+                <button class="upload-file-btn" (click)="fileInput.click()">
+                    <mat-icon class="custom" svgIcon="icon-upload-file"></mat-icon>
+                    <span>Thêm ảnh</span>
+                </button>
+                <input #fileInput type="file" (change)="onFileChange($event)" hidden>
+            </div>
+
+            <div class="right">
+                <div class="name">
+                    <h5>Tên dịch vụ</h5>
+                    <mat-form-field appearance="outline">
+                        <input matInput formControlName="name" type="text">
+                    </mat-form-field>
+                </div>
+        
+                <div class="price">
+                    <h5>Giá dịch vụ</h5>
+                    <mat-form-field appearance="outline">
+                        <input matInput formControlName="price" type="number">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+        <div class="about">
+            <h5>Giới thiệu chung</h5>
+            <mat-form-field appearance="outline">
+                <textarea formControlName="about" matInput rows="4"></textarea>
+                <mat-hint>{{ serviceForm.get('about')?.value?.length }}/1000 ký tự tối đa</mat-hint>
+            </mat-form-field>
+        </div>
+
+        <button mat-flat-button class="save-btn" (click)="saveService()" [disabled]="serviceForm.invalid">
+            <mat-icon svgIcon="icon-save"></mat-icon>
+            <span>Lưu</span>
+        </button>
+    </form>
+</div>

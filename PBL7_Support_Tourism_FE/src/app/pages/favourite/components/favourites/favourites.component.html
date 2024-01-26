@@ -1,0 +1,19 @@
+<h2>Địa điểm du lịch yêu thích</h2>
+<div class="list">
+    <div class="item-card" *ngFor="let favourite of favouritesList">
+        <div class="images"><img [src]="favourite.tourism.images[0]"></div>
+
+        <mat-divider vertical></mat-divider>
+
+        <div class="info">
+            <div class="header">
+                <h6>{{ favourite.tourism.name }}</h6>
+                <mat-icon svgIcon="icon-heart-like" (click)="deleteFavourite(favourite)"></mat-icon>
+            </div>
+            <span>
+                <mat-icon svgIcon="icon-location"></mat-icon>
+                {{ favourite.tourism.address }}
+            </span>
+        </div>
+    </div>
+</div>

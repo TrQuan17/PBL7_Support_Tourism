@@ -1,0 +1,36 @@
+.services {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 70%;
+}
+
+.item-card {
+    flex: 0 0 calc(50% - 10px);
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+    border-radius: 4px;
+    border: 1px solid var(--primary-color-rgba);
+
+    img {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+        height: 140px;
+    }
+
+    .text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .text .price {
+        font-weight: 500;
+        font-size: 18px;
+    }
+
+}

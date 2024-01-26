@@ -1,0 +1,80 @@
+<div class="write" *ngIf="authResponse">
+    <img class="avatar" [src]="account?.avatar" alt="Avatar" srcset="">
+
+    <form [formGroup]="postForm" class="write-post" *ngIf="showWritePost">
+        <div class="text">
+            <mat-form-field appearance="outline">
+                <input matInput formControlName="title" type="text" placeholder="Tiêu đề ...">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <textarea matInput formControlName="content" rows="3" placeholder="Bạn đang nghĩ gì ...">
+                </textarea>
+            </mat-form-field>
+        </div>
+
+        <button class="upload-file-btn" (click)="fileInput.click()">
+            <mat-icon class="custom" svgIcon="icon-upload-file"></mat-icon>
+            <span>Ảnh ...</span>
+        </button>
+        <input hidden #fileInput type="file" (change)="onFileChange($event)" multiple id="file">
+
+        <div class="images-preview">
+            <div class="item" *ngFor="let item of imagesPreview">
+                <img [src]="item">
+            </div>
+        </div>
+    </form>
+
+    <button mat-stroked-button class="fill-btn" (click)="writePost()" *ngIf="showWritePost">
+        <mat-icon svgIcon="icon-send"></mat-icon>
+        <span>Đăng</span>
+    </button>
+
+    <button mat-stroked-button class="close-btn" (click)="cancelPost()" *ngIf="showWritePost">
+        <mat-icon svgIcon="icon-close"></mat-icon>
+        <span>Hủy</span>
+    </button>
+
+    <button mat-stroked-button class="fill-btn" *ngIf="!showWritePost" (click)="showWritePost = !showWritePost">
+        <mat-icon svgIcon="icon-edit" *ngIf="!showWritePost"></mat-icon>
+        <span>Viết bài đăng</span>
+    </button>
+</div>
+
+<mat-divider *ngIf="authResponse"></mat-divider>
+
+<div class="sort">
+    <button mat-flat-button class="sort-btn" (click)="sortPost()">
+        <mat-icon 
+            [svgIcon]="sortAsc ? 'icon-sort-up' : 'icon-sort-down'">
+        </mat-icon>
+        <span>{{sortAsc ? 'Bài viết cũ nhất' : 'Bài viết mới nhất'}}</span>
+    </button>
+</div>
+
+<div class="post" *ngFor="let post of postsList">
+    <div class="header">
+        <img class="avatar" [src]="post?.account.avatar">
+        <div>
+            <h6> {{ post?.account.fullname }} </h6>
+            <span>Đăng vào {{ post?.createdAt | date: 'dd/MM/yyyy' }}</span>
+        </div>
+    </div>
+    <div class="text">
+        <h5> {{ post.title }} </h5>
+        <span> {{ post.content }} </span>
+        <div class="images-preview">
+            <div class="item" *ngFor="let item of post.images">
+                <img [src]="item">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="show-more">
+    <button mat-flat-button (click)="morePost()">
+        <mat-icon svgIcon="icon-show-more"></mat-icon>
+        <span>Xem tiếp</span>
+    </button>
+</div>

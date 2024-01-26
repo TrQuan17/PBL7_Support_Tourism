@@ -1,0 +1,8 @@
+<div class="wrapper">
+    <form [formGroup]="searchForm" class="search-box">
+        <input class="input-search" type="text" formControlName="text" placeholder="Nhập từ khóa ...">
+        <button class='search-btn' mat-button (click)="searchEvent()">
+            <mat-icon svgIcon="icon-search"></mat-icon>
+        </button>
+    </form>
+</div>

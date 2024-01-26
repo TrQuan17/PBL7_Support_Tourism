@@ -1,0 +1,42 @@
+<div class="wrapper">
+    <ng-container *ngIf="tourism">
+        <div class="header">
+            <div>
+                <h1>{{ tourism.name }}</h1>
+
+                <h6 class="location">
+                    <mat-icon svgIcon="icon-location"></mat-icon>
+                    <span>{{ tourism.address }}</span>
+                </h6>
+                
+                <div class="sub-header">
+                    <app-star-rating [showVote]="tourism.rate"></app-star-rating>
+                    <span>{{ tourism.votesNum }} đánh giá</span>
+                </div>
+            </div>
+            <div class="action">
+                <button mat-icon-button class="action-icon-btn" (click)="saveFavourite()">
+                    <mat-icon svgIcon="icon-heart-unlike"></mat-icon>
+                </button>
+
+                <button mat-icon-button class="action-icon-btn" (click)="copyLink()">
+                    <mat-icon svgIcon="icon-share"></mat-icon>
+                </button>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="about">
+                <h4>Giới thiệu</h4>
+                <div class="text-about">{{ tourism.about }}</div>
+            </div>
+
+            <div class="images">
+                <img class='show' [src]="selectedImg ? selectedImg : tourism.images[0]">
+                <div class="list">
+                    <img [src]="item" *ngFor="let item of tourism.images" (click)="selectedImg = item">
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>

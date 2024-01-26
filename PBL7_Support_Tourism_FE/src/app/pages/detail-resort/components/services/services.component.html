@@ -1,0 +1,12 @@
+<h3>Dịch vụ khu nghỉ dưỡng</h3>
+
+<div class="services">
+    <div class="item-card" *ngFor="let service of servicesList">
+        <img [src]="service.image">
+        <div class="text">
+            <h5> {{ service.name }} </h5>
+            <span>Giá chỉ từ</span>
+            <span class="price">{{service.price | number:'4.1-5'}} VND</span>
+        </div>
+    </div>
+</div>

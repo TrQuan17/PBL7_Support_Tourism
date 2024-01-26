@@ -1,0 +1,124 @@
+.wrapper {
+    padding: var(--padding-wrapper);
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    background-color: var(--theme-bg);
+}
+
+.title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.item-card {
+    min-width: 70vw;
+    display: flex;
+    flex-direction: row;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: var(--border-radius-primary);
+    padding-right: 20px;
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .images-content {
+        width: 340px;
+        height: 210px;
+        border-top-left-radius: inherit;
+        border-bottom-left-radius: inherit;
+    }
+
+    .location {
+        padding-top: 4px;
+        height: 40%;
+        display: flex;
+        align-items: unset;
+        font-size: 16px;
+        font-weight: 500;
+        gap: 8px;
+    }
+
+    .rate {
+        display: flex;
+        gap: 10px;
+        padding-bottom: 20px;
+    }
+
+    .price {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-end;
+        text-align: right;
+        padding: 20px 0;
+    }
+
+    .price button {
+        --mdc-filled-button-container-color: var(--primary-color);
+        --mdc-filled-button-label-text-color: white;
+    }
+
+    mat-icon {
+        height: 18px;
+        width: 18px;
+    }
+
+    mat-card-header {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        flex: 1;
+    }
+
+    mat-card-title h5 {
+        cursor: pointer;
+    }
+
+    mat-card-title span {
+        cursor: pointer;
+        padding: 5px 10px;
+        border-radius: 20px;
+        background-color: var(--primary-color);
+        opacity: 0.75;
+        color: white;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+.action-icon-btn {
+    position: relative;
+    left: -46px;
+    top: 10px;
+    height: 36px;
+    width: 36px;
+    padding: 9px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+    mat-icon {
+        height: 18px;
+        width: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}

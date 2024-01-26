@@ -1,0 +1,86 @@
+<div class="wrapper">
+    <div class="show">
+        <div class="introduce">
+            <h4>KHÁM PHÁ NHỮNG ĐỊA ĐIỂM LÂN CẬN</h4>
+            <h1>Tìm kiếm những địa điểm mới để tham quan trên toàn cầu?</h1>
+            <h5>
+                Chia sẻ cuộc phiêu lưu của bạn với những người thân thiết của bạn và lưu lại những kỷ niệm của bạn
+                theo một phong cách độc đáo.
+            </h5>
+        </div>
+
+        <form [formGroup]="loginForm" class="login-form" *ngIf="isLogin">
+            <a class="logo" routerLink="/home">
+                <img src="assets\images\logo-header.jpg" alt="" srcset="">
+            </a>
+            <mat-form-field appearance="outline">
+                <mat-label>Tên đăng nhập</mat-label>
+                <input matInput formControlName="username" type="text">
+                <mat-icon matSuffix svgIcon="icon-user"></mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Mật khẩu</mat-label>
+                <input matInput formControlName="password" 
+                    [type]="showPass ? 'text' : 'password' " autocomplete="on">
+
+                <mat-icon matSuffix (click)="showPass = !showPass"
+                    [svgIcon]="showPass ? 'icon-show-pass' : 'icon-hidden-pass'">
+                </mat-icon>
+            </mat-form-field>
+
+            <mat-divider></mat-divider>
+            <button mat-flat-button color="primary" class="login-btn" 
+                [disabled]="loginForm.invalid" (click)="login()">Đăng nhập</button>
+            <mat-divider></mat-divider>
+            <span>
+                Bạn chưa có tài khoản ? <strong (click)="isLogin = !isLogin">Đăng kí ngay</strong>
+            </span>
+        </form>
+
+        <form [formGroup]="registerForm" class="register-form" *ngIf="!isLogin">
+            <h4>Wellcome!</h4>
+            <div class="multi-input">
+                <mat-form-field appearance="outline">
+                    <mat-label>Tên đăng nhập</mat-label>
+                    <input matInput formControlName="username" type="text">
+                    <mat-icon matSuffix svgIcon="icon-user"></mat-icon>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Tên đầy đủ</mat-label>
+                    <input matInput formControlName="fullname" type="text">
+                </mat-form-field>
+            </div>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" type="email">
+            </mat-form-field>
+
+            <div class="multi-input">
+                <mat-form-field appearance="outline">
+                    <mat-label>Mật khẩu</mat-label>
+                    <input matInput formControlName="password" [type]="showPass ? 'text' : 'password' ">
+                    <mat-icon matSuffix (click)="showPass = !showPass"
+                        [svgIcon]="showPass ? 'icon-show-pass' : 'icon-hidden-pass'">
+                    </mat-icon>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Nhập lại mật khẩu</mat-label>
+                    <input matInput formControlName="re_pass" [type]="showPass ? 'text' : 'password' ">
+                    <mat-icon matSuffix (click)="showPass = !showPass"
+                        [svgIcon]="showPass ? 'icon-show-pass' : 'icon-hidden-pass'">
+                    </mat-icon>
+                </mat-form-field>
+            </div>
+
+            <button mat-flat-button color="primary" class="register-btn" (click)="register()"
+                [disabled]="registerForm.invalid" >Đăng ký</button>
+            <mat-divider></mat-divider>
+            <span>
+                Bạn đã có tài khoản ? <strong (click)="isLogin = !isLogin" class="">Đăng nhập ngay</strong>
+            </span>
+        </form>
+
+    </div>
+</div>

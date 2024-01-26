@@ -1,0 +1,69 @@
+<h3>Quản lý khu nghỉ dưỡng</h3>
+
+<div class="add">
+    <button mat-flat-button (click)="openManageResortDialog()">
+        <mat-icon svgIcon="icon-add"></mat-icon>
+        <span>Thêm mới</span>
+    </button>
+</div>
+
+<div class="search">
+    <mat-form-field appearance="outline" class="text">
+        <mat-label>Tìm kiếm</mat-label>
+        <input matInput placeholder="Nhập ..." #input>
+        <mat-icon matSuffix svgIcon="icon-search" (click)="searchResort(input.value)"></mat-icon>
+    </mat-form-field>
+</div>
+
+<table mat-table [dataSource]="dataSource" class="manage-table">
+    <ng-container matColumnDef="images">
+        <td mat-cell *matCellDef="let element">
+            <img [src]="element.images[0]" alt="">
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <td mat-cell *matCellDef="let element">
+            <span>{{element?.name}}</span><br>
+            <span class="sub">Thuộc địa điểm {{ element?.tourism.name }}</span>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+        <td mat-cell *matCellDef="let element">
+            <div class="action">
+                <div class="edit">
+                    <mat-icon svgIcon="icon-edit" (click)="openManageResortDialog(element)"></mat-icon>
+                </div>
+
+                <mat-divider vertical></mat-divider>
+
+                <div class="delete">
+                    <mat-icon svgIcon="icon-delete" (click)="confirmDeleteResort(element)"></mat-icon>
+                </div>
+
+                <mat-divider vertical></mat-divider>
+
+                <div class="more">
+                    <mat-icon svgIcon="icon-next" (click)="openActionResortDialog(element)"></mat-icon>
+                </div>
+            </div>
+        </td>
+    </ng-container>
+
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <tr class="mat-row" *matNoDataRow >
+        <td class="mat-cell" colspan="3" *ngIf="input.value">
+            <h5>Không có điểm du lịch phù hợp với từ khóa [ {{input.value}} ]</h5>
+        </td>
+    </tr>
+</table>
+
+<div class="app-paging">
+    <app-paging 
+        [currentPage]="currentPage"
+        [disableNext]="dataSource.data.length < 5"
+        (pageEmitter)="goPage($event)">
+    </app-paging>
+</div>

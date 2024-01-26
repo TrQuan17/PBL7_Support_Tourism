@@ -1,0 +1,17 @@
+<div class="wrapper {{ dialogData.type }}">
+    <div class="title">
+        <mat-icon *ngIf="dialogData.type === 'delete-dialog'" 
+            svgIcon="icon-delete"></mat-icon>
+        {{ dialogData.header }}
+    </div>
+
+    <div class="content">
+        <img *ngIf="dialogData.image" [src]="dialogData.image" alt="">
+        <p class="message">{{ dialogData.message }}</p>
+    </div>
+
+    <div class="action">
+        <button mat-flat-button mat-dialog-close cdkFocusInitial class="cancel">Hủy bỏ</button>
+        <button mat-flat-button mat-dialog-close (click)="confirm()" class="confirm">Xác nhận</button>
+    </div>
+</div>

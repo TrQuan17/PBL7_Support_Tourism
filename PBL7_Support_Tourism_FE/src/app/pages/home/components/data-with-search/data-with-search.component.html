@@ -1,0 +1,48 @@
+<div class="wrapper" *ngIf="keyWord">
+    <div class="type-search">Tìm kiếm {{ typeSearch }}</div>
+
+    <div class="header-search">
+        <h3> Kết quả tìm kiếm với từ khóa [ {{ keyWord }} ]</h3>
+        <button mat-icon-button (click)="reset()">
+            <mat-icon svgIcon="icon-close"></mat-icon>
+        </button>
+    </div>
+
+    <div class="list" *ngIf="tourismsList && typeSearch === 'Địa điểm du lịch'">
+        <mat-card class="item-card" *ngFor="let tourism of tourismsList; let idx = index">
+            <img class="images-content" [src]="tourism.images[0]">
+            <div class="content">
+                <mat-card-header>
+                    <mat-card-title>
+                        <h5 class="item-name"><a [routerLink]="'/tourism/' + tourism._id">
+                                {{idx + 1}}. {{ tourism.name }}
+                            </a></h5>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-subtitle>
+                    <app-star-rating [showVote]="tourism.rate"></app-star-rating>
+                    <span>{{tourism.votesNum}} đánh giá</span>
+                </mat-card-subtitle>
+            </div>
+        </mat-card>
+    </div>
+
+    <div class="list" *ngIf="resortsList && typeSearch === 'Khu nghỉ dưỡng'">
+        <mat-card class="item-card" *ngFor="let resort of resortsList; let idx = index">
+            <img class="images-content" [src]="resort.images[0]" alt="Photo of a Touirsm">
+            <div class="content">
+                <mat-card-header>
+                    <mat-card-title>
+                        <h5 class="item-name"><a [routerLink]="'/resort/' + resort._id">
+                                {{idx + 1}}. {{ resort.name }}
+                            </a></h5>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-subtitle>
+                    <app-star-rating [showVote]="resort.rate"></app-star-rating>
+                    <span>{{resort.votesNum}} đánh giá</span>
+                </mat-card-subtitle>
+            </div>
+        </mat-card>
+    </div>
+</div>
