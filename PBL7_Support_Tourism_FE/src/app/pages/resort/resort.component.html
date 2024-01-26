@@ -1,0 +1,12 @@
+<app-header (searchEmitter)="searchResort($event)"></app-header>
+<app-show 
+    [searchResort]="keyWord" 
+    [resortResponse]="resortResponse">
+</app-show>
+
+<app-paging 
+    [currentPage]="currentPage" 
+    [disableNext]="isDisableNext()"
+    (pageEmitter)="goPage($event)">
+</app-paging>
+<app-footer></app-footer>

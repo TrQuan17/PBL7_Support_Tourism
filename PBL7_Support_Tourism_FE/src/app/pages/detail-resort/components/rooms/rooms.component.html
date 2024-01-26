@@ -1,0 +1,12 @@
+<h3>Phòng khu nghỉ dưỡng</h3>
+
+<div class="rooms">
+    <div class="item-card" *ngFor="let item of roomsList">
+        <img [src]="item.image">
+        <div class="text">
+            <h5> {{ item.name }} </h5>
+            <h6>Giá chỉ từ</h6>
+            <h6 class="price">{{item.price | number:'4.1-5'}} VND</h6>
+        </div>
+    </div>
+</div>

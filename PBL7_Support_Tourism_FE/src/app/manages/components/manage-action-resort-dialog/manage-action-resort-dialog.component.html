@@ -1,0 +1,55 @@
+<div class="header">
+    <h4>
+        <mat-icon svgIcon="icon-edit"></mat-icon>
+        <span>Quản lý phòng và dịch vụ liên quan</span>
+    </h4>
+    <mat-icon svgIcon="icon-close" matDialogClose></mat-icon>
+</div>
+
+<div class="wrapper">
+    <h4 class="title">Phòng khu nghỉ dưỡng</h4>
+    <div class="list">
+        <button mat-flat-button class="item" (click)="openManageRoomDialog()">
+            <mat-icon svgIcon="icon-add"></mat-icon>
+            <span>Thêm phòng</span>
+        </button>
+        <div class="item" *ngFor="let room of roomsList">
+            <div class="image">
+                <img [src]="room.image" >
+            </div>
+            <div class="delete">
+                <button mat-flat-button (click)="confirmDeleteRoom(room)">
+                    <mat-icon svgIcon="icon-close"></mat-icon>
+                </button>
+            </div>
+            <div class="text">
+                <h6 (click)="openManageRoomDialog(room)">{{ room.name }}</h6>
+                <span class="price">{{ room.price | number:'4.1-5' }} VND</span>
+            </div>
+        </div>
+    </div>
+    
+    <h4 class="title">Dịch vụ khu nghỉ dưỡng</h4>
+    <div class="list">
+        <button mat-flat-button class="item" (click)="openManageServiceDialog()">
+            <mat-icon svgIcon="icon-add"></mat-icon>
+            <span>Thêm dịch vụ</span>
+        </button>
+        <div class="item" *ngFor="let service of servicesList">
+            <div class="image">
+                <img [src]="service.image" >
+            </div>
+
+            <div class="delete">
+                <button mat-flat-button (click)="confirmDeleteService(service)">
+                    <mat-icon svgIcon="icon-close"></mat-icon>
+                </button>
+            </div>
+
+            <div class="text">
+                <h6 (click)="openManageServiceDialog(service)">{{ service.name }}</h6>
+                <span class="price">{{ service.price | number:'4.1-5' }} VND</span>
+            </div>
+        </div>
+    </div>
+</div>

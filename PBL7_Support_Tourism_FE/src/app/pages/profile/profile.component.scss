@@ -1,0 +1,90 @@
+.wrapper {
+    padding: var(--padding-wrapper);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: var(--theme-bg);
+}
+
+.info-image {
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    height: 360px;
+    border-radius: 12px;
+    background-color: white;
+
+    .background-info {
+        width: 100%;
+        height: 240px;
+        border-radius: 12px;
+    }
+
+    .user {
+        display: flex;
+        flex-direction: row;
+        gap: 54px;
+    }
+
+    .user h3 {
+        padding-top: 14px;
+    }
+
+    .user h3 span {
+        font-size: 16px;
+        font-weight: 550;
+    }
+
+    .user .avatar {
+        position: relative;
+        left: 40px;
+        top: -90px;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        border: 2px solid var(--primary-color);
+        z-index: 2;
+    }
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.content .info-text {
+    padding: 20px;
+    width: 30%;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: white;
+
+    span {
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
+        align-items: center;
+        padding-left: 20px;
+    }
+
+    span mat-icon {
+        max-height: 20px;
+        max-width: 20px;
+    }
+}
+
+.content .timeline {
+    padding: 0 20px;
+    padding-bottom: 20px;
+    width: 70%;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 12px;
+    background-color: white;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

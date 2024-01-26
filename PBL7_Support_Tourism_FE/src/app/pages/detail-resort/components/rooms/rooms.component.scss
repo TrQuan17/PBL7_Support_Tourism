@@ -1,0 +1,38 @@
+.rooms {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+}
+
+.item-card {
+    flex: 0 0 calc(100% / 3 - 4px);
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+    border-radius: 4px;
+    border: 1px solid var(--primary-color-rgba);
+
+    img {
+        width: 45%;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+        height: 130px;
+    }
+    .text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .text {
+        .price {
+            font-weight: 500;
+            font-size: 17px;
+        }
+    }
+
+}

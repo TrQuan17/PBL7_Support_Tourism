@@ -1,0 +1,46 @@
+<div class="wrapper">
+    <div class="avatar" *ngIf="!checkRouter()">
+        <img [src]="account?.avatar">
+        <h5>{{ account?.fullname }}</h5>
+        <mat-divider></mat-divider>
+    </div>
+
+    <button mat-flat-button class="drop-profile" (click)="toggleDropdown()">
+        <mat-icon svgIcon="icon-page"></mat-icon>
+        <span>Thông tin cá nhân</span>
+    </button>
+
+    <div class="dropdown-content" [ngClass]="{'open': isOpen}">
+        <button mat-flat-button routerLink="/profile/me">
+            <span>Trang cá nhân</span>
+        </button>
+
+        <button mat-flat-button routerLink="/profile/me/update">
+            <span>Cập nhật thông tin</span>
+        </button>
+
+        <button mat-flat-button routerLink="/profile/me/update/password">
+            <span>Đổi mật khẩu</span>
+        </button>
+    </div>
+
+    <button mat-flat-button routerLink="/manage/account" *ngIf="isRole('admin')">
+        <mat-icon svgIcon="icon-account-manage"></mat-icon>
+        <span>Quản lý người dùng</span>
+    </button>
+
+    <button mat-flat-button routerLink="/manage/category" *ngIf="isRole('admin')">
+        <mat-icon svgIcon="icon-category"></mat-icon>
+        <span>Quản lý danh mục</span>
+    </button>
+
+    <button mat-flat-button routerLink="/manage/tourism" *ngIf="isRole('tourism')">
+        <mat-icon svgIcon="icon-tourism-manage"></mat-icon>
+        <span>Quản lý địa điểm du lịch</span>
+    </button>
+
+    <button mat-flat-button routerLink="/manage/resort" *ngIf="isRole('resort')">
+        <mat-icon svgIcon="icon-resort-manage"></mat-icon>
+        <span>Quản lý khu nghỉ dưỡng</span>
+    </button>
+</div>

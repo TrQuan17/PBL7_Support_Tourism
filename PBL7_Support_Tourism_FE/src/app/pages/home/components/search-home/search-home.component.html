@@ -1,0 +1,14 @@
+<div class="wrapper">
+    <h1>Bạn muốn đi đâu nào ?</h1>
+
+    <form [formGroup]="searchForm" class='search-box'>
+        <input formControlName="text" type="text" placeholder="Tìm kiếm tên hoặc địa điểm">
+        <mat-select formControlName="type">
+            <mat-option value="tourism">Địa điểm du lịch</mat-option>
+            <mat-option value="resort">Khu nghỉ dưỡng</mat-option>
+        </mat-select>
+        <button mat-flat-button (click)="search()" [disabled]="searchForm.invalid">
+            <mat-icon svgIcon="icon-search"></mat-icon>
+        </button>
+    </form>
+</div>

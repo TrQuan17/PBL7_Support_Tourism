@@ -1,0 +1,101 @@
+.add {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 0;
+    
+    .mdc-button--unelevated {
+        --mdc-filled-button-container-color: var(--primary-color);
+        --mdc-filled-button-label-text-color: white;
+    }
+
+    mat-icon {
+        height: 18px;
+        color: white;
+    }
+}
+
+.manage-table {
+    border-top: 1px solid var(--primary-color-rgba);
+    border-bottom: 1px solid var(--primary-color-rgba);
+
+    .mat-column-name {
+        width: 80%;
+        font-size: 18px;
+        font-weight: 550;
+    }
+
+    .mat-column-name .sub {
+        font-size: 14px;
+    }
+
+    .mat-column-action .action {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+
+        mat-icon {
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .edit mat-icon,
+        .more mat-icon {
+            color: var(--primary-color);
+        }
+
+        .delete mat-icon {
+            color: var(--error-color);
+        }
+
+        .more mat-icon {
+            margin-top: 6px;
+            height: 26px;
+        }
+    }
+
+}
+
+.manage-table .mat-column-images {
+    padding: 10px;
+    img {
+        height: 50px;
+        width: 80px;
+    }
+}
+
+.search {
+    width: 100%;
+    margin-bottom: 16px;
+
+    mat-icon {
+        height: 16px;
+        width: 16px;
+        cursor: pointer;
+    }
+}
+
+.app-paging {
+    margin-top: 16px;
+}
+
+::ng-deep .search mat-form-field {
+    width: 30%;
+    
+    .mat-mdc-form-field-infix {
+        min-height: 0;
+    }
+
+    .mat-mdc-form-field-subscript-wrapper {
+        height: 0;
+    }
+
+    .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+
+    .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label {
+        top: 18px;
+    }
+}

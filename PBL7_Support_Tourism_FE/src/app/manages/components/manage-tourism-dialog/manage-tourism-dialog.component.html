@@ -1,0 +1,93 @@
+<div class="header">
+    <h4 *ngIf="dialogData">
+        <mat-icon svgIcon="icon-edit"></mat-icon>
+        <span>Cập nhật địa điểm du lịch</span>
+    </h4>
+    <h4 *ngIf="!dialogData">
+        <mat-icon svgIcon="icon-add"></mat-icon>
+        <span>Thêm địa điểm du lịch</span>
+    </h4>
+    <mat-icon svgIcon="icon-close" matDialogClose></mat-icon>
+</div>
+
+<div class="wrapper">
+    <form [formGroup]="tourismForm" class="tourism-form">
+        <div class="name">
+            <h5>Tên điểm du lịch</h5>
+            <mat-form-field appearance="outline">
+                <input matInput formControlName="name" type="text">
+            </mat-form-field>
+        </div>
+
+        <div class="address">
+            <h5>Vị trí điểm du lịch</h5>
+            <mat-form-field appearance="outline">
+                <input matInput formControlName="address" type="text">
+            </mat-form-field>
+        </div>
+
+        <div class="title">
+            <h5>Tiêu đề mô tả</h5>
+            <mat-form-field appearance="outline">
+                <input matInput formControlName="title" type="text">
+                <mat-hint>{{ tourismForm.get('title')?.value?.length }}/120 ký tự tối đa</mat-hint>
+            </mat-form-field>
+        </div>
+
+        <div class="about">
+            <h5>Giới thiệu chung</h5>
+            <mat-form-field appearance="outline">
+                <textarea formControlName="about" matInput rows="4"></textarea>
+                <mat-hint>{{ tourismForm.get('about')?.value?.length }}/1000 ký tự tối đa</mat-hint>
+            </mat-form-field>
+        </div>
+
+        <div class="category">
+            <h5>Lựu chọn danh mục du lịch</h5>
+            <mat-form-field appearance="outline">
+                <mat-select formControlName="category">
+                    <mat-option *ngFor="let category of categoriesList" [value]="category._id">
+                        {{ category.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </form>
+
+    <mat-divider vertical></mat-divider>
+
+    <div class="right">
+        <div class="images" *ngIf="dialogData">
+            <h5>Hình ảnh điểm du lịch</h5>
+            <div class="images-preview">
+                <div class="item" *ngFor="let item of tourismForm.get('images')?.value">
+                    <div class="delete" (click)="deleteImage(item)">
+                        <button mat-flat-button>
+                            <mat-icon svgIcon="icon-close"></mat-icon>
+                        </button>
+                    </div>
+                    <img [src]="item">
+                </div>
+            </div>
+        </div>
+
+        <h5>Thêm một số bức ảnh</h5>
+        <div class="images-preview">
+            <button mat-flat-button class="item upload-file-btn" (click)="fileInput.click()">
+                <mat-icon svgIcon="icon-upload-file"></mat-icon>
+                <span>Thêm ảnh</span>
+            </button>
+            <input #fileInput type="file" (change)="onFileChange($event)" multiple hidden>
+            <div class="item" *ngFor="let item of imagesPreview">
+                <img [src]="item">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <button mat-flat-button class="save-btn" (click)="saveTourism()" [disabled]="tourismForm.invalid">
+        <mat-icon svgIcon="icon-save"></mat-icon>
+        <span>Lưu</span>
+    </button>
+</div>

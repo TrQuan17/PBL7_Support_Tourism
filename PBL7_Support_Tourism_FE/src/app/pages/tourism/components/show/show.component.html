@@ -1,0 +1,43 @@
+<div class="wrapper">
+    <div class="categories">
+        <button mat-flat-button (click)="getCategory()"
+            class="category {{ categorySelect === 'All' ? 'select' : 'unselect' }}">
+            <h6> Tất cả </h6>
+        </button>
+        <button mat-flat-button *ngFor="let category of categoriesList"
+            class="category {{ categorySelect === category.name ? 'select' : 'unselect' }}"
+            (click)="getCategory(category)">
+            <h6>{{ category.name }}</h6>
+        </button>
+    </div>
+
+    <h2 class="title">Địa điểm du lịch</h2>
+
+    <div class="list">
+        <h4 *ngIf="categorySelect !== 'All'">Chủ đề {{categorySelect}}</h4>
+        <h4 *ngIf="searchTourism">Kết quả tìm kiếm với từ khóa [ {{searchTourism}} ]</h4>
+        <mat-card class="item-card" *ngFor="let tourism of tourismsList; let idx = index">
+            <img class="images-content" [src]="tourism.images[0]" alt="Photo of a Touirsm">
+            <button mat-icon-button class="action-icon-btn" (click)="copyLink()">
+                <mat-icon svgIcon="icon-share"></mat-icon>
+            </button>
+            <mat-card-header class="content">
+                <mat-card-title>
+                    <h5><a routerLink="{{tourism._id}}">
+                            {{idx + 1}}. {{ tourism.name }}
+                        </a></h5>
+                </mat-card-title>
+                <mat-card-subtitle>{{ tourism.title }}</mat-card-subtitle>
+                <span >
+                    <mat-icon svgIcon="icon-location"></mat-icon>
+                    {{ tourism.address }}
+                </span>
+                <span class="rate">
+                    <app-star-rating [showVote]="tourism.rate"></app-star-rating>
+                    <span>{{ tourism.votesNum }} đánh giá</span>
+                </span>
+
+            </mat-card-header>
+        </mat-card>
+    </div>
+</div>

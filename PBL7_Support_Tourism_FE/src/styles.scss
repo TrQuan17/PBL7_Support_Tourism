@@ -1,0 +1,162 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$Support_Tourism_FE-primary: mat.define-palette(mat.$indigo-palette);
+$Support_Tourism_FE-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$Support_Tourism_FE-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$Support_Tourism_FE-theme: mat.define-light-theme((color: (primary: $Support_Tourism_FE-primary,
+                accent: $Support_Tourism_FE-accent,
+                warn: $Support_Tourism_FE-warn,
+            )));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($Support_Tourism_FE-theme);
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: var(--text-color);
+    min-width: 911px;
+}
+
+// CSS variable
+
+* {
+    --text-color: #434343;
+    --theme-bg: #f2f2f2;
+    --border-color: #D6D6D6;
+    --primary-color: #2e3e52;
+    --primary-color-rgba: rgba(46, 62, 82, 0.2);
+    --input-bg: #F2F2F2;
+    --error-color: #eb7575;
+
+    --border-radius-primary: 6px;
+    --text-size: 16px;
+    --padding-wrapper: 20px 110px;
+}
+
+// Anchors
+a {
+    color: var(--text-color);
+
+    &:hover {
+        text-decoration: none;
+        color: var(--text-color);
+    }
+}
+
+// Mat button
+button:focus {
+    outline: none;
+}
+
+.mat-mdc-button .mat-mdc-button-touch-target {
+    height: 38px !important;
+}
+
+.mat-mdc-button {
+    min-width: 0 !important;
+
+    mat-icon {
+        height: 20px;
+        width: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+// Mat flat button disable
+.mat-mdc-unelevated-button[disabled][disabled] {
+    --mdc-filled-button-disabled-container-color: rgba(46, 62, 82, 0.6);
+    --mdc-filled-button-disabled-label-text-color: white;
+}
+
+.mat-mdc-button,
+.mat-mdc-icon-button {
+    &:focus {
+        outline: none !important;
+        --mdc-outlined-button-label-text-color: white;
+    }
+}
+
+// Scroll bar
+::-webkit-scrollbar-track {
+    background-color: #f9f9f9;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: var(--primary-color);
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+    border-radius: 3px;
+    width: 1px;
+    height: 6px;
+}
+
+// Mat snackbar
+.mat-mdc-snack-bar-container .mdc-snackbar__label {
+    font-size: var(--text-size) !important;
+}
+
+mat-snack-bar-container:not(.error-snackbar) {
+    --mdc-snackbar-container-color: #4392bb !important;
+}
+
+mat-snack-bar-container:not(.success-snackbar) {
+    --mdc-snackbar-container-color: var(--error-color) !important;
+}
+
+// Mat icon
+mat-icon {
+    padding: 0;
+    color: var(--primary-color);
+}
+
+img:before {
+    content: ' ';
+    display: block;
+    position: relative;
+    height: inherit;
+    width: inherit;
+    background-image: url(assets/images/background-default-travel.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: inherit;
+}
+
+// Mat tooltip
+.mdc-tooltip__surface {
+    --mdc-plain-tooltip-container-color: var(--primary-color);
+    --mdc-plain-tooltip-supporting-text-size: 14px;
+}

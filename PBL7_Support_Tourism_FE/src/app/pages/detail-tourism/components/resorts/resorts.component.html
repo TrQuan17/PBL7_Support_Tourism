@@ -1,0 +1,24 @@
+<h3>Khu nghỉ dưỡng</h3>
+
+<div class="resorts">
+    <mat-card class="item-card" *ngFor="let resort of resortsList; let idx = index">
+            <img class="images-content" [src]="resort.images[0]" alt="Photo of a Resort">
+            <div class="content">
+                <mat-card-header>
+                    <mat-card-title>
+                        <h5><a routerLink="/resort/{{resort._id}}">
+                                {{idx + 1}}. {{ resort.name }}
+                            </a></h5>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-subtitle>
+                    <app-star-rating [showVote]="resort.rate"></app-star-rating>
+                    <span>{{ resort.votesNum }} đánh giá</span>
+                </mat-card-subtitle>
+                <mat-card-actions>
+                    <mat-icon svgIcon="icon-location"></mat-icon>
+                    <span>{{resort.address}}</span>
+                </mat-card-actions>
+            </div>
+    </mat-card>
+</div>

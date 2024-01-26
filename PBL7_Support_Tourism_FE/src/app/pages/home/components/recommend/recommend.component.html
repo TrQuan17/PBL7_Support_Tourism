@@ -1,0 +1,64 @@
+<div class="wrapper">
+    <div class="header">
+        <h3>Khu du lịch được đề xuất cho bạn</h3>
+        <button mat-flat-button routerLink="/tourism">Tất cả</button>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="list">
+        <mat-card class="item-card" *ngFor="let tourism of tourismsList; let idx = index">
+            <img class="images-content" [src]="tourism.typeRef.images[0]">
+            <div class="content">
+                <mat-card-header>
+                    <mat-card-title>
+                        <span class="item-name">
+                            <a [routerLink]="'/tourism/' + tourism.typeRef._id">
+                                {{idx + 1}}. {{ tourism.typeRef.name }}
+                            </a>
+                        </span>
+                        <span class="percent" *ngIf="tourism.positivePercent">
+                            Tích cực {{ tourism.positivePercent*100 | number: '1.0-0' }} %
+                        </span> 
+                        <span *ngIf="!tourism.positivePercent" class="percent">Chưa có đánh giá</span>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-subtitle>
+                    <app-star-rating [showVote]="tourism.typeRef.rate"></app-star-rating>
+                    <span>{{tourism.typeRef.votesNum}} đánh giá</span>
+                </mat-card-subtitle>
+            </div>
+        </mat-card>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="header">
+        <h3>Khu nghỉ dưỡng được đề xuất cho bạn</h3>
+        <button mat-flat-button routerLink="/resort">Tất cả</button>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="list">
+        <mat-card class="item-card" *ngFor="let resort of resortsList; let idx = index">
+            <img class="images-content" [src]="resort.typeRef.images[0]">
+            <div class="content">
+                <mat-card-header>
+                    <mat-card-title>
+                        <span class="item-name">
+                            <a [routerLink]="'/resort/' + resort.typeRef._id">
+                                {{idx + 1}}. {{ resort.typeRef.name }}
+                            </a>
+                        </span>
+                        <span class="percent" *ngIf="resort.positivePercent">
+                            Tích cực {{ resort.positivePercent*100 | number: '1.0-0' }} %
+                        </span> 
+                        <span *ngIf="!resort.positivePercent" class="percent">Chưa có đánh giá</span>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-subtitle>
+                    <app-star-rating [showVote]="resort.typeRef.rate"></app-star-rating>
+                    <span>{{resort.typeRef.votesNum}} đánh giá</span>
+                </mat-card-subtitle>
+            </div>
+        </mat-card>
+    </div>
+    <mat-divider></mat-divider>
+</div>

@@ -1,0 +1,106 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.wrapper .header {
+    padding-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .mat-mdc-button-base {
+        --mdc-filled-button-container-color: var(--primary-color);
+        --mdc-filled-button-label-text-color: white;
+    }
+}
+
+.list {
+    width: 100%;
+    height: 344px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow: auto;
+    gap: 12px;
+    padding-bottom: 12px;
+    padding-left: 2px;
+}
+
+.item-card {
+    height: 315px;
+    flex: 0 0 calc(100% / 5 - 10px);
+    max-height: 218;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    background-color: rgba($color: var(--primary-color), $alpha: 0.12);
+
+    .images-content {
+        width: 100%;
+        height: 160px;
+        border: none;
+        border-radius: 6px;
+    }
+
+    .content {
+        height: calc(100% - 160px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding-bottom: 20px;
+    }
+
+    mat-card-title {
+        height: max-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    mat-card-subtitle {
+        padding: 0 16px;
+        font-size: 14px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .item-name {
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .percent {
+        padding: 5px;
+        width: fit-content;
+        font-size: 16px;
+        font-weight: 500;
+        background-color: var(--primary-color);
+        border-top-right-radius: 40px;
+        border-bottom-right-radius: 40px;
+        border-top-left-radius: 12px;
+        border-bottom-left-radius: 12px;
+        color: white;
+    }
+}
+
+@media (max-width: 1200px) {
+    .item-card {
+        flex-basis: 33.33%;
+    }
+}
+
+@media (max-width: 768px) {
+    .item-card {
+        flex-basis: 30%;
+    }
+}
+
+@media (max-width: 576px) {
+    .item-card {
+        flex-basis: 30%;
+    }
+}

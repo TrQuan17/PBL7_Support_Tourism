@@ -1,0 +1,64 @@
+<h3 class="title">Cấp quyền người dùng</h3>
+
+<div class="search">
+    <mat-form-field appearance="outline" class="text">
+        <mat-label>Tìm kiếm</mat-label>
+        <input matInput placeholder="Nhập ..." #input>
+        <mat-icon matSuffix svgIcon="icon-search" (click)="searchAccount(input.value)"></mat-icon>
+    </mat-form-field>
+</div>
+
+<form [formGroup]="roleForm">
+    <ng-container formArrayName="roleArray">
+        <table mat-table [dataSource]="dataSource" class="manage-table">
+            <ng-container matColumnDef="avatar">
+                <td mat-cell *matCellDef="let element" [formGroup]="element">
+                    <img src="{{element.get('avatar')?.value}}" alt="">
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <td mat-cell *matCellDef="let element" [formGroup]="element">
+                    <span> {{ element.get('fullname')?.value }} </span><br>
+                    <span class="sub">@ {{ element.get('username')?.value }}</span>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="role">
+                <td mat-cell *matCellDef="let element" [formGroup]="element">
+                    <mat-form-field appearance="outline">
+                        <mat-select formControlName="role">
+                            <mat-option *ngFor="let role of roleList" [value]="role">
+                                {{ roleEnum[role] }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <td mat-cell *matCellDef="let element" [formGroup]="element">
+                    <button mat-flat-button class="action-btn" (click)="changeRole(element)">
+                        <mat-icon svgIcon="icon-confirm"></mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="3" *ngIf="input.value">
+                    Không có điểm du lịch phù hợp với từ khóa "{{input.value}}"
+                </td>
+            </tr>
+        </table>
+    </ng-container>
+</form>
+
+<div class="app-paging">
+    <app-paging 
+        [currentPage]="currentPage"
+        [disableNext]="dataSource.data.length < 5"
+        (pageEmitter)="goPage($event)">
+    </app-paging>
+</div>

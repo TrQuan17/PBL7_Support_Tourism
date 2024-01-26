@@ -1,0 +1,67 @@
+<div class="wrapper">
+    <div class="location">
+        <h4>Hãy cho tôi biết chuyến đi của bạn như thế nào ?</h4>
+        <div class="card">
+            <img [src]="model ? model.images[0] : ''" alt="">
+            <div class="title">
+                <h4>{{ model?.name }}</h4>
+                <span>{{ model?.address }}</span>
+            </div>
+        </div>
+    </div>
+
+    <form class="write-review" [formGroup]="reviewForm">
+        <div class="close">
+            <mat-icon svgIcon="icon-close" matDialogClose></mat-icon>
+        </div>
+
+        <div class="rating">
+            <h5>Bạn đánh giá trải nghiệm của mình như thế nào?</h5>
+
+            <app-star-rating (voteEmitter)="voteTourim($event)"></app-star-rating>
+        </div>
+
+        <div class="time">
+            <h5>Bạn đã đi trong khoảng thời gian nào?</h5>
+            <mat-form-field appearance="outline">
+                <input matInput formControlName="time" [matDatepicker]="picker" [min]="minDate" [max]="maxDate" readonly>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="title">
+            <h5>Đặt tiêu đề cho đánh giá của bạn</h5>
+            <mat-form-field appearance="outline">
+                <input matInput formControlName="title" type="text">
+                <mat-hint>{{ reviewForm.get('title')?.value?.length }}/120 ký tự tối đa</mat-hint>
+            </mat-form-field>
+        </div>
+
+        <div class="text">
+            <h5>Viết đánh giá của bạn</h5>
+            <mat-form-field appearance="outline">
+                <textarea formControlName="text" matInput rows="4"></textarea>
+                <mat-hint>{{ reviewForm.get('text')?.value?.length }}/50 ký tự tối thiểu</mat-hint>
+            </mat-form-field>
+        </div>
+
+        <div class="images">
+            <h5>Thêm một số bức ảnh</h5>
+            <div class="image-preview">
+                <button class="item upload-file-btn" (click)="fileInput.click()">
+                    <mat-icon class="custom" svgIcon="icon-upload-file"></mat-icon>
+                    <span>Ảnh</span>
+                </button>
+                <input #fileInput type="file" (change)="onFileChange($event)" multiple hidden>
+
+                <img [src]="img" class="item" *ngFor="let img of imagesPreview">
+            </div>
+        </div>
+
+        <button mat-flat-button class="send-btn" (click)="writeReview()" [disabled]="reviewForm.invalid">
+            <mat-icon svgIcon="icon-send"></mat-icon>
+            <span>Gửi đánh giá</span>
+        </button>
+    </form>
+</div>

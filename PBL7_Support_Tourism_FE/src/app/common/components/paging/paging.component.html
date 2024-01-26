@@ -1,0 +1,27 @@
+<div class="wrapper">
+    <div class="paging" *ngIf="!noScroll">
+        <button mat-flat-button class="previous" 
+            (click)="previousPage()" [disabled]="currentPage === 1" scrollTop>
+            <mat-icon svgIcon="icon-previous"></mat-icon>
+            <span>Trang trước</span>
+        </button>
+        <button mat-flat-button class="next" 
+            (click)="nextPage()" *ngIf="!disableNext" scrollTop>
+            <span>Trang sau</span>
+            <mat-icon svgIcon="icon-next"></mat-icon>
+        </button>
+    </div>
+
+    <div class="paging" *ngIf="noScroll">
+        <button mat-flat-button class="previous" 
+            (click)="previousPage()" [disabled]="currentPage === 1">
+            <mat-icon svgIcon="icon-previous"></mat-icon>
+            <span>Trang trước</span>
+        </button>
+        <button mat-flat-button class="next" 
+            (click)="nextPage()" *ngIf="!disableNext">
+            <span>Trang sau</span>
+            <mat-icon svgIcon="icon-next"></mat-icon>
+        </button>
+    </div>
+</div>

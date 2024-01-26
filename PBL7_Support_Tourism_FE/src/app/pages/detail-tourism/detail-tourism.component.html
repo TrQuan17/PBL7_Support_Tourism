@@ -1,0 +1,28 @@
+<app-header></app-header>
+<div class="wrapper">
+    <div class="app">
+        <app-detail 
+            [tourismResponse]="tourismResponse"
+            (favouriteEmitter)="saveFavourite($event)">
+        </app-detail>
+    </div>
+    <mat-divider></mat-divider>
+
+    <div class="app">
+        <app-resorts [resortResponse]="resortsTourism"></app-resorts>
+    </div>
+    <mat-divider></mat-divider>
+
+    <div class="app">
+        <app-reviews 
+            [reviewResponse]="reviewsTourism"
+            [rateNumResponse]="rateNumResponse"
+            [tourismResponse]="tourismResponse"
+            [currentPage]="currentReviewPage"
+            [isReview]="isReview"
+            (reviewEmitter)="writeReview($event)"
+            (pageEmitter)="goPageReview($event)">
+        </app-reviews>
+    </div>
+</div>
+<app-footer></app-footer>

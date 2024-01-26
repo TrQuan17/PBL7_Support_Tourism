@@ -1,0 +1,98 @@
+<div class="header">
+    <h6>
+        <mat-icon class="icon-heart" svgIcon="icon-heart-like"></mat-icon>
+        Lưu giữ những chuyến đi của bạn
+    </h6>
+    <mat-icon class="icon-close" svgIcon="icon-close" matDialogClose></mat-icon>
+</div>
+
+<mat-divider></mat-divider>
+
+<div class="wrapper">
+    <h4>Địa điểm du lịch yêu thích</h4>
+    <div class="box tourism">
+        <div cdkDropList #unsavedList="cdkDropList" [cdkDropListData]="favouritesList"
+            [cdkDropListConnectedTo]="[savedList]" class="list" (cdkDropListDropped)="drop($event)">
+
+            <div class="item-card" *ngFor="let favourite of favouritesList" cdkDrag>
+                <div class="images"><img [src]="favourite.tourism.images[0]"></div>
+
+                <mat-divider vertical></mat-divider>
+
+                <div class="info">
+                    <h6> {{ favourite.tourism.name }} </h6>
+                    <span>
+                        <mat-icon svgIcon="icon-location"></mat-icon>
+                        {{ favourite.tourism.address }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <h4>Tạo chuyến đi</h4>
+    <div class="box create-trip">
+        <form [formGroup]="tripForm" class="text">
+            <h6>Tên chuyến đi</h6>
+            <mat-form-field appearance="outline">
+                <input matInput formControlName="name" type="text">
+            </mat-form-field>
+
+            <h6>Mô tả</h6>
+            <mat-form-field appearance="outline">
+                <textarea matInput formControlName="about" type="text" rows="3"></textarea>
+            </mat-form-field>
+        </form>
+
+        <mat-divider vertical></mat-divider>
+
+        <div class="background">
+            <h6>Ảnh nền</h6>
+            <div class="show">
+                <img [src]="this.imagePreview" *ngIf="this.imagePreview">
+            </div>
+            <button mat-flat-button class="upload-file-btn fill-btn" (click)="fileInput.click()">
+                <mat-icon class="custom" svgIcon="icon-upload-file"></mat-icon>
+                <span>Tải ảnh lên</span>
+            </button>
+            <input #fileInput type="file" (change)="onFileChange($event)" hidden>
+            
+        </div>
+
+        <mat-divider vertical></mat-divider>
+
+        <div cdkDropList #savedList="cdkDropList" [cdkDropListData]="savedToTrip"
+            [cdkDropListConnectedTo]="[unsavedList]" class="list" (cdkDropListDropped)="drop($event)">
+
+            <span *ngIf="!savedToTrip.length" class="help">
+                <mat-icon svgIcon="icon-move"></mat-icon> 
+                Kéo thả địa điểm du lịch vào đây <br>
+                (Ít nhất 1 địa điểm)
+            </span>
+
+            <div class="item-card" *ngFor="let favourite of savedToTrip" cdkDrag>
+                <div class="images"><img [src]="favourite.tourism.images[0]"></div>
+
+                <mat-divider vertical></mat-divider>
+
+                <div class="info">
+                    <h6> {{ favourite.tourism.name }} </h6>
+                    <span>
+                        <mat-icon svgIcon="icon-location"></mat-icon>
+                        {{ favourite.tourism.address }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="action">
+        <button mat-flat-button class="fill-btn" (click)="saveTrip()"
+            [disabled]="tripForm.invalid">
+            <mat-icon svgIcon="icon-save"></mat-icon>
+            <span>Lưu</span>
+        </button>
+    </div>
+</div>
