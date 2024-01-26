@@ -1,0 +1,9 @@
+fastapi
+pyvi
+uvicorn
+scikit-learn
+tensorflow
+pandas
+pymongo
+python-dotenv
+gensim
